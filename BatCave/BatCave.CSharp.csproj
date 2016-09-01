@@ -61,12 +61,6 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
-      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Common">
-      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Level\LevelGenerator.cs" />
@@ -74,8 +68,7 @@
     <Compile Include="Assets\Scripts\Level\Obstacle\ObstacleCleanUp.cs" />
     <Compile Include="Assets\Scripts\Level\Obstacle\ObstaclesSpawner.cs" />
     <Compile Include="Assets\Scripts\Level\loadGame.cs" />
-    <Compile Include="Assets\Scripts\Menu\MainMenuButtons.cs" />
-    <Compile Include="Assets\Scripts\Menu\MenuButtons.cs" />
+    <Compile Include="Assets\Scripts\Loading\LoadingController.cs" />
     <Compile Include="Assets\Scripts\Player\Echo\MoveEcho.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerCollision.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerControls.cs" />
