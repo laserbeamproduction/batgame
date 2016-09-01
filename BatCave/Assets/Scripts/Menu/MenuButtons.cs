@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.SceneManagement;
 
 public class MenuButtons : MonoBehaviour {
 
@@ -16,7 +15,7 @@ public class MenuButtons : MonoBehaviour {
 
     public void StartEndless()
     {
-        SceneManager.LoadScene("scene_One");
+        LoadingController.LoadScene(LoadingController.Scenes.GAME);
     }
 
     public void StartArcade()
@@ -41,12 +40,12 @@ public class MenuButtons : MonoBehaviour {
 
     public void Restart()
     {
-        SceneManager.LoadScene("scene_One"); //temp
+        LoadingController.LoadScene(LoadingController.Scenes.GAME);
     }
 
     public void MainMenu()
     {
-        SceneManager.LoadScene("MainMenu"); //temp
+        LoadingController.LoadScene(LoadingController.Scenes.MAIN_MENU);
     }
 
     public void Leaderboards()
