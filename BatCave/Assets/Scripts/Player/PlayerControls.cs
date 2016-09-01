@@ -14,9 +14,11 @@ public class PlayerControls : MonoBehaviour {
     public float coolDownTime;
     private float currentCoolDownTime;
     private bool coolingDown;
+    private Rigidbody2D rigidbody;
 
 	// Use this for initialization
 	void Start () {
+        rigidbody = GetComponent<Rigidbody2D>();
     }
 	
 	// Update is called once per frame
@@ -34,7 +36,7 @@ public class PlayerControls : MonoBehaviour {
 
     void FixedUpdate()
     {
-        GetComponent<Rigidbody2D>().velocity = movement;
+        rigidbody.velocity = movement;
     }
 
     void spawnEcho() {
