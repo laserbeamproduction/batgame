@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System;
 
 /// <summary>
 /// LoadingController functions as a simple bridge between scenes.
@@ -40,7 +41,7 @@ public class LoadingController : MonoBehaviour {
 
     void Update() {
         if (async != null) {
-            loadingPercentageTextField.text = async.progress.ToString() + "%";
+            loadingPercentageTextField.text = (Math.Ceiling(async.progress * 100)).ToString() + "%";
             if (async.progress >= 0.9f) {
                 Debug.Log("done loading");
                 async.allowSceneActivation = true;
