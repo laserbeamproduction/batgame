@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PlayerCollision : MonoBehaviour {
     public ScoreCalculator score;
@@ -19,7 +20,8 @@ public class PlayerCollision : MonoBehaviour {
         if (col.gameObject.tag == "Obstacle") //simple check if player is colliding with obstacles
         {
             PlayerPrefs.SetFloat("playerScore", score.playerScore); //set score in playerpref
-            Application.LoadLevel("gameOver_scene"); //load gameover menu
+            //Application.LoadLevel("gameOver_scene"); //load gameover menu
+            SceneManager.LoadScene("gameOver_scene");
         }
     }
 }
