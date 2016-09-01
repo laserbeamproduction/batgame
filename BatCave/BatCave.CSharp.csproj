@@ -69,12 +69,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Level\Echo\MoveEcho.cs" />
     <Compile Include="Assets\Scripts\Level\LevelGenerator.cs" />
     <Compile Include="Assets\Scripts\Level\Obstacle\MoveObstacle.cs" />
     <Compile Include="Assets\Scripts\Level\Obstacle\ObstacleCleanUp.cs" />
     <Compile Include="Assets\Scripts\Level\Obstacle\ObstaclesSpawner.cs" />
     <Compile Include="Assets\Scripts\Level\loadGame.cs" />
+    <Compile Include="Assets\Scripts\Player\Echo\MoveEcho.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerCollision.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerControls.cs" />
     <Compile Include="Assets\Scripts\Score\DisplayScore.cs" />

@@ -4,11 +4,13 @@ using System.Collections;
 public class PlayerControls : MonoBehaviour {
     public GameObject Echo;
     public Transform PlayerPos;
-    public int echoAmount = 0;
+    public int echoAmount = 0; //amount of times echo is used
 
+    //movement
     private Vector2 movement;
     public float speed = 2;
 
+    //echo cooldown
     public float coolDownTime;
     private float currentCoolDownTime;
     private bool coolingDown;
@@ -19,8 +21,8 @@ public class PlayerControls : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //movement = new Vector2(Input.GetAxis("Horizontal"), 0) * speed;
-        movement = new Vector2(Input.acceleration.x, 0) * speed;
+        //movement = new Vector2(Input.GetAxis("Horizontal"), 0) * speed; //turn this on for desktop controls
+        movement = new Vector2(Input.acceleration.x, 0) * speed; //turn this on for android controls
 
         if (Input.GetMouseButtonDown(0) && !coolingDown) {
             spawnEcho();

@@ -13,6 +13,8 @@ public class LevelGenerator : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         camera = GetComponent<Camera>();
+
+        //calulate where walls should be according to device width
         screenLeft = Screen.width - Screen.width;
         screenRight = Screen.width;
         screenHorizontalMiddle = Screen.height / 2;
