@@ -25,7 +25,7 @@ public class MenuButtons : MonoBehaviour {
 
     public void OpenSettings()
     {
-
+        LoadingController.LoadScene(LoadingController.Scenes.OPTION_MENU);
     }
 
     public void OpenShop()
