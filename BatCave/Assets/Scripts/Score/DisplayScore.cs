@@ -12,6 +12,6 @@ public class DisplayScore : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        GetComponent<Text>().text = "Score: " + score.playerScore.ToString();
+        GetComponent<Text>().text = "Score: " + Mathf.FloorToInt(score.playerScore).ToString();
 	}
 }

@@ -5,6 +5,7 @@ public class MoveEcho : MonoBehaviour {
     public float upTime;
     public Vector2 Speed = new Vector2(0.1f, 0.1f);
     private Rigidbody2D rb;
+    public Light echo;
     // Use this for initialization
     void Start()
     {
@@ -13,6 +14,9 @@ public class MoveEcho : MonoBehaviour {
         {
             rb.velocity = new Vector2(Speed.x, Speed.y);
         }
+
+        echo.intensity = 0;
+        echo.spotAngle = 50;
     }
 
     // Update is called once per frame
@@ -28,5 +32,14 @@ public class MoveEcho : MonoBehaviour {
         if (upTime < 0) {
             Destroy(gameObject);
         }
+
+        if (echo.spotAngle < 120) {
+           echo.spotAngle += 3;
+        }
+
+        if (echo.intensity < 8) {
+            echo.intensity += 1;
+        }
+
     }
 }

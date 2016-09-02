@@ -10,8 +10,8 @@ public class ObstaclesSpawner : MonoBehaviour
     private double delay = 0;
 
     public Transform playerTransform;
-    public Transform obstaclePrefab;
 
+    public Transform[] obstacles;
     //float ySpread;
     //float lastYPos;
 
@@ -19,6 +19,7 @@ public class ObstaclesSpawner : MonoBehaviour
     {
         //lastYPos = Mathf.NegativeInfinity;
         //ySpread = Random.Range(minSpread, maxSpread);
+        //spawnpool = new Array();
     }
 
     void Update()
@@ -29,7 +30,7 @@ public class ObstaclesSpawner : MonoBehaviour
         {
             float lanePos = Random.Range(0f, 3f);
             lanePos = (lanePos - 1) * 1.5f;
-            Instantiate(obstaclePrefab, new Vector3(lanePos, playerTransform.position.y + yDistance, 0), Quaternion.identity);
+            Instantiate(obstacles[Random.Range(0, obstacles.Length)], new Vector3(lanePos, playerTransform.position.y + yDistance, 0), Quaternion.identity);
 
             //lastYPos = playerTransform.position.y;
             //ySpread = Random.Range(minSpread, maxSpread);
