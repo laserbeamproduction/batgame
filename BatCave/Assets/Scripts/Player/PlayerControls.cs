@@ -12,7 +12,7 @@ public class PlayerControls : MonoBehaviour {
 
     //echo cooldown
     public float coolDownTime;
-    private float currentCoolDownTime;
+    public float currentCoolDownTime;
     private bool coolingDown;
     private Rigidbody2D rigidbody;
 
@@ -52,6 +52,7 @@ public class PlayerControls : MonoBehaviour {
         }
 
         if (currentCoolDownTime <= 0) {
+            currentCoolDownTime = 0;
             coolingDown = false;
         }
     }
