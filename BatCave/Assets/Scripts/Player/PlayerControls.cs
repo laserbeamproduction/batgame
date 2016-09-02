@@ -8,7 +8,7 @@ public class PlayerControls : MonoBehaviour {
 
     //movement
     private Vector2 movement;
-    public float speed = 2;
+    public float speed;
 
     //echo cooldown
     public float coolDownTime;
@@ -21,6 +21,7 @@ public class PlayerControls : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         rigidbody = GetComponent<Rigidbody2D>();
+        speed = PlayerPrefs.GetFloat("motionSensitivity");
     }
 	
 	// Update is called once per frame
