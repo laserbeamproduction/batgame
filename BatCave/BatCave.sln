@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2015
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BatCave.CSharp", "BatCave.CSharp.csproj", "{543AC235-CB96-27B2-8941-F1FDEC3290B4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BatCave.CSharp.Editor", "BatCave.CSharp.Editor.csproj", "{2EFDA6B5-BDFC-F7D0-C215-34DA5EAEAF6B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{543AC235-CB96-27B2-8941-F1FDEC3290B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{543AC235-CB96-27B2-8941-F1FDEC3290B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{543AC235-CB96-27B2-8941-F1FDEC3290B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EFDA6B5-BDFC-F7D0-C215-34DA5EAEAF6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EFDA6B5-BDFC-F7D0-C215-34DA5EAEAF6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EFDA6B5-BDFC-F7D0-C215-34DA5EAEAF6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EFDA6B5-BDFC-F7D0-C215-34DA5EAEAF6B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
