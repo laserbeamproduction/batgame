@@ -15,17 +15,18 @@ public class ScoreCalculator : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        timePlayed += Time.deltaTime;
-        scoreMultiplier = (timePlayed/2) - (player.echoAmount * 2);
+        //timePlayed += Time.deltaTime;
 
         if (scoreMultiplier < 0) {
             scoreMultiplier = 1;
         }
-
-        playerScore += (timePlayed * 3) * scoreMultiplier;
-
+       
         if (playerScore < 0) {
             playerScore = 0;
         }
 	}
+
+    void FixedUpdate() {
+        playerScore += 1;
+    }
 }

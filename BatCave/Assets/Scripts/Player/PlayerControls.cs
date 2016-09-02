@@ -15,6 +15,8 @@ public class PlayerControls : MonoBehaviour {
     public float currentCoolDownTime;
     private bool coolingDown;
     private Rigidbody2D rigidbody;
+    public float timeBetweenEcho;
+    public int echoSize = 7;
 
 	// Use this for initialization
 	void Start () {
@@ -28,7 +30,7 @@ public class PlayerControls : MonoBehaviour {
         movement = new Vector2(Input.acceleration.x, 0) * speed; //turn this on for android controls
 
         if (Input.GetMouseButtonDown(0) && !coolingDown) {
-            spawnEcho();
+            StartCoroutine(SpawnEcho());
             currentCoolDownTime = coolDownTime;
         }
 
@@ -40,9 +42,12 @@ public class PlayerControls : MonoBehaviour {
         rigidbody.velocity = movement;
     }
 
-    void spawnEcho() {
+    IEnumerator SpawnEcho() {
+        for (int i = 0; i < echoSize; i++) {
+            Instantiate(Echo, new Vector3(PlayerPos.position.x, PlayerPos.position.y, -2), Quaternion.identity);
+            yield return new WaitForSeconds(timeBetweenEcho);
+        }
         echoAmount += 1;
-        Instantiate(Echo, new Vector3(PlayerPos.position.x, PlayerPos.position.y, -2), Quaternion.identity);
     }
 
     void checkCoolDown() {
