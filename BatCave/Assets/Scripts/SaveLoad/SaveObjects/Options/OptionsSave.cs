@@ -3,11 +3,18 @@ using System.Collections;
 using System;
 
 public class OptionsSave : SaveObject {
-    public void FromByteArray() {
-        throw new NotImplementedException();
+
+    private float controlSensitivity;
+
+    public OptionsSave() {
+
     }
 
-    public void ToByteArray() {
-        throw new NotImplementedException();
+    public float GetControlSensitivity() {
+        return this.controlSensitivity;
+    }
+
+    public void SetControlSensitivity(float sensitivity) {
+        this.controlSensitivity = sensitivity;
     }
 }

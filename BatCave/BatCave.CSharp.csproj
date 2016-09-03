@@ -247,6 +247,7 @@
     <Compile Include="Assets\GooglePlayGames\Platforms\PlayGamesClientFactory.cs" />
     <Compile Include="Assets\GooglePlayGames\Platforms\TokenClient.cs" />
     <Compile Include="Assets\GooglePlayGames\PluginVersion.cs" />
+    <Compile Include="Assets\Scripts\GooglePlay\GooglePlayHelper.cs" />
     <Compile Include="Assets\Scripts\Level\LevelGenerator.cs" />
     <Compile Include="Assets\Scripts\Level\Obstacle\MoveObstacle.cs" />
     <Compile Include="Assets\Scripts\Level\Obstacle\ObstacleCleanUp.cs" />
@@ -260,7 +261,6 @@
     <Compile Include="Assets\Scripts\Player\PlayerControls.cs" />
     <Compile Include="Assets\Scripts\Player\UIBars.cs" />
     <Compile Include="Assets\Scripts\SaveLoad\SaveLoadController.cs" />
-    <Compile Include="Assets\Scripts\SaveLoad\SaveObjects\GPGScsf.cs" />
     <Compile Include="Assets\Scripts\SaveLoad\SaveObjects\Options\OptionsSave.cs" />
     <Compile Include="Assets\Scripts\SaveLoad\SaveObjects\SaveObject.cs" />
     <Compile Include="Assets\Scripts\Score\DisplayScore.cs" />
