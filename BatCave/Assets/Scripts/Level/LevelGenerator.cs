@@ -10,6 +10,8 @@ public class LevelGenerator : MonoBehaviour {
     public GameObject rightWall;
 
     new Camera camera;
+
+    public float timer;
 	// Use this for initialization
 	void Start () {
         camera = GetComponent<Camera>();
@@ -24,7 +26,7 @@ public class LevelGenerator : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+        
 	}
 
     void setUpWalls()

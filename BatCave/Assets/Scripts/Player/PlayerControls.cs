@@ -10,13 +10,17 @@ public class PlayerControls : MonoBehaviour {
     private Vector2 movement;
     public float speed;
 
-    //echo cooldown
+    //Collisions
+    public ScoreCalculator score;
+
+    //echo
     public float coolDownTime;
     public float currentCoolDownTime;
     private bool coolingDown;
     private Rigidbody2D rigidbody;
     public float timeBetweenEcho;
     public int echoSize = 7;
+    public PlayerResources playerResources;
 
 	// Use this for initialization
 	void Start () {
@@ -29,13 +33,13 @@ public class PlayerControls : MonoBehaviour {
         //movement = new Vector2(Input.GetAxis("Horizontal"), 0) * speed; //turn this on for desktop controls
         movement = new Vector2(Input.acceleration.x, 0) * speed; //turn this on for android controls
 
-        if (Input.GetMouseButtonDown(0) && !coolingDown) {
+        if (Input.GetMouseButtonDown(0) && !coolingDown && playerResources.stamina > 0) {
             StartCoroutine(SpawnEcho());
             currentCoolDownTime = coolDownTime;
         }
 
         checkCoolDown();
-	}
+    }
 
     void FixedUpdate()
     {
@@ -43,11 +47,13 @@ public class PlayerControls : MonoBehaviour {
     }
 
     IEnumerator SpawnEcho() {
+        EventManager.TriggerEvent(EventTypes.ECHO_USED);
+        echoAmount += 1;
+
         for (int i = 0; i < echoSize; i++) {
             Instantiate(Echo, new Vector3(PlayerPos.position.x, PlayerPos.position.y, -2), Quaternion.identity);
             yield return new WaitForSeconds(timeBetweenEcho);
         }
-        echoAmount += 1;
     }
 
     void checkCoolDown() {
@@ -59,6 +65,15 @@ public class PlayerControls : MonoBehaviour {
         if (currentCoolDownTime <= 0) {
             currentCoolDownTime = 0;
             coolingDown = false;
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.tag == "Obstacle") //simple check if player is colliding with obstacles
+        {
+            PlayerPrefs.SetFloat("playerScore", score.playerScore); //set score in playerpref
+            LoadingController.LoadScene(LoadingController.Scenes.GAME_OVER);
         }
     }
 }

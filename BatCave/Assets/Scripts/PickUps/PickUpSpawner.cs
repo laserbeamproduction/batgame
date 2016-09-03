@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ObstaclesSpawner : MonoBehaviour
-{
+public class PickUpSpawner : MonoBehaviour {
 
     public float yDistance = 10;
     public float minSpread = 0;
@@ -19,6 +18,7 @@ public class ObstaclesSpawner : MonoBehaviour
     {
         //lastYPos = Mathf.NegativeInfinity;
         //ySpread = Random.Range(minSpread, maxSpread);
+        //spawnpool = new Array();
     }
 
     void Update()
@@ -34,14 +34,18 @@ public class ObstaclesSpawner : MonoBehaviour
             //lastYPos = playerTransform.position.y;
             //ySpread = Random.Range(minSpread, maxSpread);
 
-            delay = Random.Range(0.5f, 2f);
+            delay = Random.Range(0.7f, 3f);
         }
     }
 
-    bool canSpawn() {
-        if (delay <= 0) {
+    bool canSpawn()
+    {
+        if (delay <= 0)
+        {
             return true;
-        } else {
+        }
+        else
+        {
             return false;
         }
     }

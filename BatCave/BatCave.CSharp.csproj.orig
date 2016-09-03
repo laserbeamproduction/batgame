@@ -253,8 +253,11 @@
     <Compile Include="Assets\GooglePlayGames\Platforms\PlayGamesClientFactory.cs" />
     <Compile Include="Assets\GooglePlayGames\Platforms\TokenClient.cs" />
     <Compile Include="Assets\GooglePlayGames\PluginVersion.cs" />
+<<<<<<< HEAD
     <Compile Include="Assets\Scripts\GooglePlay\GooglePlayHelper.cs" />
+=======
 >>>>>>> 99bba87ba23390c5ab2ef7522bfabf0b45ec2740
+>>>>>>> 0945214fa15091f3bdbe8ff150c60ec31714798d
     <Compile Include="Assets\Scripts\Level\LevelGenerator.cs" />
     <Compile Include="Assets\Scripts\Level\Obstacle\MoveObstacle.cs" />
     <Compile Include="Assets\Scripts\Level\Obstacle\ObstacleCleanUp.cs" />
