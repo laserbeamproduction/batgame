@@ -39,4 +39,8 @@ public class UIBars : MonoBehaviour {
         staminaPercentage = playerResources.stamina / playerResources.maxStamina;
         staminaBar.value = staminaPercentage;
     }
+
+    public void ActivteShapeShift() {
+        EventManager.TriggerEvent(EventTypes.SHAPE_SHIFT);
+    }
 }
