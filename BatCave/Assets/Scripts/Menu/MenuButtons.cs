@@ -12,7 +12,7 @@ public class MenuButtons : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        if (onStartUp) {
+        if (onStartUp && !Application.isEditor) {
             GooglePlayHelper gph = GooglePlayHelper.GetInstance();
             GooglePlayHelper.GetInstance().Login();
         }

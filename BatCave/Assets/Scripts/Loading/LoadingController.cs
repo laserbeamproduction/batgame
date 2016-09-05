@@ -19,11 +19,12 @@ public class LoadingController : MonoBehaviour {
     /// See unity build settings for the correct indexes.
     /// </summary>
     public enum Scenes {
-        MAIN_MENU = 0,
-        GAME = 1,
-        GAME_OVER = 2,
-        LOADING_SCENE = 3,
-        OPTION_MENU = 4
+        SPLASH_SCREEN = 0,
+        MAIN_MENU = 1,
+        GAME = 2,
+        GAME_OVER = 3,
+        LOADING_SCENE = 4,
+        OPTION_MENU = 5
     }
 
     private static Scenes sceneToBeLoaded;
