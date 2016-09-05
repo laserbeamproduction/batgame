@@ -1,13 +1,21 @@
-﻿using UnityEngine;
-using System.Collections;
-using System;
+﻿using System;
 
+[Serializable]
 public class OptionsSave : SaveObject {
-    public void FromByteArray() {
-        throw new NotImplementedException();
+
+    private float controlSensitivity;
+
+    public OptionsSave() {
+        // default values
+        // TODO: Move this to a config file
+        this.controlSensitivity = 3f;
     }
 
-    public void ToByteArray() {
-        throw new NotImplementedException();
+    public float GetControlSensitivity() {
+        return this.controlSensitivity;
+    }
+
+    public void SetControlSensitivity(float sensitivity) {
+        this.controlSensitivity = sensitivity;
     }
 }

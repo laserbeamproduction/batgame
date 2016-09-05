@@ -69,6 +69,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
+    <Compile Include="Assets\Scripts\EventManager\EventManager.cs" />
+    <Compile Include="Assets\Scripts\EventManager\EventTypes.cs" />
+    <Compile Include="Assets\Scripts\Level\DayNightCycle.cs" />
+    <Compile Include="Assets\Scripts\Level\LevelEvent.cs" />
+=======
     <Compile Include="Assets\GPGSConstant.cs" />
     <Compile Include="Assets\GooglePlayGames\BasicApi\Achievement.cs" />
     <Compile Include="Assets\GooglePlayGames\BasicApi\CommonStatusCodes.cs" />
@@ -247,11 +253,11 @@
     <Compile Include="Assets\GooglePlayGames\Platforms\PlayGamesClientFactory.cs" />
     <Compile Include="Assets\GooglePlayGames\Platforms\TokenClient.cs" />
     <Compile Include="Assets\GooglePlayGames\PluginVersion.cs" />
-    <Compile Include="Assets\Scripts\EventManager\EventManager.cs" />
-    <Compile Include="Assets\Scripts\EventManager\EventTypes.cs" />
+<<<<<<< HEAD
     <Compile Include="Assets\Scripts\GooglePlay\GooglePlayHelper.cs" />
-    <Compile Include="Assets\Scripts\Level\DayNightCycle.cs" />
-    <Compile Include="Assets\Scripts\Level\LevelEvent.cs" />
+=======
+>>>>>>> 99bba87ba23390c5ab2ef7522bfabf0b45ec2740
+>>>>>>> 0945214fa15091f3bdbe8ff150c60ec31714798d
     <Compile Include="Assets\Scripts\Level\LevelGenerator.cs" />
     <Compile Include="Assets\Scripts\Level\Obstacle\MoveObstacle.cs" />
     <Compile Include="Assets\Scripts\Level\Obstacle\ObstacleCleanUp.cs" />
@@ -273,7 +279,6 @@
     <Compile Include="Assets\Scripts\Score\DisplayScore.cs" />
     <Compile Include="Assets\Scripts\Score\EndScreenScore.cs" />
     <Compile Include="Assets\Scripts\Score\ScoreCalculator.cs" />
-    <Compile Include="Assets\Scripts\SplashScreen\SplashScreen.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\GooglePlayGames\Editor\Podfile.txt" />

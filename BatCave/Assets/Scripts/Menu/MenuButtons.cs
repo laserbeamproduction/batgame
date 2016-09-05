@@ -1,54 +1,35 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System;
 using GooglePlayGames;
-using UnityEngine.SocialPlatforms;
+using GooglePlayGames.BasicApi.SavedGame;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class MenuButtons : MonoBehaviour {
 
-    public Button loginButton;
-    public Button logoutButton;
-    public Text messageField;
+    // Kinda heckish.. TODO: Clean this mess up.
+    // Google Play Helper sets this bool on false when login was succesfull and savegame is loaded. 
+    public static bool onStartUp = true;
 
 	// Use this for initialization
 	void Start () {
-        GooglePlayGames.PlayGamesPlatform.Activate();
-        if (Social.localUser.authenticated) {
-            loginButton.gameObject.SetActive(false);
-            logoutButton.gameObject.SetActive(true);
-        } else {
-            loginButton.gameObject.SetActive(true);
-            logoutButton.gameObject.SetActive(false);
+        if (onStartUp && !Application.isEditor) {
+            GooglePlayHelper gph = GooglePlayHelper.GetInstance();
+            GooglePlayHelper.GetInstance().Login();
         }
     }
-
-    public void Login() {
-        string message;
-        Social.localUser.Authenticate((bool success) => {
-            if (success) {
-                message = "Welcome " + Social.localUser.userName;
-                string token = GooglePlayGames.PlayGamesPlatform.Instance.GetToken();
-                loginButton.gameObject.SetActive(false);
-                logoutButton.gameObject.SetActive(true);
-            } else {
-                message = "Login failed!";
-            }
-            messageField.text = message;
-        });
-    }
-
-    public void Logout() {
-        ((GooglePlayGames.PlayGamesPlatform)Social.Active).SignOut();
-        loginButton.gameObject.SetActive(true);
-        logoutButton.gameObject.SetActive(false);
-        messageField.text = "logged out.";
-    }
-
 
     // Update is called once per frame
     void Update () {
 	
 	}
+
+    public void ShowAchievementsUI() {
+        GooglePlayHelper.GetInstance().ShowAchievementsUI();
+    }
+
+    public void ShowLeaderboardUI() {
+        GooglePlayHelper.GetInstance().ShowLeaderboardUI();
+    }
 
     public void StartEndless()
     {

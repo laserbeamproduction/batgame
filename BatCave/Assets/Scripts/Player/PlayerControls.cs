@@ -29,7 +29,7 @@ public class PlayerControls : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         rigidbody = GetComponent<Rigidbody2D>();
-        speed = PlayerPrefs.GetFloat("motionSensitivity");
+        speed = SaveLoadController.GetInstance().GetOptions().GetControlSensitivity();
     }
 	
 	// Update is called once per frame
