@@ -18,9 +18,11 @@ public class SaveLoadController {
 
         // init all saveobjects
         OptionsSave os = new OptionsSave();
+        PlayerSave ps = new PlayerSave();
 
         // add to list
         saveObjects.Add(os);
+        saveObjects.Add(ps);
     }
 
     public static SaveLoadController GetInstance() {
@@ -31,6 +33,10 @@ public class SaveLoadController {
 
     public OptionsSave GetOptions() {
         return (OptionsSave)GetSaveObject(typeof(OptionsSave));
+    }
+
+    public PlayerSave GetPlayer() {
+        return (PlayerSave)GetSaveObject(typeof(PlayerSave));
     }
 
     /// <summary>
