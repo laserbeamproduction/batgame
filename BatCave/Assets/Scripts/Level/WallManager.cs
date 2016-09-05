@@ -52,10 +52,6 @@ public class WallManager : MonoBehaviour {
 
     private void SetUpWalls() {
 
-        float screenLeft = Screen.width - Screen.width;
-        float screenRight = Screen.width;
-        float screenVerticalMiddle = Screen.height / 2;
-
         foreach (SpriteRenderer wall in leftWalls) {
             PositionWallToCamera(wall, false);
             SetRandomSprite(wall);
