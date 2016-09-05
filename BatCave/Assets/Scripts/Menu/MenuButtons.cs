@@ -1,27 +1,35 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System;
 using GooglePlayGames;
-using UnityEngine.SocialPlatforms;
+using GooglePlayGames.BasicApi.SavedGame;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class MenuButtons : MonoBehaviour {
 
-    public Button loginButton;
-    public Button logoutButton;
-    public Text messageField;
+    // Kinda heckish.. TODO: Clean this mess up.
+    // Google Play Helper sets this bool on false when login was succesfull and savegame is loaded. 
+    public static bool onStartUp = true;
 
 	// Use this for initialization
 	void Start () {
-        GooglePlayHelper gph = GooglePlayHelper.GetInstance();
-        //if (Social.localUser.authenticated) {
-            gph.Login();
-        //}
+        if (onStartUp) {
+            GooglePlayHelper gph = GooglePlayHelper.GetInstance();
+            GooglePlayHelper.GetInstance().Login();
+        }
     }
 
     // Update is called once per frame
     void Update () {
 	
 	}
+
+    public void ShowAchievementsUI() {
+        GooglePlayHelper.GetInstance().ShowAchievementsUI();
+    }
+
+    public void ShowLeaderboardUI() {
+        GooglePlayHelper.GetInstance().ShowLeaderboardUI();
+    }
 
     public void StartEndless()
     {

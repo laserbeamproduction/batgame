@@ -1,13 +1,14 @@
-﻿using UnityEngine;
-using System.Collections;
-using System;
+﻿using System;
 
+[Serializable]
 public class OptionsSave : SaveObject {
 
     private float controlSensitivity;
 
     public OptionsSave() {
-
+        // default values
+        // TODO: Move this to a config file
+        this.controlSensitivity = 3f;
     }
 
     public float GetControlSensitivity() {
