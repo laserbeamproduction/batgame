@@ -18,9 +18,13 @@ public class PlayerControls : MonoBehaviour {
     public float currentCoolDownTime;
     private bool coolingDown;
     private Rigidbody2D rigidbody;
-    public float timeBetweenEcho;
-    public int echoSize = 7;
     public PlayerResources playerResources;
+
+    //Shape Shift
+    public bool isShapeShifted;
+    public Light playerLight;
+    public float batLightRange;
+    public float draculaLightRange;
 
 	// Use this for initialization
 	void Start () {
@@ -32,12 +36,6 @@ public class PlayerControls : MonoBehaviour {
 	void Update () {
         //movement = new Vector2(Input.GetAxis("Horizontal"), 0) * speed; //turn this on for desktop controls
         movement = new Vector2(Input.acceleration.x, 0) * speed; //turn this on for android controls
-
-        if (Input.GetMouseButtonDown(0) && !coolingDown && playerResources.stamina > 0) {
-            StartCoroutine(SpawnEcho());
-            currentCoolDownTime = coolDownTime;
-        }
-
         checkCoolDown();
     }
 
@@ -46,13 +44,13 @@ public class PlayerControls : MonoBehaviour {
         rigidbody.velocity = movement;
     }
 
-    IEnumerator SpawnEcho() {
-        EventManager.TriggerEvent(EventTypes.ECHO_USED);
-        echoAmount += 1;
-
-        for (int i = 0; i < echoSize; i++) {
+    public void SpawnEcho() {
+        if (!coolingDown && playerResources.stamina > 0)
+        {
+            currentCoolDownTime = coolDownTime;
+            EventManager.TriggerEvent(EventTypes.ECHO_USED);
+            echoAmount += 1;
             Instantiate(Echo, new Vector3(PlayerPos.position.x, PlayerPos.position.y, -2), Quaternion.identity);
-            yield return new WaitForSeconds(timeBetweenEcho);
         }
     }
 
@@ -65,6 +63,20 @@ public class PlayerControls : MonoBehaviour {
         if (currentCoolDownTime <= 0) {
             currentCoolDownTime = 0;
             coolingDown = false;
+        }
+    }
+
+    public void ShapeShift() {
+        if (!isShapeShifted) {
+            isShapeShifted = true;
+            playerLight.spotAngle = draculaLightRange;
+            Debug.Log("ShapeShift");
+        }
+
+        else if (isShapeShifted) {
+            isShapeShifted = false;
+            playerLight.spotAngle = batLightRange;
+            Debug.Log("Not ShapeShifted");
         }
     }
 

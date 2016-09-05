@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class FlyController : MonoBehaviour {
     public Vector2 Speed = new Vector2(0.1f, 0.1f);
