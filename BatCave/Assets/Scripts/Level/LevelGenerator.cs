@@ -20,18 +20,10 @@ public class LevelGenerator : MonoBehaviour {
         screenLeft = Screen.width - Screen.width;
         screenRight = Screen.width;
         screenHorizontalMiddle = Screen.height / 2;
-
-        setUpWalls();
     }
 	
 	// Update is called once per frame
 	void Update () {
         
 	}
-
-    void setUpWalls()
-    {
-        leftWall.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(screenLeft, screenHorizontalMiddle, 1));
-        rightWall.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(screenRight, screenHorizontalMiddle, 1));
-    }
 }
