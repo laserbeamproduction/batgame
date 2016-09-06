@@ -30,7 +30,7 @@ public class UIBars : MonoBehaviour {
         }
         else
         {
-            echoCooldownPercentage = (player.coolDownTime - player.currentCoolDownTime) / player.coolDownTime;
+            echoCooldownPercentage = (player.echoCoolDownTime - player.currentCoolDownTime) / player.echoCoolDownTime;
             echoCooldown.value = echoCooldownPercentage;
         }
     }

@@ -5,7 +5,6 @@ public class ScoreCalculator : MonoBehaviour {
     private float timePlayed = 0;
     public float scoreMultiplier;
     public float playerScore;
-    public PlayerControls player;
     
 
 	// Use this for initialization
@@ -15,8 +14,6 @@ public class ScoreCalculator : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //timePlayed += Time.deltaTime;
-
         if (scoreMultiplier < 0) {
             scoreMultiplier = 1;
         }

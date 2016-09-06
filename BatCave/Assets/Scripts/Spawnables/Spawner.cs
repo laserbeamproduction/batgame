@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Spawner : MonoBehaviour {
+    public List<GameObject> activeObjects = new List<GameObject>();
+
     public float pickUpYDistance = 20;
     public float obstacleYDistance = 15;
 
@@ -32,15 +34,17 @@ public class Spawner : MonoBehaviour {
 
         if (canSpawnPickUp())
         {
-            Instantiate(pickUps[Random.Range(0, pickUps.Length)], new Vector3(spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position.x, playerTransform.position.y + pickUpYDistance, 0), Quaternion.identity);
+            activeObjects.Add(Instantiate(pickUps[Random.Range(0, pickUps.Length)], new Vector3(spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position.x, playerTransform.position.y + pickUpYDistance, 0), Quaternion.identity) as GameObject);
             pickUpDelay = Random.Range(minPickUpDelay, maxPickUpDelay);
         }
 
         if (canSpawnObstacle())
         {
-            Instantiate(obstacles[Random.Range(0, obstacles.Length)], new Vector3(spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position.x, playerTransform.position.y + obstacleYDistance, 0), Quaternion.identity);
+            activeObjects.Add(Instantiate(obstacles[Random.Range(0, obstacles.Length)], new Vector3(spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position.x, playerTransform.position.y + obstacleYDistance, 0), Quaternion.identity) as GameObject);
             obstacleDelay = Random.Range(minObstacleDelay, maxObstacleDelay);
         }
+
+        activeObjects.RemoveAll(item => item == null);
     }
 
     bool canSpawnObstacle()

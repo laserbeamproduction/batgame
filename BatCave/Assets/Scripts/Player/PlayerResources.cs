@@ -4,6 +4,11 @@ using System.Collections;
 public class PlayerResources : MonoBehaviour {
     public float stamina;
     public float maxStamina;
+    public int echoUsedAmount;
+
+    public int echoCost;
+    public int batResourcePickup;
+    //public int draculaResourcePickup;
 
 	// Use this for initialization
 	void Start () {
@@ -24,4 +29,12 @@ public class PlayerResources : MonoBehaviour {
     public void removeStamina(int value) {
         stamina -= value;
     }
+
+    public void echoUsed() {
+        echoUsedAmount += 1;
+    }
+
+    //public void humanEaten(int value) {
+    //    stamina += value;
+    //}
 }
