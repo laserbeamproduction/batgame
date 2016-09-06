@@ -70,7 +70,6 @@ public class WallManager : MonoBehaviour {
     private void PositionWallToCamera(SpriteRenderer wall, bool isRight) {
         float y = wall.transform.position.y;
         float x = isRight ? Screen.width : 0;
-        Debug.Log(y);
         wall.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(x, wall.transform.position.y, 0));
         wall.transform.position = new Vector3(wall.transform.position.x, y, -1);
     }
