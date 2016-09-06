@@ -198,6 +198,13 @@ public class GooglePlayHelper {
         }
     }
 
+
+    public void UnlockAchievement(string achievementID) {
+        Social.ReportProgress(achievementID, 100.0f, (bool success) => {
+            Debug.Log("Achievement unlocked status : " + success);
+        });
+    }
+
     public void ShowAchievementsUI() {
         Social.ShowAchievementsUI();
     }

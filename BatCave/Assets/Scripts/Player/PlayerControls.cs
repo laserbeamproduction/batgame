@@ -101,8 +101,12 @@ public class PlayerControls : MonoBehaviour {
     {
         if (col.gameObject.tag == "Obstacle")
         {
+<<<<<<< HEAD
             PlayerPrefs.SetFloat("playerScore", score.playerScore);
             LoadingController.LoadScene(LoadingController.Scenes.GAME_OVER);
+=======
+            EventManager.TriggerEvent(EventTypes.GAME_OVER);
+>>>>>>> 31e5a0c6598d9cafeb0d41c9481a56c2871985f4
         }
     }
 }

@@ -15,6 +15,7 @@ public class MenuButtons : MonoBehaviour {
         if (onStartUp && !Application.isEditor) {
             GooglePlayHelper gph = GooglePlayHelper.GetInstance();
             GooglePlayHelper.GetInstance().Login();
+            AchievementChecker.CheckForWelcomeAchievement();
         }
     }
 

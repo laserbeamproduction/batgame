@@ -256,6 +256,7 @@
     <Compile Include="Assets\Scripts\EventManager\EventTypes.cs" />
     <Compile Include="Assets\Scripts\GooglePlay\GooglePlayHelper.cs" />
     <Compile Include="Assets\Scripts\Level\DayNightCycle.cs" />
+    <Compile Include="Assets\Scripts\Level\GameController.cs" />
     <Compile Include="Assets\Scripts\Level\LevelEvent.cs" />
     <Compile Include="Assets\Scripts\Level\WallManager.cs" />
     <Compile Include="Assets\Scripts\Level\loadGame.cs" />
@@ -275,6 +276,7 @@
     <Compile Include="Assets\Scripts\Spawnables\PickUps\Fly\FlyController.cs" />
     <Compile Include="Assets\Scripts\Spawnables\Spawner.cs" />
     <Compile Include="Assets\Scripts\SplashScreen\SplashScreen.cs" />
+    <Compile Include="Assets\Scripts\Util\AchievementChecker.cs" />
     <Compile Include="Assets\Scripts\Util\SimpleMoveScript.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -25,7 +25,11 @@
 public static class GPGSConstant
 {
         public const string achievement_bun_venit = "CgkI2_7tgqUIEAIQAQ"; // <GPGSID>
+        public const string achievement_chicken_wings = "CgkI2_7tgqUIEAIQAw"; // <GPGSID>
+        public const string achievement_ride_the_wings_of_pestilance = "CgkI2_7tgqUIEAIQBg"; // <GPGSID>
         public const string leaderboard_highscore = "CgkI2_7tgqUIEAIQAg"; // <GPGSID>
+        public const string achievement_wingin_it = "CgkI2_7tgqUIEAIQBQ"; // <GPGSID>
+        public const string achievement_buffalo_wings = "CgkI2_7tgqUIEAIQBA"; // <GPGSID>
 
 }
 
