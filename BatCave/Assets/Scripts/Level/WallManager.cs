@@ -27,7 +27,7 @@ public class WallManager : MonoBehaviour {
         foreach (SpriteRenderer wall in leftWalls) {
 
             // If a wall is not being rendered and its position is below the camera
-            if (!wall.isVisible && wall.transform.position.y < -7f) {
+            if (wall.transform.position.y < -11f) {
                 ResetWall(wall);
             }
         }
@@ -35,7 +35,7 @@ public class WallManager : MonoBehaviour {
         foreach (SpriteRenderer wall in rightWalls) {
 
             // If a wall is not being rendered and its position is below the camera
-            if (!wall.isVisible && wall.transform.position.y < -7f) {
+            if (wall.transform.position.y < -11f) {
                 ResetWall(wall);
             }
         }

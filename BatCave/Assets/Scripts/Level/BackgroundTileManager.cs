@@ -36,7 +36,7 @@ public class BackgroundTileManager : MonoBehaviour {
         foreach (SpriteRenderer tile in tiles) {
 
             // If a tile is not being rendered and its position is below the camera
-            if (!tile.isVisible && tile.transform.position.y <= -7f) {
+            if (tile.transform.position.y <= -7f) {
                 ResetTile(tile);
             }
         }

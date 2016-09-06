@@ -27,7 +27,7 @@ public class OptionsMenu : MonoBehaviour {
 
                 // save game
                 byte[] data = SaveLoadController.GetInstance().CreateSaveObject();
-                GooglePlayHelper.GetInstance().SaveGame(data, new System.TimeSpan(1, 10, 15));
+                GooglePlayHelper.GetInstance().SaveGame(data, new System.TimeSpan(0, 0, 0));
 
                 LoadingController.LoadScene(LoadingController.Scenes.MAIN_MENU);
             }
