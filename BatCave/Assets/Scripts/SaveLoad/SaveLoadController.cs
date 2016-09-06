@@ -60,6 +60,7 @@ public class SaveLoadController {
     public byte[] CreateSaveObject() {
         BinaryFormatter bf = new BinaryFormatter();
         using (MemoryStream ms = new MemoryStream()) {
+            Debug.Log("Saving control sens. : " + GetOptions().GetControlSensitivity());
             bf.Serialize(ms, saveObjects);
             return ms.ToArray();
         }
@@ -74,7 +75,8 @@ public class SaveLoadController {
         MemoryStream memStream = new MemoryStream();
         BinaryFormatter binForm = new BinaryFormatter();
         memStream.Write(bytes, 0, bytes.Length);
-        memStream.Seek(0, SeekOrigin.Begin);
-        saveObjects = (List<SaveObject>)binForm.Deserialize(memStream);
+        memStream.Position = 0;
+        saveObjects = binForm.Deserialize(memStream) as List<SaveObject>;
+        Debug.Log("Loaded control sens. : " + GetOptions().GetControlSensitivity());
     }
 }

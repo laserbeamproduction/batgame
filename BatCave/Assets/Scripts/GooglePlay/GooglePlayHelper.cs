@@ -11,9 +11,11 @@ using UnityEngine;
 /// </summary>
 public class GooglePlayHelper {
 
+    private const string DEBUG_KEY = "GOOGLE_PLAY_HELPER";
+
     public static GooglePlayHelper instance;
     public static string currentSaveFileName;
-    public const string CURRENT_SAVE_FILE_KEY = "CURRENT_SAVE_FILE_KEY";
+    public const string CURRENT_SAVE_FILE_KEY = "CURRENT_SAVE_FILE_KEY     ";
 
     private bool isInitialized;
     private PlayGamesClientConfiguration config;
@@ -56,21 +58,22 @@ public class GooglePlayHelper {
             Social.localUser.Authenticate((bool success) =>
             {
                 if (success) {
-                    Debug.Log("Login succes");
+                    Debug.Log(DEBUG_KEY + "Login succes");
                     CheckForSaveGame();
                 } else {
-                    Debug.Log("Login failed!");
+                    Debug.Log(DEBUG_KEY + "Login failed!");
                     Login();
                 }
             });
         } else {
+            Debug.Log(DEBUG_KEY + "Player already authenticated.");
             CheckForSaveGame();
         }
     }
 
     private void CheckForSaveGame() {
         currentSaveFileName = PlayerPrefs.GetString(CURRENT_SAVE_FILE_KEY);
-        Debug.Log("Current save file: " + currentSaveFileName);
+        Debug.Log(DEBUG_KEY + "Current save file: " + currentSaveFileName);
         if (currentSaveFileName == string.Empty) {
             SelectSaveGame();
         } else {
@@ -112,9 +115,11 @@ public class GooglePlayHelper {
     /// <param name="savedGame">Saved game.</param>
     /// <param name="callback">Invoked when game has been opened</param>
     private void OpenSavedGame(ISavedGameMetadata savedGame) {
-        if (savedGame == null)
+        if (savedGame == null) {
+            Debug.Log(DEBUG_KEY + "Savegame is null");
             return;
-
+        }
+        Debug.Log(DEBUG_KEY + "Save game meta data isOpen = " + savedGame.IsOpen);
         if (!savedGame.IsOpen) {
             ISavedGameClient saveGameClient = PlayGamesPlatform.Instance.SavedGame;
 
@@ -148,7 +153,12 @@ public class GooglePlayHelper {
             saveGameMetaData = game;
             LoadGameData(saveGameMetaData);
         } else {
-            Debug.LogError("Error opening/updating save game. Request status: " + status);
+            Debug.LogError(DEBUG_KEY + "Error opening/updating save game. Request status: " + status);
+            Debug.LogError(DEBUG_KEY + "Metadata: ");
+            Debug.LogError(DEBUG_KEY + "filename: " + game.Filename);
+            Debug.LogError(DEBUG_KEY + "isOpen: " + game.IsOpen);
+            Debug.LogError(DEBUG_KEY + "totaltimeplayed: " + game.TotalTimePlayed);
+            Debug.LogError(DEBUG_KEY + "lastmodifiedstamp: " + game.LastModifiedTimestamp);
         }
     }
 
@@ -161,6 +171,7 @@ public class GooglePlayHelper {
     public void SaveGame(byte[] savedData, TimeSpan totalPlaytime) {
         if (Application.isEditor)
             return;
+        Debug.Log(DEBUG_KEY + "Saving game...");
         ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
         SavedGameMetadataUpdate.Builder builder = new SavedGameMetadataUpdate.Builder();
         builder = builder
@@ -174,7 +185,7 @@ public class GooglePlayHelper {
     /// </summary>
     /// <param name="game"></param>
     public void LoadGameData(ISavedGameMetadata game) {
-        Debug.Log("Read save binary");
+        Debug.Log(DEBUG_KEY + "Read save binary");
         ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
         savedGameClient.ReadBinaryData(game, OnSavedGameDataRead);
     }
@@ -189,7 +200,7 @@ public class GooglePlayHelper {
             // handle processing the byte array data
             if (data.Length == 0) {
                 // no save file is present
-                Debug.Log("No save game found (empty)");
+                Debug.Log(DEBUG_KEY + "No save game found (empty)");
             } else {
                 // restore data
                 SaveLoadController.GetInstance().RestoreSave(data);
@@ -205,7 +216,7 @@ public class GooglePlayHelper {
         if (Application.isEditor)
             return;
         Social.ReportScore(scoreLong, board, (bool success) => {
-            Debug.Log("Highscore post status : " + success);
+            Debug.Log(DEBUG_KEY + "Highscore post status : " + success);
         });
     }
 
@@ -213,7 +224,7 @@ public class GooglePlayHelper {
         if (Application.isEditor)
             return;
         Social.ReportProgress(achievementID, 100.0f, (bool success) => {
-            Debug.Log("Achievement unlocked status : " + success);
+            Debug.Log(DEBUG_KEY + "Achievement unlocked status : " + success);
         });
     }
 
