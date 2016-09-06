@@ -11,10 +11,12 @@ public class FlyController : MonoBehaviour {
             EventManager.TriggerEvent(EventTypes.FLY_PICK_UP);
             Debug.Log("A fly has been picked up!");
             markedForDestroy = true;
+            gameObject.SetActive(false);
         }
 
         if (col.gameObject.tag == "CleanUp") {
             markedForDestroy = true;
+            gameObject.SetActive(false);
         }
     }
 }
