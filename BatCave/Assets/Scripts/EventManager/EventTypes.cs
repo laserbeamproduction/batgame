@@ -13,9 +13,6 @@ public class EventTypes {
     public static string SET_DAY_TIME = "setDayTime";
     public static string SET_NIGHT_TIME = "setNightTime";
     public static string SHAPE_SHIFT = "shapeShift";
-<<<<<<< HEAD
     public static string BLOOD_SENT = "bloodSent";
-=======
     public static string PLAYER_SPEED_CHANGED = "playerSpeedChanged";
->>>>>>> 31e5a0c6598d9cafeb0d41c9481a56c2871985f4
 }
