@@ -1,14 +1,18 @@
 ﻿using System;
+using UnityEngine;
 
 [Serializable]
 public class PlayerSave : SaveObject {
 
     private float highscore;
-    private float lastSessionScore;
-    private float totalDistanceFlown;
+    private float currentSessionScore;
     private int totalGamesPLayed;
+    private float speed;
 
-    public PlayerSave() { }
+    public PlayerSave() {
+        // default speed
+        this.speed = 4f;
+    }
 
     /**
         HIGHSCORE FUNCTIONS    
@@ -22,26 +26,27 @@ public class PlayerSave : SaveObject {
         this.highscore = score;
     }
 
-    public float GetLastSessionScore() {
-        return this.lastSessionScore;
+    public float GetCurrentSessionScore() {
+        return this.currentSessionScore;
     }
 
-    public void SetLastSessionScore(float score) {
-        this.lastSessionScore = score;
+    public void SetCurrentSessionScore(float score) {
+        this.currentSessionScore = score;
     }
 
     /**
-        DISTANCE FLOWN FUNCTIONS    
+        SPEED
     */
 
-    public float GetTotalDistanceFlown() {
-        return this.totalDistanceFlown;
+    public float GetSpeed() {
+        return this.speed;
     }
 
-    public void AddTotalDistanceFlown(float distance) {
-        this.totalDistanceFlown += distance;
+    public void SetSpeed(float speed) {
+        EventManager.TriggerEvent(EventTypes.PLAYER_SPEED_CHANGED);
+        this.speed = speed;
     }
-
+    
     /**
         AMOUNT OF GAMES PLAYED FUNCTIONS    
     */

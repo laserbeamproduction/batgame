@@ -84,8 +84,7 @@ public class PlayerControls : MonoBehaviour {
     {
         if (col.gameObject.tag == "Obstacle") //simple check if player is colliding with obstacles
         {
-            PlayerPrefs.SetFloat("playerScore", score.playerScore); //set score in playerpref
-            LoadingController.LoadScene(LoadingController.Scenes.GAME_OVER);
+            EventManager.TriggerEvent(EventTypes.GAME_OVER);
         }
     }
 }

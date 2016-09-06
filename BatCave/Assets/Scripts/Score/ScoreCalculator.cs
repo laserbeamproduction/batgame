@@ -7,10 +7,8 @@ public class ScoreCalculator : MonoBehaviour {
     public float playerScore;
     public PlayerControls player;
     
-
-	// Use this for initialization
 	void Start () {
-        PlayerPrefs.SetFloat("playerScore", 0);
+        EventManager.StartListening(EventTypes.GAME_OVER, OnGameOver);
     }
 	
 	// Update is called once per frame
@@ -26,7 +24,15 @@ public class ScoreCalculator : MonoBehaviour {
         }
 	}
 
+    void OnDestroy() {
+        EventManager.StopListening(EventTypes.GAME_OVER, OnGameOver);
+    }
+
     void FixedUpdate() {
         playerScore += 1;
+    }
+
+    void OnGameOver() {
+        SaveLoadController.GetInstance().GetPlayer().SetCurrentSessionScore(playerScore);
     }
 }
