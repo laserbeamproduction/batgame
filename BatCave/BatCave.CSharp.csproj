@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>5.4.0f3</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -69,6 +71,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\BackgroundTileManager.cs" />
     <Compile Include="Assets\GPGSConstant.cs" />
     <Compile Include="Assets\GooglePlayGames\BasicApi\Achievement.cs" />
     <Compile Include="Assets\GooglePlayGames\BasicApi\CommonStatusCodes.cs" />
@@ -256,7 +259,7 @@
     <Compile Include="Assets\Scripts\GooglePlay\GooglePlayHelper.cs" />
     <Compile Include="Assets\Scripts\Level\DayNightCycle.cs" />
     <Compile Include="Assets\Scripts\Level\LevelEvent.cs" />
-    <Compile Include="Assets\Scripts\Level\LevelGenerator.cs" />
+    <Compile Include="Assets\Scripts\Level\WallManager.cs" />
     <Compile Include="Assets\Scripts\Level\loadGame.cs" />
     <Compile Include="Assets\Scripts\Loading\LoadingController.cs" />
     <Compile Include="Assets\Scripts\Menu\MenuButtons.cs" />
@@ -266,14 +269,15 @@
     <Compile Include="Assets\Scripts\Player\PlayerEvent.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerResources.cs" />
     <Compile Include="Assets\Scripts\Player\UIBars.cs" />
+    <Compile Include="Assets\Scripts\SaveLoad\SaveObjects\PLayer\PLayerSave.cs" />
     <Compile Include="Assets\Scripts\Score\DisplayScore.cs" />
     <Compile Include="Assets\Scripts\Score\EndScreenScore.cs" />
     <Compile Include="Assets\Scripts\Score\ScoreCalculator.cs" />
-    <Compile Include="Assets\Scripts\Spawnables\Obstacle\MoveObstacle.cs" />
     <Compile Include="Assets\Scripts\Spawnables\Obstacle\ObstacleCleanUp.cs" />
     <Compile Include="Assets\Scripts\Spawnables\PickUps\Fly\FlyController.cs" />
     <Compile Include="Assets\Scripts\Spawnables\Spawner.cs" />
     <Compile Include="Assets\Scripts\SplashScreen\SplashScreen.cs" />
+    <Compile Include="Assets\Scripts\Util\SimpleMoveScript.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\GooglePlayGames\Editor\Podfile.txt" />
