@@ -8,6 +8,8 @@ public class EventTypes {
     public static string GAME_RESUME = "gameResume";
     public static string GAME_OVER = "gameOver";
 
+    public static string NEW_HIGHSCORE = "newHighscore";
+
     public static string FLY_PICK_UP = "flyPickUp";
     public static string ECHO_USED = "echoUsed";
     public static string SET_DAY_TIME = "setDayTime";

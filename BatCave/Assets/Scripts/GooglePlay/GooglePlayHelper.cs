@@ -200,6 +200,14 @@ public class GooglePlayHelper {
         }
     }
 
+    public void PostHighscore(float score, string board) {
+        long scoreLong = Convert.ToInt64(score);
+        if (Application.isEditor)
+            return;
+        Social.ReportScore(scoreLong, board, (bool success) => {
+            Debug.Log("Highscore post status : " + success);
+        });
+    }
 
     public void UnlockAchievement(string achievementID) {
         if (Application.isEditor)

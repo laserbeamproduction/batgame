@@ -38,6 +38,13 @@ public class GameController : MonoBehaviour {
         // check for achievements
         AchievementChecker.CheckForEndlessScoreAchievement(player.GetCurrentSessionScore());
 
+        // highscore post
+        if (player.GetCurrentSessionScore() > player.GetHighscore()) {
+            EventManager.TriggerEvent(EventTypes.NEW_HIGHSCORE);
+            player.SetHighscore(player.GetCurrentSessionScore());
+            GooglePlayHelper.GetInstance().PostHighscore(player.GetHighscore(), GPGSConstant.leaderboard_endless_mode);
+        }
+        
         // start game over screen
         LoadingController.LoadScene(LoadingController.Scenes.GAME_OVER);
 
