@@ -159,6 +159,8 @@ public class GooglePlayHelper {
     /// <param name="savedData"></param>
     /// <param name="totalPlaytime"></param>
     public void SaveGame(byte[] savedData, TimeSpan totalPlaytime) {
+        if (Application.isEditor)
+            return;
         ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
         SavedGameMetadataUpdate.Builder builder = new SavedGameMetadataUpdate.Builder();
         builder = builder
@@ -200,6 +202,8 @@ public class GooglePlayHelper {
 
 
     public void UnlockAchievement(string achievementID) {
+        if (Application.isEditor)
+            return;
         Social.ReportProgress(achievementID, 100.0f, (bool success) => {
             Debug.Log("Achievement unlocked status : " + success);
         });
