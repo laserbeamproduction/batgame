@@ -43,6 +43,10 @@ public class PlayerControls : MonoBehaviour {
         //Motion Contols
         //movement = new Vector2(Input.GetAxis("Horizontal"), 0) * speed; //turn this on for desktop controls
         //movement = new Vector2(Input.acceleration.x, 0) * speed; //turn this on for android controls
+
+        if (Input.GetMouseButtonDown(0)) {
+            SpawnEcho();
+        }
     }
 
     void FixedUpdate()
@@ -51,7 +55,7 @@ public class PlayerControls : MonoBehaviour {
     }
 
     public void SpawnEcho() {
-        if (!coolingDown && playerResources.stamina > 0)
+        if (!coolingDown)
         {
             EventManager.TriggerEvent(EventTypes.ECHO_USED);
             currentCoolDownTime = echoCoolDownTime;
@@ -136,5 +140,5 @@ public class PlayerControls : MonoBehaviour {
                 }
             }
         }
-    }    
+    }
 }

@@ -8,12 +8,6 @@ public class PlayerResources : MonoBehaviour {
 
     public int echoCost;
     public int batResourcePickup;
-    //public int draculaResourcePickup;
-
-	// Use this for initialization
-	void Start () {
-	
-	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -33,8 +27,4 @@ public class PlayerResources : MonoBehaviour {
     public void echoUsed() {
         echoUsedAmount += 1;
     }
-
-    //public void humanEaten(int value) {
-    //    stamina += value;
-    //}
 }

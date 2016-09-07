@@ -6,6 +6,9 @@ public class MoveEcho : MonoBehaviour {
     public Vector2 Speed = new Vector2(0.1f, 0.1f);
     private Rigidbody2D rb;
     public Light echo;
+
+    private float maxSpotAngle;
+    public float defaultSpotAngle = 120;
     // Use this for initialization
     void Start()
     {
@@ -22,6 +25,8 @@ public class MoveEcho : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        EchoSize(100);
+
         if (rb == null)
         {
             transform.Translate(Speed.x, Speed.y, 0);
@@ -33,13 +38,16 @@ public class MoveEcho : MonoBehaviour {
             Destroy(gameObject);
         }
 
-        if (echo.spotAngle < 120) {
+        if (echo.spotAngle < maxSpotAngle) {
            echo.spotAngle += 3;
         }
 
         if (echo.intensity < 8) {
             echo.intensity += 1;
         }
+    }
 
+    public void EchoSize(float value) {
+        maxSpotAngle = 50 + (defaultSpotAngle * (value / 100));
     }
 }
