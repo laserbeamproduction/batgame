@@ -47,9 +47,7 @@ public class MoveEcho : MonoBehaviour {
 
     public void EchoSize(float value) {
         //maxSpotAngle = 50 + (defaultSpotAngle * (value / 100));
-        Debug.Log("value: " + value);
         //maxSpotAngle = -((7 * Mathf.Pow(value, 2)) / 250) + ((14 * value) / 5) + 20;
         maxSpotAngle = -((Mathf.Pow(value, 2) / 25)) + (4 * value) + 20;
-        Debug.Log("angle: " + maxSpotAngle);
     }
 }
