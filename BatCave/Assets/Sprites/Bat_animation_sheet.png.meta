@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: c61beb884dddeff49bccbb176a3e461d
-timeCreated: 1473166833
+timeCreated: 1473255690
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -64,9 +64,9 @@ TextureImporter:
       name: Bat_animation_sheet_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 1
         y: 4
-        width: 62
+        width: 56
         height: 27
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -77,10 +77,10 @@ TextureImporter:
       name: Bat_animation_sheet_1
       rect:
         serializedVersion: 2
-        x: 63
-        y: 5
-        width: 60
-        height: 26
+        x: 65
+        y: 4
+        width: 56
+        height: 27
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -90,46 +90,7 @@ TextureImporter:
       name: Bat_animation_sheet_2
       rect:
         serializedVersion: 2
-        x: 130
-        y: 5
-        width: 50
-        height: 26
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Bat_animation_sheet_3
-      rect:
-        serializedVersion: 2
-        x: 195
-        y: 5
-        width: 44
-        height: 26
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Bat_animation_sheet_4
-      rect:
-        serializedVersion: 2
-        x: 258
-        y: 4
-        width: 40
-        height: 27
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Bat_animation_sheet_5
-      rect:
-        serializedVersion: 2
-        x: 311
+        x: 128
         y: 4
         width: 54
         height: 27
@@ -139,13 +100,52 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
+      name: Bat_animation_sheet_3
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 4
+        width: 40
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Bat_animation_sheet_4
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 5
+        width: 44
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Bat_animation_sheet_5
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 5
+        width: 50
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
       name: Bat_animation_sheet_6
       rect:
         serializedVersion: 2
-        x: 372
-        y: 4
-        width: 56
-        height: 27
+        x: 365
+        y: 5
+        width: 60
+        height: 26
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -155,9 +155,9 @@ TextureImporter:
       name: Bat_animation_sheet_7
       rect:
         serializedVersion: 2
-        x: 434
+        x: 430
         y: 4
-        width: 56
+        width: 62
         height: 27
       alignment: 0
       pivot: {x: 0, y: 0}
