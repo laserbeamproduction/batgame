@@ -6,6 +6,7 @@ public class PlayerControls : MonoBehaviour {
     public Transform PlayerPos;
     public PlayerResources playerResources;
     public ScoreCalculator score;
+    public SkillSlider skillSlider;
     private Rigidbody2D rigidbody;
 
     //movement
@@ -17,18 +18,18 @@ public class PlayerControls : MonoBehaviour {
     private bool playerLeft;
     private bool playerRight;
 
-    //echo
-    public float echoCoolDownTime;
-    public float currentCoolDownTime;
-    private bool coolingDown;
-
     void Start () {
         rigidbody = GetComponent<Rigidbody2D>();
         speed = SaveLoadController.GetInstance().GetOptions().GetControlSensitivity();
         xPosition = rigidbody.position.x;
+        EventManager.StartListening(EventTypes.SKILL_VALUE, OnSkillValueRecieved);
     }
-	
-	void Update () {
+
+    void OnDestroy() {
+        EventManager.StopListening(EventTypes.SKILL_VALUE, OnSkillValueRecieved);
+    }
+
+    void Update () {
         CheckPlayerPosition();
         //Swipe Controls
         Vector2 pos = rigidbody.position;
@@ -36,9 +37,6 @@ public class PlayerControls : MonoBehaviour {
         rigidbody.position = pos;
         CheckForSwipe();
         rigidbody.AddForce(transform.forward * speed * Time.deltaTime, ForceMode2D.Force);
-
-        //check if echo is cooling down
-        checkCoolDown();
 
         //Motion Contols
         //movement = new Vector2(Input.GetAxis("Horizontal"), 0) * speed; //turn this on for desktop controls
@@ -55,27 +53,23 @@ public class PlayerControls : MonoBehaviour {
     }
 
     public void SpawnEcho() {
+<<<<<<< HEAD
         if (!coolingDown)
         {
+=======
+        if (CanAffordEcho(playerResources.echoCost)) {
+>>>>>>> b934439d2aead7c08ab6bed26bd212653a93946a
             EventManager.TriggerEvent(EventTypes.ECHO_USED);
-            currentCoolDownTime = echoCoolDownTime;
-            Instantiate(Echo, new Vector3(PlayerPos.position.x, PlayerPos.position.y, -2), Quaternion.identity);
         }
     }
 
-    void checkCoolDown()
-    {
-        if (currentCoolDownTime > 0)
-        {
-            coolingDown = true;
-            currentCoolDownTime -= Time.deltaTime;
-        }
+    void OnSkillValueRecieved() {
+        GameObject echo = (GameObject)Instantiate(Echo, new Vector3(PlayerPos.position.x, PlayerPos.position.y, -2), Quaternion.identity);
+        //echo.GetComponent<MoveEcho>().SetValue(skillSlider.GetLastSkillValue());
+    }
 
-        if (currentCoolDownTime <= 0)
-        {
-            currentCoolDownTime = 0;
-            coolingDown = false;
-        }
+    bool CanAffordEcho(float cost) {
+        return playerResources.stamina >= cost;
     }
 
     void OnCollisionEnter2D(Collision2D col)
@@ -102,8 +96,13 @@ public class PlayerControls : MonoBehaviour {
             playerLeft = true;
         }
     }
-
+    
     void CheckForSwipe() {
+        // DEBUG CODE (Editor debug)
+        if (Input.GetMouseButtonUp(0) && Application.isEditor) {
+            SpawnEcho();
+        }
+
         foreach (Touch touch in Input.touches)
         {
             if (touch.phase == TouchPhase.Began)
