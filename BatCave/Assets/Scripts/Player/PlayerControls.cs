@@ -6,36 +6,43 @@ public class PlayerControls : MonoBehaviour {
     public Transform PlayerPos;
     public PlayerResources playerResources;
     public ScoreCalculator score;
-    //public Light playerLight;
-    //public Sprite batSprite;
-    //public Sprite draculaSprite;
-    //private SpriteRenderer spriteRenderer;
+    private Rigidbody2D rigidbody;
 
     //movement
     private Vector2 movement;
-    public float speed;    
+    public float speed;
+    private Vector2 fp; // first finger position
+    private Vector2 lp; // last finger position
+    private float xPosition;
+    private bool playerLeft;
+    private bool playerRight;
 
     //echo
     public float echoCoolDownTime;
-    //public float sentCoolDownTime;
     public float currentCoolDownTime;
     private bool coolingDown;
-    private Rigidbody2D rigidbody;
-    
-    //Shape Shift
-    public bool isShapeShifted;
-    public float batLightRange;
-    //public float draculaLightRange;
 
-	void Start () {
+    void Start () {
         rigidbody = GetComponent<Rigidbody2D>();
         speed = SaveLoadController.GetInstance().GetOptions().GetControlSensitivity();
+        xPosition = rigidbody.position.x;
     }
 	
 	void Update () {
-        //movement = new Vector2(Input.GetAxis("Horizontal"), 0) * speed; //turn this on for desktop controls
-        movement = new Vector2(Input.acceleration.x, 0) * speed; //turn this on for android controls
+        CheckPlayerPosition();
+        //Swipe Controls
+        Vector2 pos = rigidbody.position;
+        pos.x = Mathf.MoveTowards(pos.x, xPosition, speed * Time.deltaTime);
+        rigidbody.position = pos;
+        CheckForSwipe();
+        rigidbody.AddForce(transform.forward * speed * Time.deltaTime, ForceMode2D.Force);
+
+        //check if echo is cooling down
         checkCoolDown();
+
+        //Motion Contols
+        //movement = new Vector2(Input.GetAxis("Horizontal"), 0) * speed; //turn this on for desktop controls
+        //movement = new Vector2(Input.acceleration.x, 0) * speed; //turn this on for android controls
     }
 
     void FixedUpdate()
@@ -51,36 +58,6 @@ public class PlayerControls : MonoBehaviour {
             Instantiate(Echo, new Vector3(PlayerPos.position.x, PlayerPos.position.y, -2), Quaternion.identity);
         }
     }
-
-    //public void BloodSent() {
-    //    if (!coolingDown) {
-    //        EventManager.TriggerEvent(EventTypes.BLOOD_SENT);
-    //        currentCoolDownTime = sentCoolDownTime;
-
-            //Do Things
-    //    }
-    //}
-
-    //public void ShapeShift() {
-    //    spriteRenderer = GetComponent<SpriteRenderer>();
-    //    Destroy(GetComponent<PolygonCollider2D>());
-
-    //    if (!isShapeShifted) {
-    //        isShapeShifted = true;
-    //        playerLight.spotAngle = draculaLightRange;
-    //        spriteRenderer.sprite = draculaSprite;
-    //        Debug.Log("ShapeShift");
-    //    }
-    //
-    //    else if (isShapeShifted) {
-    //        isShapeShifted = false;
-    //        playerLight.spotAngle = batLightRange;
-    //        spriteRenderer.sprite = batSprite;
-    //        Debug.Log("Not ShapeShifted");
-    //    }
-    //
-    //    gameObject.AddComponent<PolygonCollider2D>();
-    //}
 
     void checkCoolDown()
     {
@@ -106,4 +83,58 @@ public class PlayerControls : MonoBehaviour {
             EventManager.TriggerEvent(EventTypes.GAME_OVER);
         }
     }
+
+    void CheckPlayerPosition() {
+        playerLeft = false;
+        playerRight = false;
+
+        if (xPosition > 1.8)
+        {
+            playerRight = true;
+        }
+
+        else if (xPosition < -1.8)
+        {
+            playerLeft = true;
+        }
+    }
+
+    void CheckForSwipe() {
+        foreach (Touch touch in Input.touches)
+        {
+            if (touch.phase == TouchPhase.Began)
+            {
+                fp = touch.position;
+                lp = touch.position;
+            }
+            if (touch.phase == TouchPhase.Moved)
+            {
+                lp = touch.position;
+            }
+            if (touch.phase == TouchPhase.Ended)
+            {
+                if ((fp.x - lp.x) > 80 && !playerLeft) // left swipe
+                {
+                    xPosition -= 1;
+                }
+                else if ((fp.x - lp.x) < -80 && !playerRight) // right swipe
+                {
+                    xPosition += 1;
+                }
+                else if ((fp.x - lp.x) > 80) {
+                    //Hacky fix to avoid echo when player is all the way left/rigth
+                    // do nothing
+                }
+                else if ((fp.x - lp.x) < -80) {
+                    //do nothing
+                }
+                else if ((fp.x - lp.x) > -40) {
+                    SpawnEcho();
+                }
+                else if ((fp.x - lp.x) < 40) {
+                    SpawnEcho();
+                }
+            }
+        }
+    }    
 }
