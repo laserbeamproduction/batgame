@@ -41,10 +41,6 @@ public class PlayerControls : MonoBehaviour {
         //Motion Contols
         //movement = new Vector2(Input.GetAxis("Horizontal"), 0) * speed; //turn this on for desktop controls
         //movement = new Vector2(Input.acceleration.x, 0) * speed; //turn this on for android controls
-
-        if (Input.GetMouseButtonDown(0)) {
-            SpawnEcho();
-        }
     }
 
     void FixedUpdate()
@@ -53,19 +49,14 @@ public class PlayerControls : MonoBehaviour {
     }
 
     public void SpawnEcho() {
-<<<<<<< HEAD
-        if (!coolingDown)
-        {
-=======
         if (CanAffordEcho(playerResources.echoCost)) {
->>>>>>> b934439d2aead7c08ab6bed26bd212653a93946a
             EventManager.TriggerEvent(EventTypes.ECHO_USED);
         }
     }
 
     void OnSkillValueRecieved() {
         GameObject echo = (GameObject)Instantiate(Echo, new Vector3(PlayerPos.position.x, PlayerPos.position.y, -2), Quaternion.identity);
-        //echo.GetComponent<MoveEcho>().SetValue(skillSlider.GetLastSkillValue());
+        echo.GetComponent<MoveEcho>().EchoSize(skillSlider.GetLastSkillValue());
     }
 
     bool CanAffordEcho(float cost) {
