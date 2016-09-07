@@ -247,7 +247,6 @@
     <Compile Include="Assets\GooglePlayGames\Platforms\PlayGamesClientFactory.cs" />
     <Compile Include="Assets\GooglePlayGames\Platforms\TokenClient.cs" />
     <Compile Include="Assets\GooglePlayGames\PluginVersion.cs" />
-    <Compile Include="Assets\InfoScene.cs" />
     <Compile Include="Assets\Scripts\EventManager\EventManager.cs" />
     <Compile Include="Assets\Scripts\EventManager\EventTypes.cs" />
     <Compile Include="Assets\Scripts\GooglePlay\GooglePlayHelper.cs" />
@@ -255,9 +254,11 @@
     <Compile Include="Assets\Scripts\Level\DayNightCycle.cs" />
     <Compile Include="Assets\Scripts\Level\GameController.cs" />
     <Compile Include="Assets\Scripts\Level\LevelEvent.cs" />
+    <Compile Include="Assets\Scripts\Level\SkillSlider.cs" />
     <Compile Include="Assets\Scripts\Level\WallManager.cs" />
     <Compile Include="Assets\Scripts\Level\loadGame.cs" />
     <Compile Include="Assets\Scripts\Loading\LoadingController.cs" />
+    <Compile Include="Assets\Scripts\Menu\InfoScene.cs" />
     <Compile Include="Assets\Scripts\Menu\MenuButtons.cs" />
     <Compile Include="Assets\Scripts\Menu\OptionsMenu.cs" />
     <Compile Include="Assets\Scripts\Player\Echo\MoveEcho.cs" />
@@ -279,7 +280,6 @@
     <Compile Include="Assets\Scripts\SplashScreen\SplashScreen.cs" />
     <Compile Include="Assets\Scripts\Util\AchievementChecker.cs" />
     <Compile Include="Assets\Scripts\Util\SimpleMoveScript.cs" />
-    <Compile Include="Assets\SkillSlider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\GooglePlayGames\Editor\Podfile.txt" />
