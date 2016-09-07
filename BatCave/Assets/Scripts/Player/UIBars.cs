@@ -6,36 +6,15 @@ public class UIBars : MonoBehaviour {
     public PlayerControls player;
     public PlayerResources playerResources;
 
-    public float echoCooldownPercentage;
-    public Slider echoCooldown;
-
     public float staminaPercentage;
     public Slider staminaBar;
-
-    // Use this for initialization
-    void Start () {
-
-	}
 	
 	// Update is called once per frame
 	void Update () {
-        ResourceBar();
-        EchoCooldown();
+        UpdateResourceBar();
     }
 
-    void EchoCooldown() {
-        if (playerResources.stamina <= 0)
-        {
-            echoCooldown.value = 0;
-        }
-        else
-        {
-            echoCooldownPercentage = (player.echoCoolDownTime - player.currentCoolDownTime) / player.echoCoolDownTime;
-            echoCooldown.value = echoCooldownPercentage;
-        }
-    }
-
-    void ResourceBar() {
+    void UpdateResourceBar() {
         staminaPercentage = playerResources.stamina / playerResources.maxStamina;
         staminaBar.value = staminaPercentage;
     }

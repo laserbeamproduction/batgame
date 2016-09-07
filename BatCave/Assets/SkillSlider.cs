@@ -24,25 +24,19 @@ public class SkillSlider : MonoBehaviour {
         EventManager.StartListening(EventTypes.ECHO_USED, OnSkillShotTriggered);
     }
 
-    // DEBUG CODE
-    void Update() {
-        if (Input.GetMouseButtonDown(0))
-            OnSkillShotTriggered();
-    }
-
     void OnDestroy() {
         EventManager.StopListening(EventTypes.ECHO_USED, OnSkillShotTriggered);
     }
-	
-	// Update is called once per frame
-	void FixedUpdate () {
+
+    void Update() {
         if (onCooldown)
             UpdateCoolDown();
+    }
 
-        if (coolDownTimer <= 0f)
+    // Update is called once per frame
+    void FixedUpdate () {
+        if (!onCooldown)
             Move();
-        else 
-            coolDownTimer -= Time.deltaTime;
 	}
 
     void StartAtRandomPosition() {
@@ -55,6 +49,7 @@ public class SkillSlider : MonoBehaviour {
         if (coolDownTimer <= 0f) {
             onCooldown = false;
             coolDownTimer = coolDown;
+            StartAtRandomPosition();
         }
     }
 
@@ -62,7 +57,6 @@ public class SkillSlider : MonoBehaviour {
         float direction = isMovingLeft ? -1 : 1;
         if (isMovingLeft) {
             isMovingLeft = slider.value > slider.minValue;
-            Debug.Log(slider.value + "    " + slider.minValue);
         } else {
             isMovingLeft = slider.value >= slider.maxValue;
         }
@@ -70,7 +64,7 @@ public class SkillSlider : MonoBehaviour {
     }
 
     void OnSkillShotTriggered() {
-        if (onCooldown)
+        if (onCooldown) 
             return;
 
         // set value
@@ -80,7 +74,12 @@ public class SkillSlider : MonoBehaviour {
         EventManager.TriggerEvent(EventTypes.SKILL_VALUE);
 
         // Activate cooldown
+        ResetCoolDown();
+    }
+
+    void ResetCoolDown() {
         onCooldown = true;
+        coolDownTimer = coolDown;
     }
 
     public float GetLastSkillValue() {
