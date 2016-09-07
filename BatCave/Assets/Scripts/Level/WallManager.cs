@@ -9,11 +9,6 @@ public class WallManager : MonoBehaviour {
     public Sprite[] sprites;
 
     private float resetYposition = 10.97f;
-
-    // Use this for initialization
-    void Start () {
-        SetUpWalls();
-    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -50,27 +45,7 @@ public class WallManager : MonoBehaviour {
         SetRandomSprite(wall);
     }
 
-    private void SetUpWalls() {
-
-        foreach (SpriteRenderer wall in leftWalls) {
-            PositionWallToCamera(wall, false);
-            SetRandomSprite(wall);
-        }
-
-        foreach (SpriteRenderer wall in rightWalls) {
-            PositionWallToCamera(wall, true);
-            SetRandomSprite(wall);
-        }
-    }
-
     private void SetRandomSprite(SpriteRenderer wall) {
         wall.sprite = sprites[Mathf.RoundToInt(Random.Range(0, sprites.Length))];
-    }
-
-    private void PositionWallToCamera(SpriteRenderer wall, bool isRight) {
-        float y = wall.transform.position.y;
-        float x = isRight ? Screen.width : 0;
-        wall.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(x, wall.transform.position.y, 0));
-        wall.transform.position = new Vector3(wall.transform.position.x, y, -1);
     }
 }
