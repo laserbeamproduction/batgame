@@ -8,7 +8,7 @@ public class OptionsSave : SaveObject {
     public OptionsSave() {
         // default values
         // TODO: Move this to a config file
-        this.controlSensitivity = 3f;
+        this.controlSensitivity = 10f;
     }
 
     public float GetControlSensitivity() {
