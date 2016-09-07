@@ -50,6 +50,7 @@ public class FlyController : MonoBehaviour {
 
     void OnParticleAnimFinished() {
         markedForDestroy = true;
+        spriteRenderer.enabled = true;
         gameObject.SetActive(false);
     }
 }
