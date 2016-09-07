@@ -9,7 +9,6 @@ public class FlyController : MonoBehaviour {
         if (col.gameObject.tag == "Player")
         {
             EventManager.TriggerEvent(EventTypes.FLY_PICK_UP);
-            Debug.Log("A fly has been picked up!");
             markedForDestroy = true;
             gameObject.SetActive(false);
         }

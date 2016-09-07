@@ -32,8 +32,7 @@ public class GameController : MonoBehaviour {
         player.AddTotalGamesPlayed(1);
 
         // save current stats
-        byte[] saveGame = SaveLoadController.GetInstance().CreateSaveObject();
-        GooglePlayHelper.GetInstance().SaveGame(saveGame, new System.TimeSpan(0,0,0)); // TODO: keep track of timeplayed
+        GooglePlayHelper.GetInstance().SaveGame(); // TODO: keep track of timeplayed
 
         // check for achievements
         AchievementChecker.CheckForEndlessScoreAchievement(player.GetCurrentSessionScore());

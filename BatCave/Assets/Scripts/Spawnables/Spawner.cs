@@ -23,46 +23,38 @@ public class Spawner : MonoBehaviour {
     public GameObject[] obstacles;
     public Transform[] spawnPoints;
 
-    void Start()
-    {
-        for (int i = 0; i < obstacles.Length; i++) {
-            obstacles[i].SetActive(false);
+    void Start() {
+        foreach (GameObject obj in obstacles) {
+            obj.SetActive(false);
         }
 
-        for (int i = 0; i < pickUps.Length; i++)
-        {
-            pickUps[i].SetActive(false);
+        foreach (GameObject obj in pickUps) {
+            obj.SetActive(false);
         }
-    }
-
-    void Update()
-    {
-        pickUpDelay -= 0.01;
-        obstacleDelay -= 0.01;
     }
 
     void FixedUpdate() {
         spawnObjects();
+
+        pickUpDelay -= 0.01;
+        obstacleDelay -= 0.01;
     }
 
     void spawnObjects() {
-        int obstaclesToSpawn = Random.Range(3, maxActiveObstacles);
-        int pickUpsToSpawn = Random.Range(1, maxActivePickups);
+        int amountOfObstaclesToSpawn = Random.Range(3, maxActiveObstacles);
+        int amountOfPickUpsToSpawn = Random.Range(1, maxActivePickups);
         int currentObstacles = 0;
         int currentPickups = 0;
 
-        if (canSpawnObstacle())
-        {
-            for (int i = 0; i < obstaclesToSpawn; i++)
-            {
-                for (int j = 0; j < obstacles.Length; j++) {
-                    if (obstacles[j].activeInHierarchy == false && currentObstacles < obstaclesToSpawn)
-                    {
-                        int randomYOffSet = Random.Range(0, 8);
-                        GameObject thingToSpawn;
-                        thingToSpawn = obstacles[j];
-                        thingToSpawn.SetActive(true);
-                        thingToSpawn.transform.position = new Vector2(spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position.x, playerTransform.position.y + obstacleYDistance + randomYOffSet);
+        if (canSpawnObstacle()) {
+            for (int i = 0; i < amountOfObstaclesToSpawn; i++) {
+                foreach (GameObject obstacle in obstacles) {
+                    if (!obstacle.activeInHierarchy && currentObstacles < amountOfObstaclesToSpawn) {
+                        
+                        int randomYOffSet = Random.Range(0, 8); // TODO: Set this position to a random lane
+
+                        obstacle.SetActive(true);
+                        obstacle.transform.position = new Vector2(spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position.x, playerTransform.position.y + obstacleYDistance + randomYOffSet);
                         currentObstacles++;
                     }
                 }                
@@ -70,19 +62,15 @@ public class Spawner : MonoBehaviour {
             obstacleDelay = Random.Range(minObstacleDelay, maxObstacleDelay);
         }
 
-        if (canSpawnPickUp())
-        {
-            for (int i = 0; i < pickUpsToSpawn; i++)
-            {
-                for (int j = 0; j < obstacles.Length; j++)
-                {
-                    if (obstacles[j].activeInHierarchy == false && currentPickups < pickUpsToSpawn)
-                    {
-                        int randomYOffSet = Random.Range(0, 8);
-                        GameObject thingToSpawn;
-                        thingToSpawn = pickUps[j];
-                        thingToSpawn.SetActive(true);
-                        thingToSpawn.transform.position = new Vector2(spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position.x, playerTransform.position.y + pickUpYDistance + randomYOffSet);
+        if (canSpawnPickUp()) {
+            for (int i = 0; i < amountOfPickUpsToSpawn; i++) {
+                foreach (GameObject pickup in pickUps) {
+                    if (!pickup.activeInHierarchy && currentPickups < amountOfPickUpsToSpawn) {
+
+                        int randomYOffSet = Random.Range(0, 8); // TODO: Set this position to a random lane
+
+                        pickup.SetActive(true);
+                        pickup.transform.position = new Vector2(spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position.x, playerTransform.position.y + pickUpYDistance + randomYOffSet);
                         currentPickups++;
                     }
                 }
@@ -91,27 +79,11 @@ public class Spawner : MonoBehaviour {
         }
     }
 
-    bool canSpawnObstacle()
-    {
-        if (obstacleDelay <= 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+    bool canSpawnObstacle() {
+        return obstacleDelay <= 0;
     }
 
-    bool canSpawnPickUp()
-    {
-        if (pickUpDelay <= 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+    bool canSpawnPickUp() {
+        return pickUpDelay <= 0;
     }
 }

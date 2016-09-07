@@ -11,15 +11,17 @@ using UnityEngine;
 /// </summary>
 public class GooglePlayHelper {
 
-    private const string DEBUG_KEY = "GOOGLE_PLAY_HELPER";
+    private const string DEBUG_KEY = "GOOGLE_PLAY_HELPER    ";
 
     public static GooglePlayHelper instance;
     public static string currentSaveFileName;
-    public const string CURRENT_SAVE_FILE_KEY = "CURRENT_SAVE_FILE_KEY     ";
+    public const string CURRENT_SAVE_FILE_KEY = "CURRENT_SAVE_FILE_KEY";
 
     private bool isInitialized;
     private PlayGamesClientConfiguration config;
     private ISavedGameMetadata saveGameMetaData;
+    private bool isSaving;
+    private bool isLoading;
 
     public static GooglePlayHelper GetInstance() {
         if (instance == null)
@@ -72,6 +74,7 @@ public class GooglePlayHelper {
     }
 
     private void CheckForSaveGame() {
+        isLoading = true;
         currentSaveFileName = PlayerPrefs.GetString(CURRENT_SAVE_FILE_KEY);
         Debug.Log(DEBUG_KEY + "Current save file: " + currentSaveFileName);
         if (currentSaveFileName == string.Empty) {
@@ -119,8 +122,8 @@ public class GooglePlayHelper {
             Debug.Log(DEBUG_KEY + "Savegame is null");
             return;
         }
-        Debug.Log(DEBUG_KEY + "Save game meta data isOpen = " + savedGame.IsOpen);
         if (!savedGame.IsOpen) {
+            Debug.Log(DEBUG_KEY + "Opening save game meta data...");
             ISavedGameClient saveGameClient = PlayGamesPlatform.Instance.SavedGame;
 
             string fileName;
@@ -138,10 +141,16 @@ public class GooglePlayHelper {
                 DataSource.ReadCacheOrNetwork,
                 ConflictResolutionStrategy.UseLongestPlaytime,
                 OnSavedGameOpened);
-        } 
+        } else {
+            Debug.Log(DEBUG_KEY + "Save game meta data was already open.");
+            OnSavedGameOpened(SavedGameRequestStatus.Success, savedGame);
+        }
     }
 
     private void OpenSavedGame(string filename) {
+        if (filename == string.Empty || filename == null) {
+            Debug.Log(DEBUG_KEY + "Filename passed is empty");
+        }
         ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
         savedGameClient.OpenWithAutomaticConflictResolution(filename, DataSource.ReadCacheOrNetwork,
             ConflictResolutionStrategy.UseLongestPlaytime, OnSavedGameOpened);
@@ -150,11 +159,27 @@ public class GooglePlayHelper {
 
     private void OnSavedGameOpened(SavedGameRequestStatus status, ISavedGameMetadata game) {
         if (status == SavedGameRequestStatus.Success) {
+            Debug.Log(DEBUG_KEY + "Old meta data: " + saveGameMetaData);
+            Debug.Log(DEBUG_KEY + "New meta data: " + game);
             saveGameMetaData = game;
-            LoadGameData(saveGameMetaData);
+
+            if (isSaving) {
+                isSaving = false;
+                Debug.Log(DEBUG_KEY + "Saving game...");
+                ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
+                SavedGameMetadataUpdate.Builder builder = new SavedGameMetadataUpdate.Builder();
+                builder = builder
+                    .WithUpdatedDescription("Saved game at " + DateTime.Now);
+                SavedGameMetadataUpdate updatedMetadata = builder.Build();
+                byte[] savedData = SaveLoadController.GetInstance().CreateSaveObject();
+                savedGameClient.CommitUpdate(saveGameMetaData, updatedMetadata, savedData, OnSavedGameOpened);
+            } else if (isLoading){
+                isLoading = false;
+                LoadGameData(saveGameMetaData);
+            }
         } else {
             Debug.LogError(DEBUG_KEY + "Error opening/updating save game. Request status: " + status);
-            Debug.LogError(DEBUG_KEY + "Metadata: ");
+            Debug.LogError(DEBUG_KEY + "Metadata: " + game);
             Debug.LogError(DEBUG_KEY + "filename: " + game.Filename);
             Debug.LogError(DEBUG_KEY + "isOpen: " + game.IsOpen);
             Debug.LogError(DEBUG_KEY + "totaltimeplayed: " + game.TotalTimePlayed);
@@ -168,16 +193,13 @@ public class GooglePlayHelper {
     /// <param name="game"></param>
     /// <param name="savedData"></param>
     /// <param name="totalPlaytime"></param>
-    public void SaveGame(byte[] savedData, TimeSpan totalPlaytime) {
+    public void SaveGame() {
         if (Application.isEditor)
             return;
-        Debug.Log(DEBUG_KEY + "Saving game...");
-        ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
-        SavedGameMetadataUpdate.Builder builder = new SavedGameMetadataUpdate.Builder();
-        builder = builder
-            .WithUpdatedDescription("Saved game at " + DateTime.Now);
-        SavedGameMetadataUpdate updatedMetadata = builder.Build();
-        savedGameClient.CommitUpdate(saveGameMetaData, updatedMetadata, savedData, OnSavedGameOpened);
+        isSaving = true;
+
+        // first op save game before writing
+        OpenSavedGame(currentSaveFileName);
     }
 
     /// <summary>
@@ -204,7 +226,6 @@ public class GooglePlayHelper {
             } else {
                 // restore data
                 SaveLoadController.GetInstance().RestoreSave(data);
-                MenuButtons.onStartUp = false;
             }
         } else {
             // handle error
