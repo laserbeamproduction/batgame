@@ -43,6 +43,10 @@ public class MenuButtons : MonoBehaviour {
 
     }
 
+    public void StartInfoMenu() {
+        LoadingController.LoadScene(LoadingController.Scenes.INFO_MENU);
+    }
+
     public void OpenSettings()
     {
         LoadingController.LoadScene(LoadingController.Scenes.OPTION_MENU);
