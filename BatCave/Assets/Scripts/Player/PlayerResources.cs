@@ -14,6 +14,10 @@ public class PlayerResources : MonoBehaviour {
         if (stamina < 0) {
             stamina = 0;
         }
+
+        if (stamina > maxStamina) {
+            stamina = maxStamina;
+        }
 	}
 
     public void addStamina(int value) {
