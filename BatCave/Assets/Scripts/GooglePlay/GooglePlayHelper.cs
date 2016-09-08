@@ -249,6 +249,21 @@ public class GooglePlayHelper {
         });
     }
 
+    /*
+    float f = 44.54321f;
+uint u = BitConverter.ToUInt32(BitConverter.GetBytes(f), 0);
+System.Diagnostics.Debug.Assert(u == 0x42322C3F);
+*/
+    public void ReportEvent(string eventName, float value) {
+        uint u = BitConverter.ToUInt32(BitConverter.GetBytes(value), 0);
+        ReportEvent(eventName, u);
+    }
+
+    public void ReportEvent(string eventName, uint value) {
+        Debug.Log(DEBUG_KEY + "Reporting event : " + eventName);
+        PlayGamesPlatform.Instance.Events.IncrementEvent(eventName, value);
+    }
+
     public void ShowAchievementsUI() {
         Social.ShowAchievementsUI();
     }

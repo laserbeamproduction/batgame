@@ -11,21 +11,15 @@ public class SplashScreen : MonoBehaviour {
     // Kinda heckish.. TODO: Clean this mess up.
     // Google Play Helper sets this bool on false when login was succesfull and savegame is loaded. 
     private static bool onStartUp = true;
-
-    void Start()
-    {
-        if (onStartUp && !Application.isEditor)
-        {
+    
+    void Update () {
+        if (onStartUp && !Application.isEditor) {
             onStartUp = false;
             GooglePlayHelper gph = GooglePlayHelper.GetInstance();
             GooglePlayHelper.GetInstance().Login();
-            AchievementChecker.CheckForWelcomeAchievement();
+            GooglePlayHelper.GetInstance().ReportEvent(GPGSConstant.event_game_opened, 1);
         }
 
-    }
-
-// Update is called once per frame
-void Update () {
         timer += Time.deltaTime;
         if (timer >= duration && !readyForContinue) {
             readyForContinue = true;
