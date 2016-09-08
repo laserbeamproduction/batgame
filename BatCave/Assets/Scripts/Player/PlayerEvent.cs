@@ -8,12 +8,12 @@ public class PlayerEvent : MonoBehaviour {
 
     void OnEnable() {
         EventManager.StartListening(EventTypes.FLY_PICK_UP, flyPickedUp);
-        EventManager.StartListening(EventTypes.ECHO_USED, echoUsed);
+        EventManager.StartListening(EventTypes.ECHO_USED_RESOURCES, echoUsed);
     }
 
     void OnDisable() {
         EventManager.StopListening(EventTypes.FLY_PICK_UP, flyPickedUp);
-        EventManager.StopListening(EventTypes.ECHO_USED, echoUsed);
+        EventManager.StopListening(EventTypes.ECHO_USED_RESOURCES, echoUsed);
     }
 
     void flyPickedUp() {

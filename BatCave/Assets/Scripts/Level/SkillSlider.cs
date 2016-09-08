@@ -76,6 +76,7 @@ public class SkillSlider : MonoBehaviour {
 
         // dispatch value for the beam
         EventManager.TriggerEvent(EventTypes.SKILL_VALUE);
+        EventManager.TriggerEvent(EventTypes.ECHO_USED_RESOURCES);
 
         // Activate cooldown
         ResetCoolDown();

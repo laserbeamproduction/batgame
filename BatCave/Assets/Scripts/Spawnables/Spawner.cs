@@ -42,7 +42,7 @@ public class Spawner : MonoBehaviour {
 
     void spawnObjects() {
         int amountOfObstaclesToSpawn = Random.Range(3, maxActiveObstacles);
-        int amountOfPickUpsToSpawn = Random.Range(1, maxActivePickups);
+        int amountOfPickUpsToSpawn = Random.Range(2, maxActivePickups);
         int currentObstacles = 0;
         int currentPickups = 0;
 

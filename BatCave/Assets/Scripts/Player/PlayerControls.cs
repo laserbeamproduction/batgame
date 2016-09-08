@@ -11,16 +11,18 @@ public class PlayerControls : MonoBehaviour {
 
     //movement
     private Vector2 movement;
-    public float speed;
+    public float speed = 30;
     private Vector2 fp; // first finger position
     private Vector2 lp; // last finger position
     private float xPosition;
     private bool playerLeft;
     private bool playerRight;
 
-    void Start () {
+    private bool touchStarted = false;
+
+    void Start() {
         rigidbody = GetComponent<Rigidbody2D>();
-        speed = SaveLoadController.GetInstance().GetOptions().GetControlSensitivity();
+        //speed = SaveLoadController.GetInstance().GetOptions().GetControlSensitivity();
         xPosition = rigidbody.position.x;
         EventManager.StartListening(EventTypes.SKILL_VALUE, OnSkillValueRecieved);
     }
@@ -29,7 +31,7 @@ public class PlayerControls : MonoBehaviour {
         EventManager.StopListening(EventTypes.SKILL_VALUE, OnSkillValueRecieved);
     }
 
-    void Update () {
+    void Update() {
         CheckPlayerPosition();
         //Swipe Controls
         Vector2 pos = rigidbody.position;
@@ -87,7 +89,7 @@ public class PlayerControls : MonoBehaviour {
             playerLeft = true;
         }
     }
-    
+
     void CheckForSwipe() {
         // DEBUG CODE (Editor debug)
         if (Input.GetMouseButtonUp(0) && Application.isEditor) {
@@ -105,27 +107,30 @@ public class PlayerControls : MonoBehaviour {
             {
                 lp = touch.position;
             }
-            if (touch.phase == TouchPhase.Ended)
+            if (touch.phase == TouchPhase.Moved)
             {
-                if ((fp.x - lp.x) > 80 && !playerLeft) // left swipe
+                if ((fp.x - lp.x) > 80 && !playerLeft && !touchStarted) // left swipe
                 {
+                    touchStarted = true;
                     xPosition -= 1;
                 }
-                else if ((fp.x - lp.x) < -80 && !playerRight) // right swipe
+                else if ((fp.x - lp.x) < -80 && !playerRight && !touchStarted) // right swipe
                 {
+                    touchStarted = true;
                     xPosition += 1;
                 }
-                else if ((fp.x - lp.x) > 80) {
-                    //Hacky fix to avoid echo when player is all the way left/rigth
-                    // do nothing
+            }
+
+            if (touch.phase == TouchPhase.Ended) {
+                if ((fp.x - lp.x) > 80){
+                    touchStarted = false;
                 }
-                else if ((fp.x - lp.x) < -80) {
-                    //do nothing
+                else if ((fp.x - lp.x) < -80){
+                    touchStarted = false;
                 }
                 else if ((fp.x - lp.x) > -40) {
                     SpawnEcho();
-                }
-                else if ((fp.x - lp.x) < 40) {
+                } else if ((fp.x - lp.x) < 40) {
                     SpawnEcho();
                 }
             }

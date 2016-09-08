@@ -17,7 +17,13 @@ public class EndScreenScore : MonoBehaviour {
 
     void Update() {
         if (!addShown) {
-            ShowAd();
+            if (Random.Range(1, 101) <= 20)
+            {
+                ShowAd();
+            }
+            else {
+                addShown = true;
+            }
         }
     }
 
