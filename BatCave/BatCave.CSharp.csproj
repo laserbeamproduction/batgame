@@ -280,6 +280,7 @@
     <Compile Include="Assets\Scripts\SplashScreen\SplashScreen.cs" />
     <Compile Include="Assets\Scripts\Util\AchievementChecker.cs" />
     <Compile Include="Assets\Scripts\Util\SimpleMoveScript.cs" />
+    <Compile Include="Assets\SkillSliderFeedback.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\GooglePlayGames\Editor\Podfile.txt" />
