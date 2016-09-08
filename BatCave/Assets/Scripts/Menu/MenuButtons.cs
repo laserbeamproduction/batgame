@@ -6,18 +6,11 @@ using UnityEngine.UI;
 
 public class MenuButtons : MonoBehaviour {
 
-    // Kinda heckish.. TODO: Clean this mess up.
-    // Google Play Helper sets this bool on false when login was succesfull and savegame is loaded. 
-    private static bool onStartUp = true;
+
 
 	// Use this for initialization
 	void Start () {
-        if (onStartUp && !Application.isEditor) {
-            onStartUp = false;
-            GooglePlayHelper gph = GooglePlayHelper.GetInstance();
-            GooglePlayHelper.GetInstance().Login();
-            AchievementChecker.CheckForWelcomeAchievement();
-        }
+        
     }
 
     // Update is called once per frame
