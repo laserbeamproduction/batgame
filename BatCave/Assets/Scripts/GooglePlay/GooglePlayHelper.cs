@@ -260,6 +260,10 @@ System.Diagnostics.Debug.Assert(u == 0x42322C3F);
     }
 
     public void ReportEvent(string eventName, uint value) {
+        if (Application.isEditor) {
+            return;
+        }
+
         Debug.Log(DEBUG_KEY + "Reporting event : " + eventName);
         PlayGamesPlatform.Instance.Events.IncrementEvent(eventName, value);
     }

@@ -109,12 +109,12 @@ public class PlayerControls : MonoBehaviour {
             }
             if (touch.phase == TouchPhase.Moved)
             {
-                if ((fp.x - lp.x) > 80 && !playerLeft && !touchStarted) // left swipe
+                if ((fp.x - lp.x) > 60 && !playerLeft && !touchStarted) // left swipe
                 {
                     touchStarted = true;
                     xPosition -= 1;
                 }
-                else if ((fp.x - lp.x) < -80 && !playerRight && !touchStarted) // right swipe
+                else if ((fp.x - lp.x) < -60 && !playerRight && !touchStarted) // right swipe
                 {
                     touchStarted = true;
                     xPosition += 1;
@@ -122,15 +122,15 @@ public class PlayerControls : MonoBehaviour {
             }
 
             if (touch.phase == TouchPhase.Ended) {
-                if ((fp.x - lp.x) > 80){
+                if ((fp.x - lp.x) > 60){
                     touchStarted = false;
                 }
-                else if ((fp.x - lp.x) < -80){
+                else if ((fp.x - lp.x) < -60){
                     touchStarted = false;
                 }
-                else if ((fp.x - lp.x) > -40) {
+                else if ((fp.x - lp.x) > -30) {
                     SpawnEcho();
-                } else if ((fp.x - lp.x) < 40) {
+                } else if ((fp.x - lp.x) < 30) {
                     SpawnEcho();
                 }
             }

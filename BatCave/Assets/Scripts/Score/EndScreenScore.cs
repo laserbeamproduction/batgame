@@ -10,9 +10,9 @@ public class EndScreenScore : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        PlayerSave player = SaveLoadController.GetInstance().GetPlayer();
-      //  totalGamesPlayedTextField.text = "Games: " + player.GetTotalGamesPlayed();
-        lastScoreTextField.text = player.GetCurrentSessionScore().ToString();
+       PlayerSave player = SaveLoadController.GetInstance().GetPlayer();
+       //totalGamesPlayedTextField.text = "Games: " + player.GetTotalGamesPlayed();
+       lastScoreTextField.text = player.GetCurrentSessionScore().ToString();
     }
 
     void Update() {

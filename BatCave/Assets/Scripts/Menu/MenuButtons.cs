@@ -12,7 +12,7 @@ public class MenuButtons : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if (!Social.localUser.authenticated) {
+        if (!Social.localUser.authenticated && !Application.isEditor) {
             GooglePlayHelper.GetInstance().Login();
             AchievementChecker.CheckForWelcomeAchievement();
         }

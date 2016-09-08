@@ -51,7 +51,7 @@ public class Spawner : MonoBehaviour {
                 foreach (GameObject obstacle in obstacles) {
                     if (!obstacle.activeInHierarchy && currentObstacles < amountOfObstaclesToSpawn) {
                         
-                        int randomYOffSet = Random.Range(0, 8); // TODO: Set this position to a random lane
+                        int randomYOffSet = Random.Range(0, 16); // TODO: Set this position to a random lane
 
                         obstacle.SetActive(true);
                         obstacle.transform.position = new Vector2(spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position.x, playerTransform.position.y + obstacleYDistance + randomYOffSet);
@@ -67,7 +67,7 @@ public class Spawner : MonoBehaviour {
                 foreach (GameObject pickup in pickUps) {
                     if (!pickup.activeInHierarchy && currentPickups < amountOfPickUpsToSpawn) {
 
-                        int randomYOffSet = Random.Range(0, 8); // TODO: Set this position to a random lane
+                        int randomYOffSet = Random.Range(0, 13); // TODO: Set this position to a random lane
 
                         pickup.SetActive(true);
                         pickup.transform.position = new Vector2(spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position.x, playerTransform.position.y + pickUpYDistance + randomYOffSet);
