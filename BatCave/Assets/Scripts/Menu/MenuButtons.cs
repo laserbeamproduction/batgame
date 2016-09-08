@@ -6,17 +6,17 @@ using UnityEngine.UI;
 
 public class MenuButtons : MonoBehaviour {
 
-
-
-	// Use this for initialization
-	void Start () {
-        
+    void Start() {
+        AchievementChecker.CheckForWelcomeAchievement();
     }
 
     // Update is called once per frame
     void Update () {
-	
-	}
+        if (!Social.localUser.authenticated) {
+            GooglePlayHelper.GetInstance().Login();
+            AchievementChecker.CheckForWelcomeAchievement();
+        }
+    }
 
     public void ShowAchievementsUI() {
         GooglePlayHelper.GetInstance().ShowAchievementsUI();

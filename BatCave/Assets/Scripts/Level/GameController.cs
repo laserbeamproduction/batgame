@@ -17,6 +17,7 @@ public class GameController : MonoBehaviour {
     void OnGameStart() {
         // reset player model
         SaveLoadController.GetInstance().GetPlayer().SetCurrentSessionScore(0);
+        SaveLoadController.GetInstance().GetPlayer().ResetAmountOfFliesGatheredInRun();
     }
 
     void OnGamePaused() {
@@ -29,10 +30,16 @@ public class GameController : MonoBehaviour {
 
     void OnGameOver() {
         PlayerSave player = SaveLoadController.GetInstance().GetPlayer();
+        GooglePlayHelper gph = GooglePlayHelper.GetInstance();
         player.AddTotalGamesPlayed(1);
 
+        // report events
+        gph.ReportEvent(GPGSConstant.event_amount_of_endless_games_started, 1);
+        gph.ReportEvent(GPGSConstant.event_score_endless_mode, player.GetCurrentSessionScore());
+        gph.ReportEvent(GPGSConstant.event_amount_of_flies_gathered_endless, player.GetAmountOfFliesGatheredInRun());
+
         // save current stats
-        GooglePlayHelper.GetInstance().SaveGame(); // TODO: keep track of timeplayed
+        gph.SaveGame(); // TODO: keep track of timeplayed
 
         // check for achievements
         AchievementChecker.CheckForEndlessScoreAchievement(player.GetCurrentSessionScore());
@@ -41,7 +48,7 @@ public class GameController : MonoBehaviour {
         if (player.GetCurrentSessionScore() > player.GetHighscore()) {
             EventManager.TriggerEvent(EventTypes.NEW_HIGHSCORE);
             player.SetHighscore(player.GetCurrentSessionScore());
-            GooglePlayHelper.GetInstance().PostHighscore(player.GetHighscore(), GPGSConstant.leaderboard_endless_mode);
+            gph.PostHighscore(player.GetHighscore(), GPGSConstant.leaderboard_endless_mode);
         }
         
         // start game over screen
