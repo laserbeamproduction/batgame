@@ -6,6 +6,7 @@ public class SkillSlider : MonoBehaviour {
 
     public float speed;
     public float coolDown;
+    public SkillSliderFeedback skillFeedbackController;
 
     private Slider slider;
     private bool isMovingLeft;
@@ -70,6 +71,9 @@ public class SkillSlider : MonoBehaviour {
         // set value
         lastSkillValue = slider.value;
 
+        // set feedback text
+        TriggerFeedbackText(lastSkillValue);
+
         // dispatch value for the beam
         EventManager.TriggerEvent(EventTypes.SKILL_VALUE);
 
@@ -80,6 +84,15 @@ public class SkillSlider : MonoBehaviour {
     void ResetCoolDown() {
         onCooldown = true;
         coolDownTimer = coolDown;
+    }
+
+    void TriggerFeedbackText(float value) {
+        if (value >= 40 && value <= 60) {
+            skillFeedbackController.TriggerFeedback(SkillSliderFeedback.Types.GOOD);
+            if (value >= 49 && value <= 51) {
+                skillFeedbackController.TriggerFeedback(SkillSliderFeedback.Types.EXCELLENT);
+            }
+        }
     }
 
     public float GetLastSkillValue() {
