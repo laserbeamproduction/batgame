@@ -272,6 +272,7 @@
     <Compile Include="Assets\Scripts\Player\UIBars.cs" />
     <Compile Include="Assets\Scripts\SaveLoad\SaveLoadController.cs" />
     <Compile Include="Assets\Scripts\SaveLoad\SaveObjects\GPGScsf.cs" />
+    <Compile Include="Assets\Scripts\SaveLoad\SaveObjects\GameModes\Endless\EndlessSessionSave.cs" />
     <Compile Include="Assets\Scripts\SaveLoad\SaveObjects\Options\OptionsSave.cs" />
     <Compile Include="Assets\Scripts\SaveLoad\SaveObjects\PLayer\PLayerSave.cs" />
     <Compile Include="Assets\Scripts\SaveLoad\SaveObjects\SaveObject.cs" />

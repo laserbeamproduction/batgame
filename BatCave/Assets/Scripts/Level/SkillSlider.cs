@@ -88,11 +88,16 @@ public class SkillSlider : MonoBehaviour {
     }
 
     void TriggerFeedbackText(float value) {
+        if (value >= 49 && value <= 51) {
+            skillFeedbackController.TriggerFeedback(SkillSliderFeedback.Types.EXCELLENT);
+            SaveLoadController.GetInstance().GetEndlessSession().AddEchosTimedExcellent(1);
+            return;
+        }
+        
         if (value >= 40 && value <= 60) {
             skillFeedbackController.TriggerFeedback(SkillSliderFeedback.Types.GOOD);
-            if (value >= 49 && value <= 51) {
-                skillFeedbackController.TriggerFeedback(SkillSliderFeedback.Types.EXCELLENT);
-            }
+            SaveLoadController.GetInstance().GetEndlessSession().AddEchosTimedGood(1);
+            return;
         }
     }
 
