@@ -276,6 +276,7 @@
     <Compile Include="Assets\Scripts\SaveLoad\SaveObjects\Options\OptionsSave.cs" />
     <Compile Include="Assets\Scripts\SaveLoad\SaveObjects\PLayer\PLayerSave.cs" />
     <Compile Include="Assets\Scripts\SaveLoad\SaveObjects\SaveObject.cs" />
+    <Compile Include="Assets\Scripts\Score\BonusScoreController.cs" />
     <Compile Include="Assets\Scripts\Score\DisplayScore.cs" />
     <Compile Include="Assets\Scripts\Score\EndScreenScore.cs" />
     <Compile Include="Assets\Scripts\Score\ScoreCalculator.cs" />

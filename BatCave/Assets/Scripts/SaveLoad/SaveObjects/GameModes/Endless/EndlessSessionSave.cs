@@ -10,6 +10,8 @@ public class EndlessSessionSave : SaveObject {
     private float score;
     private float echosTimedGood;
     private float echosTimedExcellent;
+    private float goodEchoPoint = 100f;
+    private float excellentEchoPoint = 200f;
 
     public EndlessSessionSave() {
         
@@ -20,6 +22,18 @@ public class EndlessSessionSave : SaveObject {
         score = 0f;
         echosTimedGood = 0f;
         echosTimedExcellent = 0f;
+    }
+
+    public float GetTotalScore() {
+        return GetScore() + (GetEchosTimedGood() * GetGoodEchoPoint()) + (GetEchosTimedExcellent() * GetExcellentEchoPoint());
+    }
+
+    public float GetGoodEchoPoint() {
+        return this.goodEchoPoint;
+    }
+
+    public float GetExcellentEchoPoint() {
+        return this.excellentEchoPoint;
     }
 
     public float GetResourcesGathered() {

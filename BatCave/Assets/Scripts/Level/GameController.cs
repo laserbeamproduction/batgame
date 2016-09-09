@@ -35,19 +35,19 @@ public class GameController : MonoBehaviour {
 
         // report events
         gph.ReportEvent(GPGSConstant.event_amount_of_endless_games_started, 1);
-        gph.ReportEvent(GPGSConstant.event_score_endless_mode, gameSession.GetScore());
+        gph.ReportEvent(GPGSConstant.event_score_endless_mode, gameSession.GetTotalScore());
         gph.ReportEvent(GPGSConstant.event_amount_of_flies_gathered_endless, gameSession.GetResourcesGathered());
 
         // save current stats
         gph.SaveGame(); // TODO: keep track of timeplayed
 
         // check for achievements
-        AchievementChecker.CheckForEndlessScoreAchievement(gameSession.GetScore());
+        AchievementChecker.CheckForEndlessScoreAchievement(gameSession.GetTotalScore());
 
         // highscore post
-        if (gameSession.GetScore() > player.GetHighscore()) {
+        if (gameSession.GetTotalScore() > player.GetHighscore()) {
             EventManager.TriggerEvent(EventTypes.NEW_HIGHSCORE);
-            player.SetHighscore(gameSession.GetScore());
+            player.SetHighscore(gameSession.GetTotalScore());
             gph.PostHighscore(player.GetHighscore(), GPGSConstant.leaderboard_endless_mode);
         }
         
