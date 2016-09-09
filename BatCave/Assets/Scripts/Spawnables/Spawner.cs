@@ -70,6 +70,7 @@ public class Spawner : MonoBehaviour {
                         int randomYOffSet = Random.Range(0, 8); // TODO: Set this position to a random lane
 
                         pickup.SetActive(true);
+                        pickup.GetComponent<Rigidbody2D>().isKinematic = false;
                         pickup.transform.position = new Vector2(spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position.x, playerTransform.position.y + pickUpYDistance + randomYOffSet);
                         currentPickups++;
                     }

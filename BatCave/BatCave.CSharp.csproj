@@ -280,6 +280,7 @@
     <Compile Include="Assets\Scripts\Score\ScoreCalculator.cs" />
     <Compile Include="Assets\Scripts\Spawnables\Obstacle\ObstacleCleanUp.cs" />
     <Compile Include="Assets\Scripts\Spawnables\PickUps\Fly\FlyController.cs" />
+    <Compile Include="Assets\Scripts\Spawnables\PickUps\Fly\ParticalAttractor.cs" />
     <Compile Include="Assets\Scripts\Spawnables\Spawner.cs" />
     <Compile Include="Assets\Scripts\SplashScreen\SplashScreen.cs" />
     <Compile Include="Assets\Scripts\Util\AchievementChecker.cs" />

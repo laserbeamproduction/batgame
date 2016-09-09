@@ -26,6 +26,9 @@ public class SimpleMoveScript : MonoBehaviour {
         {
             transform.Translate(Speed.x, Speed.y, 0);
         }
+        else {
+            transform.Translate(Speed.x, Speed.y, 0);
+        }
     }
 
     void OnSpeedChanged() {

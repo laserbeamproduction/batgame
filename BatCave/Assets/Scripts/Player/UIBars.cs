@@ -7,7 +7,8 @@ public class UIBars : MonoBehaviour {
     public PlayerResources playerResources;
 
     public float staminaPercentage;
-    public Slider staminaBar;
+    public Slider staminaBarRight;
+    public Slider staminaBarLeft;
 	
 	// Update is called once per frame
 	void Update () {
@@ -16,7 +17,8 @@ public class UIBars : MonoBehaviour {
 
     void UpdateResourceBar() {
         staminaPercentage = playerResources.stamina / playerResources.maxStamina;
-        staminaBar.value = staminaPercentage;
+        staminaBarRight.value = staminaPercentage;
+        staminaBarLeft.value = staminaPercentage;
     }
 
     public void ActivteShapeShift() {

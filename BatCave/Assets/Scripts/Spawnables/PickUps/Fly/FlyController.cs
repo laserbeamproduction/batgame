@@ -27,7 +27,6 @@ public class FlyController : MonoBehaviour {
                 }
             }
         }
-
     }
 
     void OnCollisionEnter2D(Collision2D col) {
@@ -35,11 +34,16 @@ public class FlyController : MonoBehaviour {
             if (col.gameObject.tag == "Player") {
                 EventManager.TriggerEvent(EventTypes.FLY_PICK_UP);
                 isHitByPlayer = true;
+                gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
             }
 
             if (col.gameObject.tag == "CleanUp") {
                 markedForDestroy = true;
                 gameObject.SetActive(false);
+            }
+
+            if (col.gameObject.tag == "Obstacle") {
+                gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + 2.5f);
             }
         }
     }
