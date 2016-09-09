@@ -19,10 +19,12 @@ public class SaveLoadController {
         // init all saveobjects
         OptionsSave os = new OptionsSave();
         PlayerSave ps = new PlayerSave();
+        EndlessSessionSave ess = new EndlessSessionSave();
 
         // add to list
         saveObjects.Add(os);
         saveObjects.Add(ps);
+        saveObjects.Add(ess);
     }
 
     public static SaveLoadController GetInstance() {
@@ -37,6 +39,10 @@ public class SaveLoadController {
 
     public PlayerSave GetPlayer() {
         return (PlayerSave)GetSaveObject(typeof(PlayerSave));
+    }
+
+    public EndlessSessionSave GetEndlessSession() {
+        return (EndlessSessionSave)GetSaveObject(typeof(EndlessSessionSave));
     }
 
     /// <summary>

@@ -16,8 +16,7 @@ public class GameController : MonoBehaviour {
 
     void OnGameStart() {
         // reset player model
-        SaveLoadController.GetInstance().GetPlayer().SetCurrentSessionScore(0);
-        SaveLoadController.GetInstance().GetPlayer().ResetAmountOfFliesGatheredInRun();
+        SaveLoadController.GetInstance().GetEndlessSession().Reset();
     }
 
     void OnGamePaused() {
@@ -30,24 +29,25 @@ public class GameController : MonoBehaviour {
 
     void OnGameOver() {
         PlayerSave player = SaveLoadController.GetInstance().GetPlayer();
+        EndlessSessionSave gameSession = SaveLoadController.GetInstance().GetEndlessSession();
         GooglePlayHelper gph = GooglePlayHelper.GetInstance();
         player.AddTotalGamesPlayed(1);
 
         // report events
         gph.ReportEvent(GPGSConstant.event_amount_of_endless_games_started, 1);
-        gph.ReportEvent(GPGSConstant.event_score_endless_mode, player.GetCurrentSessionScore());
-        gph.ReportEvent(GPGSConstant.event_amount_of_flies_gathered_endless, player.GetAmountOfFliesGatheredInRun());
+        gph.ReportEvent(GPGSConstant.event_score_endless_mode, gameSession.GetTotalScore());
+        gph.ReportEvent(GPGSConstant.event_amount_of_flies_gathered_endless, gameSession.GetResourcesGathered());
 
         // save current stats
         gph.SaveGame(); // TODO: keep track of timeplayed
 
         // check for achievements
-        AchievementChecker.CheckForEndlessScoreAchievement(player.GetCurrentSessionScore());
+        AchievementChecker.CheckForEndlessScoreAchievement(gameSession.GetTotalScore());
 
         // highscore post
-        if (player.GetCurrentSessionScore() > player.GetHighscore()) {
+        if (gameSession.GetTotalScore() > player.GetHighscore()) {
             EventManager.TriggerEvent(EventTypes.NEW_HIGHSCORE);
-            player.SetHighscore(player.GetCurrentSessionScore());
+            player.SetHighscore(gameSession.GetTotalScore());
             gph.PostHighscore(player.GetHighscore(), GPGSConstant.leaderboard_endless_mode);
         }
         

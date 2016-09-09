@@ -96,12 +96,9 @@ public class GooglePlayHelper {
             allowDelete,
             (SelectUIStatus status, ISavedGameMetadata saveGame) => {
                 // some error occured, just show window again
-                if (status != SelectUIStatus.SavedGameSelected) {
-                    SelectSaveGame();
-                    return;
-                } else if (status == SelectUIStatus.SavedGameSelected) {
+                if (status == SelectUIStatus.SavedGameSelected) {
                     OpenSavedGame(saveGame);
-                }
+                } 
             });
     }
 

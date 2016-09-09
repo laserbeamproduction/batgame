@@ -5,10 +5,8 @@ using UnityEngine;
 public class PlayerSave : SaveObject {
 
     private float highscore;
-    private float currentSessionScore;
     private int totalGamesPLayed;
     private float speed;
-    private float amountOfFliesGatheredInRun;
 
     public PlayerSave() {
         // default speed
@@ -25,14 +23,6 @@ public class PlayerSave : SaveObject {
 
     public void SetHighscore(float score) {
         this.highscore = score;
-    }
-
-    public float GetCurrentSessionScore() {
-        return this.currentSessionScore;
-    }
-
-    public void SetCurrentSessionScore(float score) {
-        this.currentSessionScore = score;
     }
 
     /**
@@ -59,22 +49,4 @@ public class PlayerSave : SaveObject {
     public void AddTotalGamesPlayed(int amount) {
         this.totalGamesPLayed += amount;
     }
-
-    /**
-        FLIES GATHERED IN ONE ENDLESS RUN
-    */
-
-    public int GetAmountOfFliesGatheredInRun() {
-        return this.totalGamesPLayed;
-    }
-
-    public void AddAmountOfFliesGatheredInRun(float amount) {
-        this.amountOfFliesGatheredInRun += amount;
-    }
-
-    public void ResetAmountOfFliesGatheredInRun() {
-        this.amountOfFliesGatheredInRun = 0;
-    }
-
-
 }

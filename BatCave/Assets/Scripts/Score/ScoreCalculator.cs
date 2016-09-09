@@ -30,6 +30,6 @@ public class ScoreCalculator : MonoBehaviour {
     }
 
     void OnGameOver() {
-        SaveLoadController.GetInstance().GetPlayer().SetCurrentSessionScore(playerScore);
+        SaveLoadController.GetInstance().GetEndlessSession().SetScore(playerScore);
     }
 }

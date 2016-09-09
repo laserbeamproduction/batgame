@@ -18,7 +18,7 @@ public class PlayerEvent : MonoBehaviour {
 
     void flyPickedUp() {
         playerResource.addStamina(playerResource.batResourcePickup);
-        SaveLoadController.GetInstance().GetPlayer().AddAmountOfFliesGatheredInRun(1);
+        SaveLoadController.GetInstance().GetEndlessSession().AddResourcesGathered(1);
     }
 
     void echoUsed() {
