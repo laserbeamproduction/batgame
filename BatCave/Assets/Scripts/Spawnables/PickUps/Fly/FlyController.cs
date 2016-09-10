@@ -32,7 +32,7 @@ public class FlyController : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D col) {
         if (!isHitByPlayer) {
             if (col.gameObject.tag == "Player") {
-                //gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
+                gameObject.GetComponent<BoxCollider2D>().enabled = false;
                 EventManager.TriggerEvent(EventTypes.FLY_PICK_UP);
                 isHitByPlayer = true;
             }
