@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class BonusScoreController : MonoBehaviour {
 
     public EndScreenScore endScoreScreen;
+    public Animator scorePanelAnimator;
     private Animator animator;
     public Text amountText;
     public Image image;
@@ -35,6 +36,7 @@ public class BonusScoreController : MonoBehaviour {
                     animationCheckTimer = animationCheckDelay;
                 } else {
                     isPlaying = false;
+                    scorePanelAnimator.SetTrigger("Play");
                 }
             } else {
                 animationCheckTimer -= Time.deltaTime;
