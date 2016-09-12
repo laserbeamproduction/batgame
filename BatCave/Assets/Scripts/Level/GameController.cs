@@ -4,10 +4,13 @@ using UnityEngine.Events;
 
 public class GameController : MonoBehaviour {
     public GameObject pausePanel;
+    public Light directionalLight;
+    public float fadeOutDelay;
 
     public float playerDiesTime;
 
     private float playerDiesCounter;
+    private float fadeOutDelayCounter;
     private bool playerDied;
 
 	// Use this for initialization
@@ -17,6 +20,20 @@ public class GameController : MonoBehaviour {
         EventManager.StartListening(EventTypes.PLAYER_DIED, OnPlayerDied);
 
         EventManager.TriggerEvent(EventTypes.GAME_START);
+    }
+
+    void FixedUpdate() {
+        if (directionalLight != null) {
+            if (fadeOutDelayCounter >= fadeOutDelay) {
+                directionalLight.intensity = Mathf.Lerp(directionalLight.intensity, 0f, 1f * Time.deltaTime);
+                if (directionalLight.intensity <= 0.5f) {
+                    Destroy(directionalLight.gameObject);
+                    EventManager.TriggerEvent(EventTypes.PLAYER_FLY_IN);
+                }
+            } else {
+                fadeOutDelayCounter += Time.deltaTime;
+            }
+        }
     }
 
     void Update() {
