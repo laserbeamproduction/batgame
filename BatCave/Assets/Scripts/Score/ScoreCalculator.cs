@@ -5,28 +5,46 @@ public class ScoreCalculator : MonoBehaviour {
     private float timePlayed = 0;
     public float scoreMultiplier;
     public float playerScore;
-    
-	void Start () {
+
+    private bool isPaused;
+
+
+    void Start () {
         EventManager.StartListening(EventTypes.GAME_OVER, OnGameOver);
+        EventManager.StartListening(EventTypes.GAME_RESUME, OnGameResume);
+        EventManager.StartListening(EventTypes.GAME_PAUSED, OnGamePaused);
     }
-	
-	// Update is called once per frame
-	void Update () {
-        if (scoreMultiplier < 0) {
-            scoreMultiplier = 1;
-        }
-       
-        if (playerScore < 0) {
-            playerScore = 0;
+
+    void OnGamePaused() {
+        isPaused = true;
+    }
+
+    void OnGameResume() {
+        isPaused = false;
+    }
+
+    // Update is called once per frame
+    void Update () {
+        if (!isPaused) {
+            if (scoreMultiplier < 0) {
+                scoreMultiplier = 1;
+            }
+
+            if (playerScore < 0) {
+                playerScore = 0;
+            }
         }
 	}
 
     void OnDestroy() {
         EventManager.StopListening(EventTypes.GAME_OVER, OnGameOver);
+        EventManager.StopListening(EventTypes.GAME_RESUME, OnGameResume);
+        EventManager.StopListening(EventTypes.GAME_PAUSED, OnGamePaused);
     }
 
     void FixedUpdate() {
-        playerScore += 1;
+        if (!isPaused) 
+            playerScore += 1;
     }
 
     void OnGameOver() {

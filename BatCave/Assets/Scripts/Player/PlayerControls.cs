@@ -19,26 +19,41 @@ public class PlayerControls : MonoBehaviour {
     private bool playerRight;
 
     private bool touchStarted = false;
+    private bool isPaused;
 
     void Start() {
         rigidbody = GetComponent<Rigidbody2D>();
         //speed = SaveLoadController.GetInstance().GetOptions().GetControlSensitivity();
         xPosition = rigidbody.position.x;
         EventManager.StartListening(EventTypes.SKILL_VALUE, OnSkillValueRecieved);
+        EventManager.StartListening(EventTypes.GAME_RESUME, OnGameResume);
+        EventManager.StartListening(EventTypes.GAME_PAUSED, OnGamePaused);
     }
 
     void OnDestroy() {
         EventManager.StopListening(EventTypes.SKILL_VALUE, OnSkillValueRecieved);
+        EventManager.StopListening(EventTypes.GAME_RESUME, OnGameResume);
+        EventManager.StopListening(EventTypes.GAME_PAUSED, OnGamePaused);
+    }
+
+    void OnGamePaused() {
+        isPaused = true;
+    }
+
+    void OnGameResume() {
+        isPaused = false;
     }
 
     void Update() {
-        CheckPlayerPosition();
-        //Swipe Controls
-        Vector2 pos = rigidbody.position;
-        pos.x = Mathf.MoveTowards(pos.x, xPosition, speed * Time.deltaTime);
-        rigidbody.position = pos;
-        CheckForSwipe();
-        rigidbody.AddForce(transform.forward * speed * Time.deltaTime, ForceMode2D.Force);
+        if (!isPaused) {
+            CheckPlayerPosition();
+            //Swipe Controls
+            Vector2 pos = rigidbody.position;
+            pos.x = Mathf.MoveTowards(pos.x, xPosition, speed * Time.deltaTime);
+            rigidbody.position = pos;
+            CheckForSwipe();
+            rigidbody.AddForce(transform.forward * speed * Time.deltaTime, ForceMode2D.Force);
+        }
 
         //Motion Contols
         //movement = new Vector2(Input.GetAxis("Horizontal"), 0) * speed; //turn this on for desktop controls
@@ -47,7 +62,8 @@ public class PlayerControls : MonoBehaviour {
 
     void FixedUpdate()
     {
-        rigidbody.velocity = movement;
+        if (!isPaused) 
+            rigidbody.velocity = movement;
     }
 
     public void SpawnEcho() {

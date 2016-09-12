@@ -7,8 +7,6 @@ public class GameController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         EventManager.StartListening(EventTypes.GAME_OVER, OnGameOver);
-        EventManager.StartListening(EventTypes.GAME_PAUSED, OnGamePaused);
-        EventManager.StartListening(EventTypes.GAME_RESUME, OnGameResume);
         EventManager.StartListening(EventTypes.GAME_START, OnGameStart);
 
         EventManager.TriggerEvent(EventTypes.GAME_START);
@@ -19,12 +17,12 @@ public class GameController : MonoBehaviour {
         SaveLoadController.GetInstance().GetEndlessSession().Reset();
     }
 
-    void OnGamePaused() {
-
+    public void PauseGame() {
+        EventManager.TriggerEvent(EventTypes.GAME_PAUSED);
     }
 
-    void OnGameResume() {
-
+    public void ResumeGame() {
+        EventManager.TriggerEvent(EventTypes.GAME_RESUME);
     }
 
     void OnGameOver() {
@@ -58,8 +56,6 @@ public class GameController : MonoBehaviour {
 
     void OnDestroy() {
         EventManager.StopListening(EventTypes.GAME_OVER, OnGameOver);
-        EventManager.StopListening(EventTypes.GAME_PAUSED, OnGamePaused);
-        EventManager.StopListening(EventTypes.GAME_RESUME, OnGameResume);
         EventManager.StopListening(EventTypes.GAME_START, OnGameStart);
     }
 }
