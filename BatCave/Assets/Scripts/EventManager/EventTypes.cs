@@ -19,4 +19,6 @@ public class EventTypes {
     public static string SHAPE_SHIFT = "shapeShift";
     public static string BLOOD_SENT = "bloodSent";
     public static string PLAYER_SPEED_CHANGED = "playerSpeedChanged";
+    public static string PLAYER_DIED = "playerDied";
+
 }

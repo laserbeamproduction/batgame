@@ -21,6 +21,7 @@ public class PlayerControls : MonoBehaviour {
 
     private bool touchStarted = false;
     private bool isPaused;
+    private bool playerIsDead;
 
     void Start() {
         rigidbody = GetComponent<Rigidbody2D>();
@@ -29,12 +30,15 @@ public class PlayerControls : MonoBehaviour {
         EventManager.StartListening(EventTypes.SKILL_VALUE, OnSkillValueRecieved);
         EventManager.StartListening(EventTypes.GAME_RESUME, OnGameResume);
         EventManager.StartListening(EventTypes.GAME_PAUSED, OnGamePaused);
+        EventManager.StartListening(EventTypes.PLAYER_DIED, OnPlayerDied);
     }
 
     void OnDestroy() {
         EventManager.StopListening(EventTypes.SKILL_VALUE, OnSkillValueRecieved);
         EventManager.StopListening(EventTypes.GAME_RESUME, OnGameResume);
         EventManager.StopListening(EventTypes.GAME_PAUSED, OnGamePaused);
+        EventManager.StopListening(EventTypes.PLAYER_DIED, OnPlayerDied);
+
     }
 
     void OnGamePaused() {
@@ -50,8 +54,12 @@ public class PlayerControls : MonoBehaviour {
         isPaused = false;
     }
 
+    void OnPlayerDied() {
+        playerIsDead = true;
+    }
+
     void Update() {
-        if (!isPaused) {
+        if (!isPaused && !playerIsDead) {
             CheckPlayerPosition();
             //Swipe Controls
             Vector2 pos = rigidbody.position;
@@ -68,7 +76,7 @@ public class PlayerControls : MonoBehaviour {
 
     void FixedUpdate()
     {
-        if (!isPaused) 
+        if (!isPaused && !playerIsDead) 
             rigidbody.velocity = movement;
     }
 
@@ -99,9 +107,13 @@ public class PlayerControls : MonoBehaviour {
     {
         if (col.gameObject.tag == "Obstacle")
         {
-            PlayerPrefs.SetFloat("playerScore", score.playerScore);
-            LoadingController.LoadScene(LoadingController.Scenes.GAME_OVER);
-            EventManager.TriggerEvent(EventTypes.GAME_OVER);
+            // Hide player sprite
+            GetComponent<SpriteRenderer>().enabled = false;
+
+            // Start blood effect
+            GetComponent<ParticleSystem>().Play();
+
+            EventManager.TriggerEvent(EventTypes.PLAYER_DIED);
         }
     }
 

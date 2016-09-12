@@ -17,6 +17,7 @@ public class SimpleMoveScript : MonoBehaviour {
         }
         EventManager.StartListening(EventTypes.GAME_RESUME, OnGameResume);
         EventManager.StartListening(EventTypes.GAME_PAUSED, OnGamePaused);
+        EventManager.StartListening(EventTypes.PLAYER_DIED, OnGamePaused);
     }
 
     void OnGamePaused() {
@@ -50,5 +51,7 @@ public class SimpleMoveScript : MonoBehaviour {
         //EventManager.StopListening(EventTypes.PLAYER_SPEED_CHANGED, OnSpeedChanged);
         EventManager.StopListening(EventTypes.GAME_RESUME, OnGameResume);
         EventManager.StopListening(EventTypes.GAME_PAUSED, OnGamePaused);
+        EventManager.StopListening(EventTypes.PLAYER_DIED, OnGamePaused);
+
     }
 }
