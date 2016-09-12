@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.Events;
 
 public class GameController : MonoBehaviour {
+    public GameObject pausePanel;
 
     public float playerDiesTime;
 
@@ -39,9 +40,11 @@ public class GameController : MonoBehaviour {
 
     public void PauseGame() {
         EventManager.TriggerEvent(EventTypes.GAME_PAUSED);
+        pausePanel.SetActive(true);
     }
 
     public void ResumeGame() {
+        pausePanel.SetActive(false);
         EventManager.TriggerEvent(EventTypes.GAME_RESUME);
     }
 

@@ -45,6 +45,11 @@ public class PlayerControls : MonoBehaviour {
     }
 
     void OnGameResume() {
+        StartCoroutine(WaitAbit());
+    }
+
+    IEnumerator WaitAbit() {
+        yield return 1;
         isPaused = false;
     }
 
@@ -137,12 +142,12 @@ public class PlayerControls : MonoBehaviour {
             }
             if (touch.phase == TouchPhase.Moved)
             {
-                if ((fp.x - lp.x) > 50 && !playerLeft && !touchStarted) // left swipe
+                if ((fp.x - lp.x) > 5 && !playerLeft && !touchStarted) // left swipe
                 {
                     touchStarted = true;
                     xPosition -= 1;
                 }
-                else if ((fp.x - lp.x) < -50 && !playerRight && !touchStarted) // right swipe
+                else if ((fp.x - lp.x) < -5 && !playerRight && !touchStarted) // right swipe
                 {
                     touchStarted = true;
                     xPosition += 1;
@@ -150,15 +155,15 @@ public class PlayerControls : MonoBehaviour {
             }
 
             if (touch.phase == TouchPhase.Ended) {
-                if ((fp.x - lp.x) > 50){
+                if ((fp.x - lp.x) > 5){
                     touchStarted = false;
                 }
-                else if ((fp.x - lp.x) < -50){
+                else if ((fp.x - lp.x) < -5){
                     touchStarted = false;
                 }
-                else if ((fp.x - lp.x) > -20) {
+                else if ((fp.x - lp.x) > -3 && fp.y < (Screen.height/2)) {
                     SpawnEcho();
-                } else if ((fp.x - lp.x) < 20) {
+                } else if ((fp.x - lp.x) < 3 && fp.y < (Screen.height / 2)) {
                     SpawnEcho();
                 }
             }
