@@ -7,23 +7,31 @@ using UnityEngine.UI;
 public class MenuButtons : MonoBehaviour {
 
     void Start() {
-        AchievementChecker.CheckForWelcomeAchievement();
-    }
+        Debug.Log("PlayerRefusedGooglePLay: " + PlayerPrefs.GetInt("PlayerRefusedGooglePLay"));
+        if (!PlayerPrefs.HasKey("PlayerRefusedGooglePLay"))
+            PlayerPrefs.SetInt("PlayerRefusedGooglePLay", 0);
 
-    // Update is called once per frame
-    void Update () {
-        if (!Social.localUser.authenticated && !Application.isEditor) {
+        if (!Social.localUser.authenticated && !Application.isEditor && PlayerPrefs.GetInt("PlayerRefusedGooglePLay") == 0) {
             GooglePlayHelper.GetInstance().Login();
             AchievementChecker.CheckForWelcomeAchievement();
         }
     }
 
     public void ShowAchievementsUI() {
-        GooglePlayHelper.GetInstance().ShowAchievementsUI();
+        if (!Social.localUser.authenticated && !Application.isEditor) {
+            GooglePlayHelper.GetInstance().Login();
+        } else {
+            GooglePlayHelper.GetInstance().ShowAchievementsUI();
+        }
+        
     }
 
     public void ShowLeaderboardUI() {
-        GooglePlayHelper.GetInstance().ShowLeaderboardUI();
+        if (!Social.localUser.authenticated && !Application.isEditor) {
+            GooglePlayHelper.GetInstance().Login();
+        } else {
+            GooglePlayHelper.GetInstance().ShowLeaderboardUI();
+        }
     }
 
     public void StartEndless()
