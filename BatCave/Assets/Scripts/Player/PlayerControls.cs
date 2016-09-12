@@ -9,6 +9,7 @@ public class PlayerControls : MonoBehaviour {
     public ScoreCalculator score;
     public SkillSlider skillSlider;
     public GameObject[] playerEchos;
+    public Light playerLight;
     private Rigidbody2D rigidbody;
 
     //movement
@@ -25,6 +26,8 @@ public class PlayerControls : MonoBehaviour {
     private bool playerIsDead;
     private bool controlsEnabled;
     private bool playerIsFlyingIn;
+    private bool lightIsFadingIn;
+    private bool lightIsFadingOut;
 
     void Start() {
         rigidbody = GetComponent<Rigidbody2D>();
@@ -35,6 +38,8 @@ public class PlayerControls : MonoBehaviour {
         EventManager.StartListening(EventTypes.GAME_PAUSED, OnGamePaused);
         EventManager.StartListening(EventTypes.PLAYER_DIED, OnPlayerDied);
         EventManager.StartListening(EventTypes.PLAYER_FLY_IN, OnPlayerFliesIn);
+        EventManager.StartListening(EventTypes.ENABLE_PLAYER_LIGHT, OnPlayerLightEnabled);
+        EventManager.StartListening(EventTypes.DISABLE_PLAYER_LIGHT, OnPlayerLightDisabled);
     }
 
     void OnDestroy() {
@@ -43,6 +48,8 @@ public class PlayerControls : MonoBehaviour {
         EventManager.StopListening(EventTypes.GAME_PAUSED, OnGamePaused);
         EventManager.StopListening(EventTypes.PLAYER_DIED, OnPlayerDied);
         EventManager.StopListening(EventTypes.PLAYER_FLY_IN, OnPlayerFliesIn);
+        EventManager.StopListening(EventTypes.ENABLE_PLAYER_LIGHT, OnPlayerLightEnabled);
+        EventManager.StopListening(EventTypes.DISABLE_PLAYER_LIGHT, OnPlayerLightDisabled);
     }
 
     void OnGamePaused() {
@@ -55,6 +62,16 @@ public class PlayerControls : MonoBehaviour {
 
     void OnGameResume() {
         StartCoroutine(WaitAbit());
+    }
+
+    void OnPlayerLightEnabled() {
+        lightIsFadingIn = true;
+        lightIsFadingOut = false;
+    }
+
+    void OnPlayerLightDisabled() {
+        lightIsFadingIn = false;
+        lightIsFadingOut = true;
     }
 
     IEnumerator WaitAbit() {
@@ -96,6 +113,24 @@ public class PlayerControls : MonoBehaviour {
                     rigidbody.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
                 }
             }
+
+
+            if (lightIsFadingIn) {
+                playerLight.intensity = Mathf.Lerp(playerLight.intensity, 8f, 0.5f * Time.deltaTime);
+                if (playerLight.intensity >= 7f) {
+                    lightIsFadingIn = false;
+                    playerLight.intensity = 8f;
+                }
+            }
+
+            if (lightIsFadingOut) {
+                playerLight.intensity = Mathf.Lerp(playerLight.intensity, 0f, 0.5f * Time.deltaTime);
+                if (playerLight.intensity >= 1f) {
+                    lightIsFadingOut = false;
+                    playerLight.intensity = 0f;
+                }
+            }
+
         }
     }
 

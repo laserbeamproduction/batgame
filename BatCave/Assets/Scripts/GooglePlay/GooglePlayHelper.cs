@@ -61,14 +61,16 @@ public class GooglePlayHelper {
             {
                 if (success) {
                     Debug.Log(DEBUG_KEY + "Login succes");
+                    PlayerPrefs.SetInt("PlayerRefusedGooglePLay", 0);
                     CheckForSaveGame();
                 } else {
                     Debug.Log(DEBUG_KEY + "Login failed!");
-                    Login();
+                    PlayerPrefs.SetInt("PlayerRefusedGooglePLay", 1);
                 }
             });
         } else {
             Debug.Log(DEBUG_KEY + "Player already authenticated.");
+            PlayerPrefs.SetInt("PlayerRefusedGooglePLay", 0);
             CheckForSaveGame();
         }
     }
@@ -90,7 +92,7 @@ public class GooglePlayHelper {
         bool allowDelete = true;
 
         ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
-        savedGameClient.ShowSelectSavedGameUI("Select saved game",
+        savedGameClient.ShowSelectSavedGameUI("Select save game",
             maxNumToDisplay,
             allowCreateNew,
             allowDelete,
@@ -191,7 +193,7 @@ public class GooglePlayHelper {
     /// <param name="savedData"></param>
     /// <param name="totalPlaytime"></param>
     public void SaveGame() {
-        if (Application.isEditor)
+        if (Application.isEditor || !Social.localUser.authenticated)
             return;
         isSaving = true;
 
@@ -245,12 +247,7 @@ public class GooglePlayHelper {
             Debug.Log(DEBUG_KEY + "Achievement unlocked status : " + success);
         });
     }
-
-    /*
-    float f = 44.54321f;
-uint u = BitConverter.ToUInt32(BitConverter.GetBytes(f), 0);
-System.Diagnostics.Debug.Assert(u == 0x42322C3F);
-*/
+    
     public void ReportEvent(string eventName, float value) {
         uint u = BitConverter.ToUInt32(BitConverter.GetBytes(value), 0);
         ReportEvent(eventName, u);

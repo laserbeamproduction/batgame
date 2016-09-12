@@ -21,5 +21,7 @@ public class EventTypes {
     public static string PLAYER_SPEED_CHANGED = "playerSpeedChanged";
     public static string PLAYER_DIED = "playerDied";
     public static string PLAYER_FLY_IN = "playerFlyIn";
+    public static string ENABLE_PLAYER_LIGHT = "enablePlayerLight";
+    public static string DISABLE_PLAYER_LIGHT = "disablePlayerLight";
 
 }

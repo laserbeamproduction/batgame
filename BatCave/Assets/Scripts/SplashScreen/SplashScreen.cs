@@ -16,7 +16,6 @@ public class SplashScreen : MonoBehaviour {
         if (onStartUp && !Application.isEditor) {
             onStartUp = false;
             GooglePlayHelper gph = GooglePlayHelper.GetInstance();
-            GooglePlayHelper.GetInstance().Login();
             GooglePlayHelper.GetInstance().ReportEvent(GPGSConstant.event_game_opened, 1);
         }
 

@@ -4,14 +4,18 @@ using UnityEngine.Events;
 
 public class GameController : MonoBehaviour {
     public GameObject pausePanel;
+    public GameObject pauseButton;
     public Light directionalLight;
     public float fadeOutDelay;
+    public float playerFliesInDelay;
 
     public float playerDiesTime;
 
     private float playerDiesCounter;
     private float fadeOutDelayCounter;
+    private float playerFliesInCounter;
     private bool playerDied;
+    private bool playerFlyInTriggered;
 
 	// Use this for initialization
 	void Start () {
@@ -25,13 +29,24 @@ public class GameController : MonoBehaviour {
     void FixedUpdate() {
         if (directionalLight != null) {
             if (fadeOutDelayCounter >= fadeOutDelay) {
-                directionalLight.intensity = Mathf.Lerp(directionalLight.intensity, 0f, 1f * Time.deltaTime);
+                if (!playerFlyInTriggered) {
+                    EventManager.TriggerEvent(EventTypes.ENABLE_PLAYER_LIGHT);
+                    playerFlyInTriggered = true;
+                }
+                directionalLight.intensity = Mathf.Lerp(directionalLight.intensity, 0f, 0.5f * Time.deltaTime);
                 if (directionalLight.intensity <= 0.5f) {
                     Destroy(directionalLight.gameObject);
-                    EventManager.TriggerEvent(EventTypes.PLAYER_FLY_IN);
                 }
             } else {
                 fadeOutDelayCounter += Time.deltaTime;
+            }
+        }
+        if (playerFliesInCounter != -1f) {
+            if (playerFliesInCounter >= playerFliesInDelay) {
+                playerFliesInCounter = -1f;
+                EventManager.TriggerEvent(EventTypes.PLAYER_FLY_IN);
+            } else {
+                playerFliesInCounter += Time.deltaTime;
             }
         }
     }
@@ -48,6 +63,7 @@ public class GameController : MonoBehaviour {
 
     void OnPlayerDied() {
         playerDied = true;
+        pauseButton.SetActive(false);
     }
 
     void OnGameStart() {
