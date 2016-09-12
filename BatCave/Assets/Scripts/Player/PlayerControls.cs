@@ -4,6 +4,7 @@ using System.Collections;
 public class PlayerControls : MonoBehaviour {
     public GameObject Echo;
     public Transform PlayerPos;
+    public float playerYposition;
     public PlayerResources playerResources;
     public ScoreCalculator score;
     public SkillSlider skillSlider;
@@ -22,6 +23,8 @@ public class PlayerControls : MonoBehaviour {
     private bool touchStarted = false;
     private bool isPaused;
     private bool playerIsDead;
+    private bool controlsEnabled;
+    private bool playerIsFlyingIn;
 
     void Start() {
         rigidbody = GetComponent<Rigidbody2D>();
@@ -31,6 +34,7 @@ public class PlayerControls : MonoBehaviour {
         EventManager.StartListening(EventTypes.GAME_RESUME, OnGameResume);
         EventManager.StartListening(EventTypes.GAME_PAUSED, OnGamePaused);
         EventManager.StartListening(EventTypes.PLAYER_DIED, OnPlayerDied);
+        EventManager.StartListening(EventTypes.PLAYER_FLY_IN, OnPlayerFliesIn);
     }
 
     void OnDestroy() {
@@ -38,11 +42,15 @@ public class PlayerControls : MonoBehaviour {
         EventManager.StopListening(EventTypes.GAME_RESUME, OnGameResume);
         EventManager.StopListening(EventTypes.GAME_PAUSED, OnGamePaused);
         EventManager.StopListening(EventTypes.PLAYER_DIED, OnPlayerDied);
-
+        EventManager.StopListening(EventTypes.PLAYER_FLY_IN, OnPlayerFliesIn);
     }
 
     void OnGamePaused() {
         isPaused = true;
+    }
+
+    void OnPlayerFliesIn() {
+        playerIsFlyingIn = true;
     }
 
     void OnGameResume() {
@@ -59,7 +67,7 @@ public class PlayerControls : MonoBehaviour {
     }
 
     void Update() {
-        if (!isPaused && !playerIsDead) {
+        if (!isPaused && !playerIsDead && controlsEnabled) {
             CheckPlayerPosition();
             //Swipe Controls
             Vector2 pos = rigidbody.position;
@@ -76,8 +84,23 @@ public class PlayerControls : MonoBehaviour {
 
     void FixedUpdate()
     {
-        if (!isPaused && !playerIsDead) 
+        if (!isPaused && !playerIsDead) {
             rigidbody.velocity = movement;
+            if (playerIsFlyingIn) {
+                Vector2 pos = rigidbody.position;
+                pos.y = Mathf.MoveTowards(pos.y, playerYposition, 5f * Time.deltaTime);
+                rigidbody.position = pos;
+                if (pos.y >= playerYposition) {
+                    playerIsFlyingIn = false;
+                    controlsEnabled = true;
+                    rigidbody.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+                }
+            }
+        }
+    }
+
+    void FlyInScreen() {
+
     }
 
     public void SpawnEcho() {

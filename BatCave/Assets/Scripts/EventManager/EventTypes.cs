@@ -20,5 +20,6 @@ public class EventTypes {
     public static string BLOOD_SENT = "bloodSent";
     public static string PLAYER_SPEED_CHANGED = "playerSpeedChanged";
     public static string PLAYER_DIED = "playerDied";
+    public static string PLAYER_FLY_IN = "playerFlyIn";
 
 }
