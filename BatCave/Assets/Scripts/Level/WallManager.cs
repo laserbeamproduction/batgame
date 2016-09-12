@@ -2,35 +2,43 @@
 using UnityEngine.UI;
 
 public class WallManager : MonoBehaviour {
-    public SpriteRenderer[] leftWalls;
-    public SpriteRenderer[] rightWalls;
+    public SpriteRenderer[] bottomWalls;
+    public SpriteRenderer[] topWalls;
 
     public Sprite[] sprites;
 
-    private float resetYposition = 10.97f;
-	
-	// Update is called once per frame
-	void Update () {
+    private float yBounds = -10.5f;
+
+    void Start() {
+        SetupWalls();
+    }
+    
+	void FixedUpdate () {
         CheckWallPosition();
+    }
+
+    private void SetupWalls() {
+        foreach (SpriteRenderer wall in bottomWalls) {
+            SetRandomSprite(wall);
+        }
+        foreach (SpriteRenderer wall in topWalls) {
+            SetRandomSprite(wall);
+        }
     }
 
     /// <summary>
     /// Loop though the wall lists to check if they need repositioning
     /// </summary>
     private void CheckWallPosition() {
-        foreach (SpriteRenderer wall in leftWalls) {
-
-            // If a wall is not being rendered and its position is below the camera
-            if (wall.transform.position.y < -11f) {
-                ResetWall(wall);
+        foreach (SpriteRenderer wall in bottomWalls) {
+            if (wall.transform.position.y <= yBounds) {
+                ResetWall(wall, topWalls[0].transform.position.y + topWalls[0].bounds.size.y);
             }
         }
 
-        foreach (SpriteRenderer wall in rightWalls) {
-
-            // If a wall is not being rendered and its position is below the camera
-            if (wall.transform.position.y < -11f) {
-                ResetWall(wall);
+        foreach (SpriteRenderer wall in topWalls) {
+            if (wall.transform.position.y <= yBounds) {
+                ResetWall(wall, bottomWalls[0].transform.position.y + bottomWalls[0].bounds.size.y);
             }
         }
     }
@@ -39,8 +47,8 @@ public class WallManager : MonoBehaviour {
     /// Repositions the wall sprite back to the top and gives it a random sprite from the sprites array.
     /// </summary>
     /// <param name="wall"></param>
-    private void ResetWall(SpriteRenderer wall) {
-        wall.transform.position = new Vector2(wall.transform.position.x, resetYposition);
+    private void ResetWall(SpriteRenderer wall, float yPos) {
+        wall.transform.position = new Vector3(wall.transform.position.x, yPos, wall.transform.position.z);
         SetRandomSprite(wall);
     }
 
