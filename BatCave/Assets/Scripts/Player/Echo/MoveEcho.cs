@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class MoveEcho : MonoBehaviour {
+    public float maxUpTime;
     public float upTime;
     public Vector2 Speed = new Vector2(0.1f, 0.1f);
     private Rigidbody2D rb;
@@ -9,6 +10,7 @@ public class MoveEcho : MonoBehaviour {
 
     private float maxSpotAngle;
     public float defaultSpotAngle = 120;
+
     // Use this for initialization
     void Start()
     {
@@ -32,22 +34,29 @@ public class MoveEcho : MonoBehaviour {
 
         upTime -= Time.deltaTime;
 
-        if (upTime < 0) {
-            Destroy(gameObject);
+        if (upTime < 0)
+        {
+            gameObject.SetActive(false);
         }
 
-        if (echo.spotAngle < maxSpotAngle) {
-           echo.spotAngle += 3;
+        if (echo.spotAngle < maxSpotAngle)
+        {
+            echo.spotAngle += 3;
         }
 
-        if (echo.intensity < 8) {
+        if (echo.intensity < 8)
+        {
             echo.intensity += 1;
         }
     }
 
+    void OnDisable() {
+        upTime = maxUpTime;
+        echo.intensity = 0;
+        echo.spotAngle = 50;
+    }
+
     public void EchoSize(float value) {
-        //maxSpotAngle = 50 + (defaultSpotAngle * (value / 100));
-        //maxSpotAngle = -((7 * Mathf.Pow(value, 2)) / 250) + ((14 * value) / 5) + 20;
         maxSpotAngle = -((Mathf.Pow(value, 2) / 25)) + (4 * value) + 20;
     }
 }
