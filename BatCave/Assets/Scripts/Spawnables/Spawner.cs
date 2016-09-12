@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Events;
 
 public class Spawner : MonoBehaviour {
     public float pickUpYDistance = 20;
@@ -23,7 +24,11 @@ public class Spawner : MonoBehaviour {
     public GameObject[] obstacles;
     public Transform[] spawnPoints;
 
+    private bool CanStartSpawning = false;
+
     void Start() {
+        EventManager.StartListening(EventTypes.PLAYER_FLY_IN, StartSpawning);
+
         foreach (GameObject obj in obstacles) {
             obj.SetActive(false);
         }
@@ -34,10 +39,17 @@ public class Spawner : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        spawnObjects();
+        if (CanStartSpawning)
+        {
+            spawnObjects();
+        }
 
         pickUpDelay -= 0.01;
         obstacleDelay -= 0.01;
+    }
+
+    void StartSpawning() {
+        CanStartSpawning = true;
     }
 
     void spawnObjects() {
