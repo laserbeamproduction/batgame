@@ -1,15 +1,21 @@
 ﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class SimpleMoveScript : MonoBehaviour {
-    public Vector2 Speed = new Vector2(0.1f, 0.1f);
+    public float startSpeed;
+    public Vector2 Speed = new Vector2(0.0f, -0.05f);
     private Rigidbody2D rb;
     private bool isPaused;
     //public float speed;
     //public Vector3 direction;
+    public float speedIncreaseTime;
+    public float maxSpeedIncrease;
+    public int amountOfSpeedIncrements = 4;
+    private bool increaseSpeed = true;
 
     void Start() {
-        //this.speed = SaveLoadController.GetInstance().GetPlayer().GetSpeed();
-        //EventManager.StartListening(EventTypes.PLAYER_SPEED_CHANGED, OnSpeedChanged);
+        Speed = new Vector2(0, startSpeed);
         rb = GetComponent<Rigidbody2D>();
         if (rb != null)
         {
@@ -18,6 +24,8 @@ public class SimpleMoveScript : MonoBehaviour {
         EventManager.StartListening(EventTypes.GAME_RESUME, OnGameResume);
         EventManager.StartListening(EventTypes.GAME_PAUSED, OnGamePaused);
         EventManager.StartListening(EventTypes.PLAYER_DIED, OnGamePaused);
+
+        StartCoroutine(StartTimer());
     }
 
     void OnGamePaused() {
@@ -26,11 +34,6 @@ public class SimpleMoveScript : MonoBehaviour {
 
     void OnGameResume() {
         isPaused = false;
-    }
-
-    // Update is called once per frame
-    void FixedUpdate() {
-        //this.gameObject.transform.Translate(direction * speed * Time.deltaTime);
     }
 
     void Update() {
@@ -43,15 +46,25 @@ public class SimpleMoveScript : MonoBehaviour {
         }
     }
 
-    void OnSpeedChanged() {
-        //this.speed = SaveLoadController.GetInstance().GetPlayer().GetSpeed();
-    }
-
     void OnDestroy() {
         //EventManager.StopListening(EventTypes.PLAYER_SPEED_CHANGED, OnSpeedChanged);
         EventManager.StopListening(EventTypes.GAME_RESUME, OnGameResume);
         EventManager.StopListening(EventTypes.GAME_PAUSED, OnGamePaused);
         EventManager.StopListening(EventTypes.PLAYER_DIED, OnGamePaused);
 
+    }
+
+    IEnumerator StartTimer() {
+        //speedIncreaseTime -= Time.deltaTime;
+        while (increaseSpeed) {
+            yield return new WaitForSeconds(speedIncreaseTime / amountOfSpeedIncrements);
+
+            Speed = new Vector2(0, Speed.y - (maxSpeedIncrease/amountOfSpeedIncrements));
+
+            if (Speed.y >= (startSpeed + maxSpeedIncrease))
+            {
+                increaseSpeed = false;
+            }
+        }
     }
 }

@@ -9,7 +9,7 @@ public class ObstacleCleanUp : MonoBehaviour {
         if (col.gameObject.name == "CleanUp")
         {
             markedForDestroy = true;
-            gameObject.SetActive(false);
+            gameObject.GetComponent<SpriteRenderer>().enabled = false;
         }
     }
 }

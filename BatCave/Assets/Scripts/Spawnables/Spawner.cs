@@ -16,6 +16,8 @@ public class Spawner : MonoBehaviour {
     public float minObstacleDelay = 0;
     public float maxObstacleDelay = 2;
 
+    public int minActiveObstacles = 1;
+    public int minActivePickups = 1;
     public int maxActiveObstacles = 5;
     public int maxActivePickups = 3;
 
@@ -26,21 +28,29 @@ public class Spawner : MonoBehaviour {
 
     private bool CanStartSpawning = false;
 
+    //Needed for difficulty curve
+
+
+    private bool increaseSpawnAmount = true;
+
     void Start() {
         EventManager.StartListening(EventTypes.PLAYER_FLY_IN, StartSpawning);
 
-        foreach (GameObject obj in obstacles) {
-            obj.SetActive(false);
-        }
+        //foreach (GameObject obj in obstacles) {
+        //    obj.SetActive(false);
+        //}
 
-        foreach (GameObject obj in pickUps) {
-            obj.SetActive(false);
-        }
+        //foreach (GameObject obj in pickUps) {
+        //    obj.SetActive(false);
+        //}
+
+        StartCoroutine(StartTimer());
     }
 
     void FixedUpdate() {
         if (CanStartSpawning)
         {
+            DifficultyCurve();
             spawnObjects();
         }
 
@@ -52,6 +62,10 @@ public class Spawner : MonoBehaviour {
         CanStartSpawning = true;
     }
 
+    void DifficultyCurve() {
+
+    }
+
     void spawnObjects() {
         int amountOfObstaclesToSpawn = Random.Range(3, maxActiveObstacles);
         int amountOfPickUpsToSpawn = Random.Range(2, maxActivePickups);
@@ -61,11 +75,10 @@ public class Spawner : MonoBehaviour {
         if (canSpawnObstacle()) {
             for (int i = 0; i < amountOfObstaclesToSpawn; i++) {
                 foreach (GameObject obstacle in obstacles) {
-                    if (!obstacle.activeInHierarchy && currentObstacles < amountOfObstaclesToSpawn) {
+                    if (!obstacle.GetComponent<SpriteRenderer>().enabled && currentObstacles < amountOfObstaclesToSpawn) {
                         
                         int randomYOffSet = Random.Range(0, 16); // TODO: Set this position to a random lane
-
-                        obstacle.SetActive(true);
+                        obstacle.GetComponent<SpriteRenderer>().enabled = true;
                         obstacle.transform.position = new Vector2(spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position.x, playerTransform.position.y + obstacleYDistance + randomYOffSet);
                         currentObstacles++;
                     }
@@ -77,7 +90,7 @@ public class Spawner : MonoBehaviour {
         if (canSpawnPickUp()) {
             for (int i = 0; i < amountOfPickUpsToSpawn; i++) {
                 foreach (GameObject pickup in pickUps) {
-                    if (!pickup.activeInHierarchy && currentPickups < amountOfPickUpsToSpawn) {
+                    if (!pickup.GetComponent<SpriteRenderer>().enabled && currentPickups < amountOfPickUpsToSpawn) {
 
                         int randomYOffSet = Random.Range(0, 8); // TODO: Set this position to a random lane
 
@@ -98,5 +111,14 @@ public class Spawner : MonoBehaviour {
 
     bool canSpawnPickUp() {
         return pickUpDelay <= 0;
+    }
+
+    IEnumerator StartTimer()
+    {
+        while (increaseSpawnAmount)
+        {
+            increaseSpawnAmount = false;
+            yield return new WaitForSeconds(1);
+        }
     }
 }

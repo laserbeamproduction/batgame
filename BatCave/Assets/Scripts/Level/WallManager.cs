@@ -2,7 +2,6 @@
 using UnityEngine.UI;
 
 public class WallManager : MonoBehaviour {
-
     public SpriteRenderer[] leftWalls;
     public SpriteRenderer[] rightWalls;
 
