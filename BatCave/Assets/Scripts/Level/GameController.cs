@@ -4,12 +4,32 @@ using UnityEngine.Events;
 
 public class GameController : MonoBehaviour {
 
+    public float playerDiesTime;
+
+    private float playerDiesCounter;
+    private bool playerDied;
+
 	// Use this for initialization
 	void Start () {
         EventManager.StartListening(EventTypes.GAME_OVER, OnGameOver);
         EventManager.StartListening(EventTypes.GAME_START, OnGameStart);
+        EventManager.StartListening(EventTypes.PLAYER_DIED, OnPlayerDied);
 
         EventManager.TriggerEvent(EventTypes.GAME_START);
+    }
+
+    void Update() {
+        if (playerDied) {
+            playerDiesCounter += Time.deltaTime;
+            if (playerDiesCounter >= playerDiesTime) {
+                playerDied = false;
+                EventManager.TriggerEvent(EventTypes.GAME_OVER);
+            }
+        }
+    }
+
+    void OnPlayerDied() {
+        playerDied = true;
     }
 
     void OnGameStart() {
