@@ -3,6 +3,7 @@
 public class SimpleMoveScript : MonoBehaviour {
     public Vector2 Speed = new Vector2(0.1f, 0.1f);
     private Rigidbody2D rb;
+    private bool isPaused;
     //public float speed;
     //public Vector3 direction;
 
@@ -14,6 +15,16 @@ public class SimpleMoveScript : MonoBehaviour {
         {
             rb.velocity = new Vector2(Speed.x, Speed.y);
         }
+        EventManager.StartListening(EventTypes.GAME_RESUME, OnGameResume);
+        EventManager.StartListening(EventTypes.GAME_PAUSED, OnGamePaused);
+    }
+
+    void OnGamePaused() {
+        isPaused = true;
+    }
+
+    void OnGameResume() {
+        isPaused = false;
     }
 
     // Update is called once per frame
@@ -22,12 +33,12 @@ public class SimpleMoveScript : MonoBehaviour {
     }
 
     void Update() {
-        if (rb == null)
-        {
-            transform.Translate(Speed.x, Speed.y, 0);
-        }
-        else {
-            transform.Translate(Speed.x, Speed.y, 0);
+        if (!isPaused) {
+            if (rb == null) {
+                transform.Translate(Speed.x, Speed.y, 0);
+            } else {
+                transform.Translate(Speed.x, Speed.y, 0);
+            }
         }
     }
 
@@ -37,5 +48,7 @@ public class SimpleMoveScript : MonoBehaviour {
 
     void OnDestroy() {
         //EventManager.StopListening(EventTypes.PLAYER_SPEED_CHANGED, OnSpeedChanged);
+        EventManager.StopListening(EventTypes.GAME_RESUME, OnGameResume);
+        EventManager.StopListening(EventTypes.GAME_PAUSED, OnGamePaused);
     }
 }

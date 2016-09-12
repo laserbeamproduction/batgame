@@ -14,30 +14,47 @@ public class SkillSlider : MonoBehaviour {
     private bool onCooldown;
 
     private float lastSkillValue;
+    private bool isPaused;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         slider = GetComponent<Slider>();
         StartAtRandomPosition();
         coolDownTimer = 0f;
-
-        // Add event listener for when the player uses beam
+        
         EventManager.StartListening(EventTypes.ECHO_USED, OnSkillShotTriggered);
+        EventManager.StartListening(EventTypes.GAME_RESUME, OnGameResume);
+        EventManager.StartListening(EventTypes.GAME_PAUSED, OnGamePaused);
+    }
+
+    void OnGamePaused() {
+        isPaused = true;
+    }
+
+    void OnGameResume() {
+        isPaused = false;
+        StartAtRandomPosition();
     }
 
     void OnDestroy() {
         EventManager.StopListening(EventTypes.ECHO_USED, OnSkillShotTriggered);
+        EventManager.StopListening(EventTypes.GAME_RESUME, OnGameResume);
+        EventManager.StopListening(EventTypes.GAME_PAUSED, OnGamePaused);
     }
 
     void Update() {
-        if (onCooldown)
-            UpdateCoolDown();
+        if (!isPaused) {
+            if (onCooldown)
+                UpdateCoolDown();
+        }
     }
 
     // Update is called once per frame
     void FixedUpdate () {
-        if (!onCooldown)
-            Move();
+        if (!isPaused) {
+            if (!onCooldown)
+                Move();
+        }
 	}
 
     void StartAtRandomPosition() {
