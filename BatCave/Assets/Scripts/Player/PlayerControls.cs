@@ -7,6 +7,7 @@ public class PlayerControls : MonoBehaviour {
     public PlayerResources playerResources;
     public ScoreCalculator score;
     public SkillSlider skillSlider;
+    public GameObject[] playerEchos;
     private Rigidbody2D rigidbody;
 
     //movement
@@ -78,8 +79,16 @@ public class PlayerControls : MonoBehaviour {
     }
 
     void OnSkillValueRecieved() {
-        GameObject echo = (GameObject)Instantiate(Echo, new Vector3(PlayerPos.position.x, PlayerPos.position.y, -2), Quaternion.identity);
-        echo.GetComponent<MoveEcho>().EchoSize(skillSlider.GetLastSkillValue());
+        foreach (GameObject echo in playerEchos)
+        {
+            if (!echo.activeInHierarchy)
+            {
+                echo.SetActive(true);
+                echo.transform.position = new Vector3(PlayerPos.position.x, PlayerPos.position.y, -2);
+                echo.GetComponent<MoveEcho>().EchoSize(skillSlider.GetLastSkillValue());
+                return;
+            }
+        }
     }
 
     bool CanAffordEcho(float cost) {
