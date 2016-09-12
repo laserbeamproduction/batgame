@@ -41,6 +41,11 @@ public class PlayerControls : MonoBehaviour {
     }
 
     void OnGameResume() {
+        StartCoroutine(WaitAbit());
+    }
+
+    IEnumerator WaitAbit() {
+        yield return 1;
         isPaused = false;
     }
 

@@ -41,7 +41,7 @@ public class WallManager : MonoBehaviour {
     /// </summary>
     /// <param name="wall"></param>
     private void ResetWall(SpriteRenderer wall) {
-        wall.transform.position = new Vector3(wall.transform.position.x, resetYposition, -1);
+        wall.transform.position = new Vector2(wall.transform.position.x, resetYposition);
         SetRandomSprite(wall);
     }
 
