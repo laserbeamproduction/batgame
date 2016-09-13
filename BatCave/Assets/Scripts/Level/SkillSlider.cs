@@ -16,6 +16,10 @@ public class SkillSlider : MonoBehaviour {
     private float lastSkillValue;
     private bool isPaused;
 
+    // fields for keeping track of the amount of timed echos in a row
+    private int excellentEchosSequence;
+    private int goodEchosSequence;
+
     // Use this for initialization
     void Start () {
         slider = GetComponent<Slider>();
@@ -91,6 +95,9 @@ public class SkillSlider : MonoBehaviour {
         // set feedback text
         TriggerFeedbackText(lastSkillValue);
 
+        // check for sequence achievements
+        AchievementChecker.CheckForTimingAchievement(excellentEchosSequence, goodEchosSequence);
+
         // dispatch value for the beam
         EventManager.TriggerEvent(EventTypes.SKILL_VALUE);
         EventManager.TriggerEvent(EventTypes.ECHO_USED_RESOURCES);
@@ -108,14 +115,21 @@ public class SkillSlider : MonoBehaviour {
         if (value >= 49 && value <= 51) {
             skillFeedbackController.TriggerFeedback(SkillSliderFeedback.Types.EXCELLENT);
             SaveLoadController.GetInstance().GetEndlessSession().AddEchosTimedExcellent(1);
+            excellentEchosSequence++;
+            goodEchosSequence++;
             return;
         }
         
         if (value >= 40 && value <= 60) {
             skillFeedbackController.TriggerFeedback(SkillSliderFeedback.Types.GOOD);
             SaveLoadController.GetInstance().GetEndlessSession().AddEchosTimedGood(1);
+            goodEchosSequence++;
+            excellentEchosSequence = 0;
             return;
         }
+
+        excellentEchosSequence = 0;
+        goodEchosSequence = 0;
     }
 
     public float GetLastSkillValue() {
