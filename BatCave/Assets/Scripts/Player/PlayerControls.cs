@@ -29,6 +29,8 @@ public class PlayerControls : MonoBehaviour {
     private bool lightIsFadingIn;
     private bool lightIsFadingOut;
 
+    private bool canDie = true;
+
     void Start() {
         rigidbody = GetComponent<Rigidbody2D>();
         //speed = SaveLoadController.GetInstance().GetOptions().GetControlSensitivity();
@@ -140,10 +142,6 @@ public class PlayerControls : MonoBehaviour {
         }
     }
 
-    void FlyInScreen() {
-
-    }
-
     public void SpawnEcho() {
         if (CanAffordEcho(playerResources.echoCost)) {
             EventManager.TriggerEvent(EventTypes.ECHO_USED);
@@ -169,7 +167,7 @@ public class PlayerControls : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.tag == "Obstacle")
+        if (col.gameObject.tag == "Obstacle" && canDie)
         {
             // Hide player sprite
             GetComponent<SpriteRenderer>().enabled = false;
@@ -178,6 +176,10 @@ public class PlayerControls : MonoBehaviour {
             GetComponent<ParticleSystem>().Play();
 
             EventManager.TriggerEvent(EventTypes.PLAYER_DIED);
+        }
+
+        if (col.gameObject.tag == "Obstacle" && !canDie) {
+            col.gameObject.GetComponent<BoxCollider2D>().enabled = false;
         }
     }
 
@@ -240,6 +242,18 @@ public class PlayerControls : MonoBehaviour {
                     SpawnEcho();
                 }
             }
+        }
+    }
+
+    public void SetShield(bool shieldActive) {
+        if (shieldActive) {
+            canDie = false;
+            //gameObject.GetComponent<BoxCollider2D>().enabled = false;
+        }
+
+        if (!shieldActive) {
+            canDie = true;
+            //gameObject.GetComponent<BoxCollider2D>().enabled = true;
         }
     }
 }

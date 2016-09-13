@@ -281,6 +281,10 @@
     <Compile Include="Assets\Scripts\Score\EndScreenScore.cs" />
     <Compile Include="Assets\Scripts\Score\ScoreCalculator.cs" />
     <Compile Include="Assets\Scripts\Spawnables\Obstacle\ObstacleCleanUp.cs" />
+    <Compile Include="Assets\Scripts\Spawnables\PickUps\Boosters\DayLightBooster.cs" />
+    <Compile Include="Assets\Scripts\Spawnables\PickUps\Boosters\PowerUpController.cs" />
+    <Compile Include="Assets\Scripts\Spawnables\PickUps\Boosters\ShieldBooster.cs" />
+    <Compile Include="Assets\Scripts\Spawnables\PickUps\Boosters\SpeedBooster.cs" />
     <Compile Include="Assets\Scripts\Spawnables\PickUps\Fly\FlyController.cs" />
     <Compile Include="Assets\Scripts\Spawnables\PickUps\Fly\ParticalAttractor.cs" />
     <Compile Include="Assets\Scripts\Spawnables\Spawner.cs" />

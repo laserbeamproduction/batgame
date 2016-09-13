@@ -5,20 +5,10 @@ public class DayNightCycle : MonoBehaviour {
     public Light playerLight;
     public Light DayTimeLight;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	    
-	}
-
     public void setDayTime() {
         //do stuff for day time
         playerLight.intensity = 0;
-        DayTimeLight.intensity = 8;
+        DayTimeLight.intensity = 3.5f;
     }
 
     public void setNightTime() {

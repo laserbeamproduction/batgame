@@ -15,6 +15,9 @@ public class SimpleMoveScript : MonoBehaviour {
     public int amountOfSpeedIncrements = 4;
     private bool increaseSpeed = true;
 
+    private bool SpeedBoostActive;
+    public Vector2 BoostSpeed = new Vector2(0, -0.1f);
+
     void Start() {
         Speed = new Vector2(0, startSpeed);
 
@@ -22,6 +25,8 @@ public class SimpleMoveScript : MonoBehaviour {
         EventManager.StartListening(EventTypes.GAME_PAUSED, OnGamePaused);
         EventManager.StartListening(EventTypes.PLAYER_DIED, OnGamePaused);
         EventManager.StartListening(EventTypes.PLAYER_IN_POSITION, OnIntroCompleet);
+        EventManager.StartListening(EventTypes.PLAYER_SPEED_PICKUP, ActivateSpeedBoost);
+        EventManager.StartListening(EventTypes.PLAYER_SPEED_ENDED, DeactivateSpeedBoost);
 
         StartCoroutine(StartTimer());
     }
@@ -39,8 +44,12 @@ public class SimpleMoveScript : MonoBehaviour {
     }
 
     void Update() {
-        if (!isPaused && !isIntro) {
+        if (!isPaused && !isIntro && !SpeedBoostActive) {
             transform.Translate(Speed.x, Speed.y, 0);
+        }
+
+        if (!isPaused && !isIntro && SpeedBoostActive) {
+            transform.Translate(BoostSpeed.x, BoostSpeed.y, 0);
         }
     }
 
@@ -64,5 +73,13 @@ public class SimpleMoveScript : MonoBehaviour {
                 increaseSpeed = false;
             }
         }
+    }
+
+    public void ActivateSpeedBoost() {
+        SpeedBoostActive = true;
+    }
+
+    public void DeactivateSpeedBoost() {
+        SpeedBoostActive = false;
     }
 }

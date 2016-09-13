@@ -6,9 +6,11 @@ using UnityEngine.Events;
 public class Spawner : MonoBehaviour {
     private float pickUpYDistance = 16;
     private float obstacleYDistance = 12;
+    private float powerUpYDistance = 10;
 
     private double obstacleDelay = 0;
     private double pickUpDelay = 0;
+    private double powerUpDelay = 0;
 
     public float minPickUpDelay = 0;
     public float maxPickUpDelay = 0;
@@ -16,15 +18,21 @@ public class Spawner : MonoBehaviour {
     public float minObstacleDelay = 0;
     public float maxObstacleDelay = 2;
 
+    public float minPowerUpDelay = 1;
+    public float maxPowerUpDelay = 1;
+
     //Needed for difficulty curve
     public int minActiveObstacles = 1;
     public int minActivePickups = 1;
     public int maxActiveObstacles = 4;
     public int maxActivePickups = 3;
+    public int minActivePowerups = 1;
+    public int maxActivePowerups = 1;
 
     //Keep track of current data
     private int currentActiveObstacles;
     private int currentActivePickups;
+    private int currentActivePowerups;
 
     //How long is the difficulty curve
     public float difficultyIntervalTime;
@@ -32,6 +40,7 @@ public class Spawner : MonoBehaviour {
     public Transform playerTransform;
     public GameObject[] pickUps;
     public GameObject[] obstacles;
+    public GameObject[] powerUps;
     public Transform[] spawnPoints;
     public GameObject cleanUp;
 
@@ -47,34 +56,34 @@ public class Spawner : MonoBehaviour {
 
         currentActiveObstacles = minActiveObstacles;
         currentActivePickups = minActivePickups;
-        StartCoroutine(StartTimer());
+        currentActivePowerups = minActivePowerups;
     }
 
     void FixedUpdate() {
         if (CanStartSpawning)
         {
-            DifficultyCurve();
             spawnObjects();
         }
 
         pickUpDelay -= 0.01;
         obstacleDelay -= 0.01;
+        powerUpDelay -= 0.01;
     }
 
     void StartSpawning() {
         CanStartSpawning = true;
         cleanUp.SetActive(true);
-    }
-
-    void DifficultyCurve() {
-
+        StartCoroutine(StartTimer());
     }
 
     void spawnObjects() {
         int amountOfObstaclesToSpawn = Random.Range(minActiveObstacles, currentActiveObstacles);
         int amountOfPickUpsToSpawn = Random.Range(minActivePickups, currentActivePickups);
+        int amountOfPowerUpsToSpawn = Random.Range(minActivePowerups, currentActivePowerups);
+
         int currentObstacles = 0;
         int currentPickups = 0;
+        int currentPowerups = 0;
 
         if (canSpawnObstacle()) {
             for (int i = 0; i < amountOfObstaclesToSpawn; i++) {
@@ -83,6 +92,7 @@ public class Spawner : MonoBehaviour {
                         
                         int randomYOffSet = Random.Range(0, 16); // TODO: Set this position to a random lane
                         obstacle.GetComponent<SpriteRenderer>().enabled = true;
+                        obstacle.GetComponent<BoxCollider2D>().enabled = true;
                         obstacle.transform.position = new Vector2(spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position.x, playerTransform.position.y + obstacleYDistance + randomYOffSet);
                         currentObstacles++;
                     }
@@ -108,6 +118,34 @@ public class Spawner : MonoBehaviour {
             }
             pickUpDelay = Random.Range(minPickUpDelay, maxPickUpDelay);
         }
+
+        if (canSpawnPowerUp()) {
+            for (int i = 0; i < amountOfPowerUpsToSpawn; i++)
+            {
+                GameObject powerUp = powerUps[Random.Range(0, powerUps.Length)];
+                int counter = 0;
+
+                while (powerUp.GetComponent<SpriteRenderer>().enabled && counter < 10) {
+                    powerUp = powerUps[Random.Range(0, powerUps.Length)];
+                    counter++;
+                }
+
+                if (currentPowerups < amountOfPowerUpsToSpawn)
+                {
+                    int randomYOffSet = Random.Range(0, 4);
+
+                    powerUp.GetComponent<SpriteRenderer>().enabled = true;
+                    powerUp.GetComponent<BoxCollider2D>().enabled = true;
+                    powerUp.transform.position = new Vector2(spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position.x, playerTransform.position.y + powerUpYDistance + randomYOffSet);
+                    currentPowerups++;
+                 }
+            }
+            powerUpDelay = Random.Range(minPowerUpDelay, maxPowerUpDelay);
+        }
+    }
+
+    bool canSpawnPowerUp() {
+        return powerUpDelay <= 0;
     }
 
     bool canSpawnObstacle() {

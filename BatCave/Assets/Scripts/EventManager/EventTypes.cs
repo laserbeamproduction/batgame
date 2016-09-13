@@ -25,4 +25,9 @@ public class EventTypes {
     public static string DISABLE_PLAYER_LIGHT = "disablePlayerLight";
     public static string PLAYER_IN_POSITION = "playerInPosition";
 
+    public static string PLAYER_SHIELD_PICKUP = "playerShieldPickUp";
+    public static string PLAYER_SHIELD_ENDED = "playerShieldEnded";
+
+    public static string PLAYER_SPEED_PICKUP = "playerSpeedPickUp";
+    public static string PLAYER_SPEED_ENDED = "playerSpeedEnded";
 }
