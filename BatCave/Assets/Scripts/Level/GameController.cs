@@ -5,6 +5,7 @@ using UnityEngine.Events;
 public class GameController : MonoBehaviour {
     public GameObject pausePanel;
     public GameObject pauseButton;
+    public GameObject camera;
     public Light directionalLight;
     public float fadeOutDelay;
     public float playerFliesInDelay;
@@ -16,12 +17,14 @@ public class GameController : MonoBehaviour {
     private float playerFliesInCounter;
     private bool playerDied;
     private bool playerFlyInTriggered;
+    private bool playerInPosition;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start() {
         EventManager.StartListening(EventTypes.GAME_OVER, OnGameOver);
         EventManager.StartListening(EventTypes.GAME_START, OnGameStart);
         EventManager.StartListening(EventTypes.PLAYER_DIED, OnPlayerDied);
+        EventManager.StartListening(EventTypes.PLAYER_IN_POSITION, OnPlayerPositioned);
 
         EventManager.TriggerEvent(EventTypes.GAME_START);
     }
@@ -49,6 +52,10 @@ public class GameController : MonoBehaviour {
                 playerFliesInCounter += Time.deltaTime;
             }
         }
+        if (!playerInPosition && playerFliesInCounter == -1f) {
+            float step = 5f * Time.deltaTime;
+            camera.transform.position = Vector3.MoveTowards(transform.position, new Vector3(0f,0f,-10f), step);
+        }
     }
 
     void Update() {
@@ -59,6 +66,10 @@ public class GameController : MonoBehaviour {
                 EventManager.TriggerEvent(EventTypes.GAME_OVER);
             }
         }
+    }
+
+    void OnPlayerPositioned() {
+        playerInPosition = true;
     }
 
     void OnPlayerDied() {

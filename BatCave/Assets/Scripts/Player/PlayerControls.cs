@@ -110,6 +110,7 @@ public class PlayerControls : MonoBehaviour {
                 if (pos.y >= playerYposition) {
                     playerIsFlyingIn = false;
                     controlsEnabled = true;
+                    EventManager.TriggerEvent(EventTypes.PLAYER_IN_POSITION);
                     rigidbody.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
                 }
             }

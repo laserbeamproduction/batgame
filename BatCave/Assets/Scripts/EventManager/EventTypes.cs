@@ -23,5 +23,6 @@ public class EventTypes {
     public static string PLAYER_FLY_IN = "playerFlyIn";
     public static string ENABLE_PLAYER_LIGHT = "enablePlayerLight";
     public static string DISABLE_PLAYER_LIGHT = "disablePlayerLight";
+    public static string PLAYER_IN_POSITION = "playerInPosition";
 
 }
