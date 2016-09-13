@@ -249,7 +249,7 @@ public class GooglePlayHelper {
     }
     
     public void ReportEvent(string eventName, float value) {
-        uint u = BitConverter.ToUInt32(BitConverter.GetBytes(value), 0);
+        uint u = Convert.ToUInt32(value);
         ReportEvent(eventName, u);
     }
 
