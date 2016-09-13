@@ -7,6 +7,7 @@ public class ScoreCalculator : MonoBehaviour {
     public float playerScore;
 
     private bool isPaused;
+    private bool gameStarted;
 
 
     void Start () {
@@ -14,7 +15,7 @@ public class ScoreCalculator : MonoBehaviour {
         EventManager.StartListening(EventTypes.GAME_RESUME, OnGameResume);
         EventManager.StartListening(EventTypes.GAME_PAUSED, OnGamePaused);
         EventManager.StartListening(EventTypes.PLAYER_DIED, OnGamePaused);
-
+        EventManager.StartListening(EventTypes.PLAYER_IN_POSITION, OnIntroCompleet);
     }
 
     void OnGamePaused() {
@@ -23,6 +24,10 @@ public class ScoreCalculator : MonoBehaviour {
 
     void OnGameResume() {
         isPaused = false;
+    }
+
+    void OnIntroCompleet() {
+        gameStarted = true;
     }
 
     // Update is called once per frame
@@ -43,11 +48,11 @@ public class ScoreCalculator : MonoBehaviour {
         EventManager.StopListening(EventTypes.GAME_RESUME, OnGameResume);
         EventManager.StopListening(EventTypes.GAME_PAUSED, OnGamePaused);
         EventManager.StopListening(EventTypes.PLAYER_DIED, OnGamePaused);
-
+        EventManager.StopListening(EventTypes.PLAYER_IN_POSITION, OnIntroCompleet);
     }
 
     void FixedUpdate() {
-        if (!isPaused) 
+        if (!isPaused && gameStarted) 
             playerScore += 1;
     }
 

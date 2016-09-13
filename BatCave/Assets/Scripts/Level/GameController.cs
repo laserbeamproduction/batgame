@@ -6,6 +6,8 @@ public class GameController : MonoBehaviour {
     public GameObject pausePanel;
     public GameObject pauseButton;
     public GameObject camera;
+    public GameObject scorePanel;
+    public GameObject skillSlider;
     public Light directionalLight;
     public float fadeOutDelay;
     public float playerFliesInDelay;
@@ -71,6 +73,11 @@ public class GameController : MonoBehaviour {
 
     void OnPlayerPositioned() {
         playerInPosition = true;
+
+        // Reactivate UI
+        skillSlider.SetActive(true);
+        pauseButton.SetActive(true);
+        scorePanel.SetActive(true);
     }
 
     void OnPlayerDied() {
@@ -81,6 +88,11 @@ public class GameController : MonoBehaviour {
     void OnGameStart() {
         // reset player model
         SaveLoadController.GetInstance().GetEndlessSession().Reset();
+
+        // hide UI
+        skillSlider.SetActive(false);
+        pauseButton.SetActive(false);
+        scorePanel.SetActive(false);
     }
 
     public void PauseGame() {

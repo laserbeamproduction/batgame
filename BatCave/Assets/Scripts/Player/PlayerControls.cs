@@ -10,6 +10,7 @@ public class PlayerControls : MonoBehaviour {
     public SkillSlider skillSlider;
     public GameObject[] playerEchos;
     public Light playerLight;
+    public float playerScaleUpSpeed;
     private Rigidbody2D rigidbody;
 
     //movement
@@ -98,6 +99,11 @@ public class PlayerControls : MonoBehaviour {
         rigidbody.velocity = movement;
         if (playerIsFlyingIn)
         {
+            if (transform.localScale.x < 1 || transform.localScale.y < 1) {
+                transform.localScale += new Vector3(playerScaleUpSpeed, playerScaleUpSpeed, playerScaleUpSpeed);
+            } else {
+                transform.localScale = new Vector3(1f, 1f, 1f);
+            }
             Vector2 pos = rigidbody.position;
             //pos = Vector2.MoveTowards(pos, new Vector2(pos.x, playerYposition), 5f * Time.deltaTime);
             //rigidbody.position = pos;
