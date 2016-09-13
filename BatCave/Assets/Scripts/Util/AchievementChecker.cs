@@ -23,7 +23,7 @@ public class AchievementChecker : MonoBehaviour {
             GooglePlayHelper.GetInstance().UnlockAchievement(GPGSConstant.achievement_excellent_100_points);
         }
 
-        if (goodEchosSequence >= 25) {
+        if (goodEchosSequence >= 50) {
             GooglePlayHelper.GetInstance().UnlockAchievement(GPGSConstant.achievement_good_50_points);
         }
     }
