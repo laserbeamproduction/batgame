@@ -84,7 +84,8 @@ public class PlayerControls : MonoBehaviour {
     }
 
     void Update() {
-        if (!isPaused && !playerIsDead && controlsEnabled) {
+        if (!isPaused && !playerIsDead && controlsEnabled)
+        {
             CheckPlayerPosition();
             //Swipe Controls
             Vector2 pos = rigidbody.position;
@@ -94,6 +95,24 @@ public class PlayerControls : MonoBehaviour {
             rigidbody.AddForce(transform.forward * speed * Time.deltaTime, ForceMode2D.Force);
         }
 
+        rigidbody.velocity = movement;
+        if (playerIsFlyingIn)
+        {
+            Vector2 pos = rigidbody.position;
+            //pos = Vector2.MoveTowards(pos, new Vector2(pos.x, playerYposition), 5f * Time.deltaTime);
+            //rigidbody.position = pos;
+            //rigidbody.MovePosition(pos - new Vector2(pos.x, playerYposition) * (2.25f * Time.deltaTime));
+            transform.Translate(0, 0.05f, 0);
+
+            if (pos.y >= playerYposition)
+            {
+                pos.y = playerYposition;
+                playerIsFlyingIn = false;
+                controlsEnabled = true;
+                EventManager.TriggerEvent(EventTypes.PLAYER_IN_POSITION);
+                rigidbody.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+            }
+        }
         //Motion Contols
         //movement = new Vector2(Input.GetAxis("Horizontal"), 0) * speed; //turn this on for desktop controls
         //movement = new Vector2(Input.acceleration.x, 0) * speed; //turn this on for android controls
@@ -102,20 +121,6 @@ public class PlayerControls : MonoBehaviour {
     void FixedUpdate()
     {
         if (!isPaused && !playerIsDead) {
-            rigidbody.velocity = movement;
-            if (playerIsFlyingIn) {
-                Vector2 pos = rigidbody.position;
-                pos.y = Mathf.MoveTowards(pos.y, playerYposition, 5f * Time.deltaTime);
-                rigidbody.position = pos;
-                if (pos.y >= playerYposition) {
-                    playerIsFlyingIn = false;
-                    controlsEnabled = true;
-                    EventManager.TriggerEvent(EventTypes.PLAYER_IN_POSITION);
-                    rigidbody.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
-                }
-            }
-
-
             if (lightIsFadingIn) {
                 playerLight.intensity = Mathf.Lerp(playerLight.intensity, 8f, 0.5f * Time.deltaTime);
                 if (playerLight.intensity >= 7f) {

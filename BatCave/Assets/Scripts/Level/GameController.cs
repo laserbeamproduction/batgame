@@ -52,10 +52,6 @@ public class GameController : MonoBehaviour {
                 playerFliesInCounter += Time.deltaTime;
             }
         }
-        if (!playerInPosition && playerFliesInCounter == -1f) {
-            float step = 5f * Time.deltaTime;
-            camera.transform.position = Vector3.MoveTowards(transform.position, new Vector3(0f,0f,-10f), step);
-        }
     }
 
     void Update() {
@@ -65,6 +61,11 @@ public class GameController : MonoBehaviour {
                 playerDied = false;
                 EventManager.TriggerEvent(EventTypes.GAME_OVER);
             }
+        }
+
+        if (!playerInPosition && playerFliesInCounter == -1f) {
+            //camera.transform.position = Vector3.MoveTowards(transform.position, new Vector3(0f,0f,-10f), step);
+            camera.transform.Translate(0, 0.05f, 0);
         }
     }
 

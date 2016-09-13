@@ -7,6 +7,7 @@ public class SimpleMoveScript : MonoBehaviour {
     public Vector2 Speed = new Vector2(0.0f, -0.05f);
     private Rigidbody2D rb;
     private bool isPaused;
+    private bool isIntro = true;
     //public float speed;
     //public Vector3 direction;
     public float speedIncreaseTime;
@@ -16,14 +17,11 @@ public class SimpleMoveScript : MonoBehaviour {
 
     void Start() {
         Speed = new Vector2(0, startSpeed);
-        rb = GetComponent<Rigidbody2D>();
-        if (rb != null)
-        {
-            rb.velocity = new Vector2(Speed.x, Speed.y);
-        }
+
         EventManager.StartListening(EventTypes.GAME_RESUME, OnGameResume);
         EventManager.StartListening(EventTypes.GAME_PAUSED, OnGamePaused);
         EventManager.StartListening(EventTypes.PLAYER_DIED, OnGamePaused);
+        EventManager.StartListening(EventTypes.PLAYER_IN_POSITION, OnIntroCompleet);
 
         StartCoroutine(StartTimer());
     }
@@ -36,13 +34,13 @@ public class SimpleMoveScript : MonoBehaviour {
         isPaused = false;
     }
 
+    void OnIntroCompleet() {
+        isIntro = false;
+    }
+
     void Update() {
-        if (!isPaused) {
-            if (rb == null) {
-                transform.Translate(Speed.x, Speed.y, 0);
-            } else {
-                transform.Translate(Speed.x, Speed.y, 0);
-            }
+        if (!isPaused && !isIntro) {
+            transform.Translate(Speed.x, Speed.y, 0);
         }
     }
 

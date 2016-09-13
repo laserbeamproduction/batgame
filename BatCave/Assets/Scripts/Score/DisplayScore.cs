@@ -7,17 +7,19 @@ public class DisplayScore : MonoBehaviour {
 
     private Text text;
     private bool isPaused;
+    private bool isIntro = true;
 
     // Use this for initialization
     void Start () {
         text = GetComponent<Text>();
         EventManager.StartListening(EventTypes.GAME_RESUME, OnGameResume);
         EventManager.StartListening(EventTypes.GAME_PAUSED, OnGamePaused);
+        EventManager.StartListening(EventTypes.PLAYER_IN_POSITION, OnIntroCompleet);
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (!isPaused)
+        if (!isPaused && !isIntro)
             text.text = Mathf.FloorToInt(score.playerScore).ToString();
 	}
 
@@ -32,5 +34,9 @@ public class DisplayScore : MonoBehaviour {
 
     void OnGameResume() {
         isPaused = false;
+    }
+
+    void OnIntroCompleet() {
+        isIntro = false;
     }
 }

@@ -33,6 +33,7 @@ public class Spawner : MonoBehaviour {
     public GameObject[] pickUps;
     public GameObject[] obstacles;
     public Transform[] spawnPoints;
+    public GameObject cleanUp;
 
     private bool CanStartSpawning = false;
 
@@ -42,7 +43,7 @@ public class Spawner : MonoBehaviour {
     private bool increaseSpawnAmount = true;
 
     void Start() {
-        EventManager.StartListening(EventTypes.PLAYER_FLY_IN, StartSpawning);
+        EventManager.StartListening(EventTypes.PLAYER_IN_POSITION, StartSpawning);
 
         currentActiveObstacles = minActiveObstacles;
         currentActivePickups = minActivePickups;
@@ -62,6 +63,7 @@ public class Spawner : MonoBehaviour {
 
     void StartSpawning() {
         CanStartSpawning = true;
+        cleanUp.SetActive(true);
     }
 
     void DifficultyCurve() {
