@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using UnityEngine.Events;
 
 public class Spawner : MonoBehaviour {
-    public float pickUpYDistance = 20;
-    public float obstacleYDistance = 15;
+    private float pickUpYDistance = 16;
+    private float obstacleYDistance = 12;
 
     private double obstacleDelay = 0;
     private double pickUpDelay = 0;
@@ -16,10 +16,18 @@ public class Spawner : MonoBehaviour {
     public float minObstacleDelay = 0;
     public float maxObstacleDelay = 2;
 
+    //Needed for difficulty curve
     public int minActiveObstacles = 1;
     public int minActivePickups = 1;
-    public int maxActiveObstacles = 5;
+    public int maxActiveObstacles = 4;
     public int maxActivePickups = 3;
+
+    //Keep track of current data
+    private int currentActiveObstacles;
+    private int currentActivePickups;
+
+    //How long is the difficulty curve
+    public float difficultyIntervalTime;
 
     public Transform playerTransform;
     public GameObject[] pickUps;
@@ -36,14 +44,8 @@ public class Spawner : MonoBehaviour {
     void Start() {
         EventManager.StartListening(EventTypes.PLAYER_FLY_IN, StartSpawning);
 
-        //foreach (GameObject obj in obstacles) {
-        //    obj.SetActive(false);
-        //}
-
-        //foreach (GameObject obj in pickUps) {
-        //    obj.SetActive(false);
-        //}
-
+        currentActiveObstacles = minActiveObstacles;
+        currentActivePickups = minActivePickups;
         StartCoroutine(StartTimer());
     }
 
@@ -67,8 +69,8 @@ public class Spawner : MonoBehaviour {
     }
 
     void spawnObjects() {
-        int amountOfObstaclesToSpawn = Random.Range(3, maxActiveObstacles);
-        int amountOfPickUpsToSpawn = Random.Range(2, maxActivePickups);
+        int amountOfObstaclesToSpawn = Random.Range(minActiveObstacles, currentActiveObstacles);
+        int amountOfPickUpsToSpawn = Random.Range(minActivePickups, currentActivePickups);
         int currentObstacles = 0;
         int currentPickups = 0;
 
@@ -94,7 +96,8 @@ public class Spawner : MonoBehaviour {
 
                         int randomYOffSet = Random.Range(0, 8); // TODO: Set this position to a random lane
 
-                        pickup.SetActive(true);
+                        //pickup.SetActive(true);
+                        pickup.GetComponent<SpriteRenderer>().enabled = true;
                         pickup.GetComponent<BoxCollider2D>().enabled = true;
                         pickup.transform.position = new Vector2(spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position.x, playerTransform.position.y + pickUpYDistance + randomYOffSet);
                         currentPickups++;
@@ -117,8 +120,19 @@ public class Spawner : MonoBehaviour {
     {
         while (increaseSpawnAmount)
         {
-            increaseSpawnAmount = false;
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(difficultyIntervalTime);
+
+            if (currentActiveObstacles < maxActiveObstacles) {
+                currentActiveObstacles++;
+            }
+
+            if (currentActivePickups < maxActivePickups) {
+                currentActivePickups++;
+            }
+
+            if (currentActiveObstacles >= maxActiveObstacles && currentActivePickups >= maxActivePickups) {
+                increaseSpawnAmount = false;
+            }
         }
     }
 }
