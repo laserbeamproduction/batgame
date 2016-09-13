@@ -124,6 +124,7 @@ public class SkillSlider : MonoBehaviour {
             skillFeedbackController.TriggerFeedback(SkillSliderFeedback.Types.GOOD);
             SaveLoadController.GetInstance().GetEndlessSession().AddEchosTimedGood(1);
             goodEchosSequence++;
+            excellentEchosSequence = 0;
             return;
         }
 
