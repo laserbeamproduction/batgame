@@ -206,9 +206,21 @@ public class PlayerControls : MonoBehaviour {
 
     void CheckForSwipe() {
         // DEBUG CODE (Editor debug)
-        if (Input.GetMouseButtonUp(0) && Application.isEditor) {
-            SpawnEcho();
+        if (Application.isEditor) {
+            if (Input.GetMouseButtonUp(0) || Input.GetKeyUp(KeyCode.Space)) {
+                SpawnEcho();
+            }
+            if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.LeftArrow)) {
+                playerLeft = true;
+                xPosition -= 1;
+            }
+            if (Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.RightArrow)) {
+                playerRight = true;
+                xPosition += 1;
+            }
+            return;
         }
+        
 
         foreach (Touch touch in Input.touches)
         {
