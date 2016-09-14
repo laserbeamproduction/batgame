@@ -4,7 +4,7 @@ using System.Collections;
 public class PlayerAnimationController : MonoBehaviour {
 
     public string BOOST_ANIMATOR_TRIGGER = "Boost";
-    public string FLY_ANIMATOR_TRIGGER = "Boost";
+    public string FLY_ANIMATOR_TRIGGER = "Fly";
 
     private Animator animator;
 
