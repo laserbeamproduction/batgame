@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour {
     public Light directionalLight;
     public float fadeOutDelay;
     public float playerFliesInDelay;
+    public int scoreIntervalTension;
 
     public float playerDiesTime;
 
@@ -72,7 +73,7 @@ public class GameController : MonoBehaviour {
         }
 
         //start tension
-        if (scoreCalculator.playerScore % 500 == 0 && scoreCalculator.playerScore != 0)
+        if (scoreCalculator.playerScore % scoreIntervalTension == 0 && scoreCalculator.playerScore != 0)
         {
             EventManager.TriggerEvent(EventTypes.START_TENSION);
         }
