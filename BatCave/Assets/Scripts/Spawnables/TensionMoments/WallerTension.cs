@@ -39,11 +39,13 @@ public class WallerTension : TensionController {
                         }
                         else
                         {
+                            if (Random.Range(1, 101) < 75) { SpawnPickUp(i); }
                             currentOpenings++;
                         }
                     }
                     else if (currentOpenings < amountOfOpenings)
                     {
+                        if (Random.Range(1, 101) < 75) { SpawnPickUp(i); }
                         currentOpenings++;
                     }
                     else {
@@ -69,6 +71,19 @@ public class WallerTension : TensionController {
                 obstacle.GetComponent<SpriteRenderer>().enabled = true;
                 obstacle.GetComponent<BoxCollider2D>().enabled = true;
                 obstacle.transform.position = new Vector2(base.spawnpoints[index].transform.position.x, playerTransform.position.y + 25);
+                return;
+            }
+        }
+    }
+
+    void SpawnPickUp(int index) {
+        foreach (GameObject pickup in base.pickups)
+        {
+            if (!pickup.GetComponent<SpriteRenderer>().enabled)
+            {
+                pickup.GetComponent<SpriteRenderer>().enabled = true;
+                pickup.GetComponent<BoxCollider2D>().enabled = true;
+                pickup.transform.position = new Vector2(base.spawnpoints[index].transform.position.x, playerTransform.position.y + 25);
                 return;
             }
         }

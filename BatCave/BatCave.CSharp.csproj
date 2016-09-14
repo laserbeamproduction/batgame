@@ -296,6 +296,7 @@
     <Compile Include="Assets\Scripts\Util\DummyBatController.cs" />
     <Compile Include="Assets\Scripts\Util\SimpleDestroyScript.cs" />
     <Compile Include="Assets\Scripts\Util\SimpleMoveScript.cs" />
+    <Compile Include="Assets\SimpleObjectRotater.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\GooglePlayGames\Editor\Podfile.txt" />
