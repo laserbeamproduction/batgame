@@ -4,7 +4,7 @@ using System.Collections;
 public class PlayerShieldController : MonoBehaviour {
 
     private SpriteRenderer spriteRenderer;
-    public float blinkInterval = 0.5f;
+    public float blinkInterval;
     public bool powerActive;
     public ShieldBooster boosterScript;
 
@@ -15,7 +15,6 @@ public class PlayerShieldController : MonoBehaviour {
     void Start() {
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.enabled = false;
-        shieldDuration = boosterScript.shieldDuration;
         EventManager.StartListening(EventTypes.PLAYER_SHIELD_PICKUP, OnShieldActivated);
         EventManager.StartListening(EventTypes.PLAYER_SHIELD_ENDED, OnsShieldEnded);
     }
@@ -28,6 +27,7 @@ public class PlayerShieldController : MonoBehaviour {
     void OnShieldActivated() {
         spriteRenderer.enabled = true;
         powerActive = true;
+        shieldDuration = boosterScript.shieldDuration;
     }
 
     void OnsShieldEnded() {
@@ -39,8 +39,10 @@ public class PlayerShieldController : MonoBehaviour {
 
 
     void Update() {
-        if (shieldDuration < 2f && !isBlinking && powerActive) {
+        if (shieldDuration < 3f && !isBlinking && powerActive) {
             isBlinking = true;
+        } else {
+            shieldDuration -= Time.deltaTime;
         }
 
         if (isBlinking) {

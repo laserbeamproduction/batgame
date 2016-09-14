@@ -63,10 +63,10 @@ public class ScoreCalculator : MonoBehaviour {
     }
 
     void SetSpeedMultiplier() {
-        if (scoreMultiplier == 2) {
+        if (scoreMultiplier == 3) {
             scoreMultiplier = 1;
         } else {
-            scoreMultiplier = 2;
+            scoreMultiplier = 3;
         }
     }
 }
