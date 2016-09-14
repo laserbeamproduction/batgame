@@ -1,17 +1,17 @@
 fileFormatVersion: 2
-guid: c61beb884dddeff49bccbb176a3e461d
-timeCreated: 1473255690
+guid: 12073171e7302c747a227faec883238e
+timeCreated: 1473845793
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Bat_animation_sheet_0
-    21300002: Bat_animation_sheet_1
-    21300004: Bat_animation_sheet_2
-    21300006: Bat_animation_sheet_3
-    21300008: Bat_animation_sheet_4
-    21300010: Bat_animation_sheet_5
-    21300012: Bat_animation_sheet_6
-    21300014: Bat_animation_sheet_7
+    21300000: Bat_animation_sheet_boost_0
+    21300002: Bat_animation_sheet_boost_1
+    21300004: Bat_animation_sheet_boost_2
+    21300006: Bat_animation_sheet_boost_3
+    21300008: Bat_animation_sheet_boost_4
+    21300010: Bat_animation_sheet_boost_5
+    21300012: Bat_animation_sheet_boost_6
+    21300014: Bat_animation_sheet_boost_7
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -56,22 +56,17 @@ TextureImporter:
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
   textureType: 8
-  buildTargetSettings:
-  - buildTarget: Android
-    maxTextureSize: 2048
-    textureFormat: -1
-    compressionQuality: 50
-    allowsAlphaSplitting: 0
+  buildTargetSettings: []
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Bat_animation_sheet_0
+      name: Bat_animation_sheet_boost_0
       rect:
         serializedVersion: 2
-        x: 1
+        x: 2
         y: 4
-        width: 56
+        width: 62
         height: 27
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -79,12 +74,12 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Bat_animation_sheet_1
+      name: Bat_animation_sheet_boost_1
       rect:
         serializedVersion: 2
-        x: 65
+        x: 69
         y: 4
-        width: 56
+        width: 62
         height: 27
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -92,12 +87,12 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Bat_animation_sheet_2
+      name: Bat_animation_sheet_boost_2
       rect:
         serializedVersion: 2
-        x: 128
+        x: 137
         y: 4
-        width: 54
+        width: 62
         height: 27
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -105,12 +100,12 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Bat_animation_sheet_3
+      name: Bat_animation_sheet_boost_3
       rect:
         serializedVersion: 2
-        x: 197
+        x: 203
         y: 4
-        width: 40
+        width: 62
         height: 27
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -118,49 +113,49 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Bat_animation_sheet_4
+      name: Bat_animation_sheet_boost_4
       rect:
         serializedVersion: 2
-        x: 256
-        y: 5
-        width: 44
-        height: 26
+        x: 270
+        y: 4
+        width: 62
+        height: 27
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Bat_animation_sheet_5
+      name: Bat_animation_sheet_boost_5
       rect:
         serializedVersion: 2
-        x: 310
-        y: 5
-        width: 50
-        height: 26
+        x: 337
+        y: 4
+        width: 62
+        height: 27
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Bat_animation_sheet_6
+      name: Bat_animation_sheet_boost_6
       rect:
         serializedVersion: 2
-        x: 365
-        y: 5
-        width: 60
-        height: 26
+        x: 403
+        y: 4
+        width: 62
+        height: 27
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Bat_animation_sheet_7
+      name: Bat_animation_sheet_boost_7
       rect:
         serializedVersion: 2
-        x: 430
+        x: 469
         y: 4
         width: 62
         height: 27

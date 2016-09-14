@@ -10,8 +10,10 @@ public class PlayerControls : MonoBehaviour {
     public SkillSlider skillSlider;
     public GameObject[] playerEchos;
     public Light playerLight;
+    public float lightFadeSpeed;
     public float playerScaleUpSpeed;
     private Rigidbody2D rigidbody;
+    private Animator animator;
 
     //movement
     private Vector2 movement;
@@ -34,6 +36,7 @@ public class PlayerControls : MonoBehaviour {
 
     void Start() {
         rigidbody = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         //speed = SaveLoadController.GetInstance().GetOptions().GetControlSensitivity();
         xPosition = rigidbody.position.x;
         EventManager.StartListening(EventTypes.SKILL_VALUE, OnSkillValueRecieved);
@@ -130,7 +133,7 @@ public class PlayerControls : MonoBehaviour {
     {
         if (!isPaused && !playerIsDead) {
             if (lightIsFadingIn) {
-                playerLight.intensity = Mathf.Lerp(playerLight.intensity, 8f, 0.5f * Time.deltaTime);
+                playerLight.intensity = Mathf.Lerp(playerLight.intensity, 8f, lightFadeSpeed * Time.deltaTime);
                 if (playerLight.intensity >= 7f) {
                     lightIsFadingIn = false;
                     playerLight.intensity = 8f;
@@ -138,7 +141,7 @@ public class PlayerControls : MonoBehaviour {
             }
 
             if (lightIsFadingOut) {
-                playerLight.intensity = Mathf.Lerp(playerLight.intensity, 0f, 0.5f * Time.deltaTime);
+                playerLight.intensity = Mathf.Lerp(playerLight.intensity, 0f, lightFadeSpeed * Time.deltaTime);
                 if (playerLight.intensity >= 1f) {
                     lightIsFadingOut = false;
                     playerLight.intensity = 0f;
@@ -217,6 +220,14 @@ public class PlayerControls : MonoBehaviour {
             if (Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.RightArrow)) {
                 playerRight = true;
                 xPosition += 1;
+            }
+
+            if (Input.GetKeyUp(KeyCode.P)) {
+                animator.SetBool("isBoosting", true);
+            }
+
+            if (Input.GetKeyUp(KeyCode.O)) {
+                animator.SetBool("isBoosting", false);
             }
             return;
         }

@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour {
     public ScoreCalculator scoreCalculator;
     public Light directionalLight;
     public float fadeOutDelay;
+    public float fadeOutSpeed;
     public float playerFliesInDelay;
     public int scoreIntervalTension;
 
@@ -40,7 +41,7 @@ public class GameController : MonoBehaviour {
                     EventManager.TriggerEvent(EventTypes.ENABLE_PLAYER_LIGHT);
                     playerFlyInTriggered = true;
                 }
-                directionalLight.intensity = Mathf.Lerp(directionalLight.intensity, 0f, 0.5f * Time.deltaTime);
+                directionalLight.intensity = Mathf.Lerp(directionalLight.intensity, 0f, fadeOutSpeed * Time.deltaTime);
                 if (directionalLight.intensity <= 0.5f) {
                     Destroy(directionalLight.gameObject);
                 }
