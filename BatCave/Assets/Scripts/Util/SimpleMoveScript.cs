@@ -16,7 +16,7 @@ public class SimpleMoveScript : MonoBehaviour {
     private bool increaseSpeed = true;
 
     private bool SpeedBoostActive;
-    public Vector2 BoostSpeed = new Vector2(0, -0.1f);
+    public Vector2 BoostSpeed = new Vector2(0, -0.2f);
 
     void Start() {
         Speed = new Vector2(0, startSpeed);
