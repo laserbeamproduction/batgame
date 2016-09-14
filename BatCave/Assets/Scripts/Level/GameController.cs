@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour {
     public GameObject camera;
     public GameObject scorePanel;
     public GameObject skillSlider;
+    public ScoreCalculator scoreCalculator;
     public Light directionalLight;
     public float fadeOutDelay;
     public float fadeOutSpeed;
@@ -69,6 +70,12 @@ public class GameController : MonoBehaviour {
         if (!playerInPosition && playerFliesInCounter == -1f) {
             //camera.transform.position = Vector3.MoveTowards(transform.position, new Vector3(0f,0f,-10f), step);
             camera.transform.Translate(0, 0.05f, 0);
+        }
+
+        //start tension
+        if (scoreCalculator.playerScore % 500 == 0 && scoreCalculator.playerScore != 0)
+        {
+            EventManager.TriggerEvent(EventTypes.START_TENSION);
         }
     }
 
