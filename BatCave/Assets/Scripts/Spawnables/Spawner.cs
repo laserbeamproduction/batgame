@@ -45,6 +45,7 @@ public class Spawner : MonoBehaviour {
     public GameObject cleanUp;
 
     private bool CanStartSpawning = false;
+    private bool powerUpsActivated = false;
 
     //Needed for difficulty curve
 
@@ -55,6 +56,7 @@ public class Spawner : MonoBehaviour {
         EventManager.StartListening(EventTypes.PLAYER_IN_POSITION, StartSpawning);
         EventManager.StartListening(EventTypes.START_SPAWNING, ContinueSpawning);
         EventManager.StartListening(EventTypes.STOP_SPAWNING, PauseSpawning);
+        EventManager.StartListening(EventTypes.ACTIVATE_POWERUPS, UnlockPowerups);
 
         currentActiveObstacles = minActiveObstacles;
         currentActivePickups = minActivePickups;
@@ -86,6 +88,10 @@ public class Spawner : MonoBehaviour {
         CanStartSpawning = true;
         cleanUp.SetActive(true);
         StartCoroutine(StartTimer());
+    }
+
+    void UnlockPowerups() {
+        powerUpsActivated = true;
     }
 
     void spawnObjects() {
@@ -131,7 +137,7 @@ public class Spawner : MonoBehaviour {
             pickUpDelay = Random.Range(minPickUpDelay, maxPickUpDelay);
         }
 
-        if (canSpawnPowerUp()) {
+        if (canSpawnPowerUp() && powerUpsActivated) {
             for (int i = 0; i < amountOfPowerUpsToSpawn; i++)
             {
                 GameObject powerUp = powerUps[Random.Range(0, powerUps.Length)];

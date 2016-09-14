@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour {
     public float fadeOutSpeed;
     public float playerFliesInDelay;
     public int scoreIntervalTension;
+    public int scoreForPowerups;
 
     public float playerDiesTime;
 
@@ -23,6 +24,7 @@ public class GameController : MonoBehaviour {
     private bool playerDied;
     private bool playerFlyInTriggered;
     private bool playerInPosition;
+    private bool powerUpsActive = false;
 
     // Use this for initialization
     void Start() {
@@ -77,6 +79,11 @@ public class GameController : MonoBehaviour {
         if (scoreCalculator.playerScore % scoreIntervalTension == 0 && scoreCalculator.playerScore != 0)
         {
             EventManager.TriggerEvent(EventTypes.START_TENSION);
+        }
+
+        if (scoreCalculator.playerScore > scoreForPowerups && !powerUpsActive) {
+            powerUpsActive = true;
+            EventManager.TriggerEvent(EventTypes.ACTIVATE_POWERUPS);
         }
     }
 

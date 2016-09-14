@@ -37,4 +37,6 @@ public class EventTypes {
 
     public static string START_SPAWNING = "startSpawning";
     public static string STOP_SPAWNING = "stopSpawning";
+
+    public static string ACTIVATE_POWERUPS = "activatePowerups";
 }
