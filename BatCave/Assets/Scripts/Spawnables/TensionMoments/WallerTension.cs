@@ -8,6 +8,11 @@ public class WallerTension : TensionController {
     public int amountOfWalls;
     public float RestTime;
     public Transform playerTransform;
+    public ScoreCalculator scoreCalcultor;
+    public int amountOfOpeningsHard;
+    public int amountOfWallsHard;
+    public int amountOfObstaclesWallHard;
+    public float delayBetweenWallsHard;
 
     private float wallDelayCooldown;
     private bool canStartSpawning;
@@ -90,6 +95,7 @@ public class WallerTension : TensionController {
     }
 
     public void CanStartSpawning() {
+        SetDifficulty();
         canStartSpawning = true;
         currentAmountOfWalls = 0;
     }
@@ -98,5 +104,14 @@ public class WallerTension : TensionController {
         yield return new WaitForSeconds(RestTime);
         EventManager.TriggerEvent(EventTypes.STOP_TENSION);
         StopCoroutine(CoolDownTime());
+    }
+
+    void SetDifficulty() {
+        if (scoreCalcultor.playerScore > 5500) {
+            delayBetweenWalls = delayBetweenWallsHard;
+            amountOfObstaclesInWall = amountOfObstaclesWallHard;
+            amountOfOpenings = amountOfOpeningsHard;
+            amountOfWalls = amountOfWallsHard;
+        }
     }
 }
