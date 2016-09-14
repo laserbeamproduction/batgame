@@ -16,6 +16,8 @@ public class ScoreCalculator : MonoBehaviour {
         EventManager.StartListening(EventTypes.GAME_PAUSED, OnGamePaused);
         EventManager.StartListening(EventTypes.PLAYER_DIED, OnGamePaused);
         EventManager.StartListening(EventTypes.PLAYER_IN_POSITION, OnIntroCompleet);
+        EventManager.StartListening(EventTypes.PLAYER_SPEED_PICKUP, SetSpeedMultiplier);
+        EventManager.StartListening(EventTypes.PLAYER_SPEED_ENDED, SetSpeedMultiplier);
     }
 
     void OnGamePaused() {
@@ -53,10 +55,18 @@ public class ScoreCalculator : MonoBehaviour {
 
     void FixedUpdate() {
         if (!isPaused && gameStarted) 
-            playerScore += 1;
+            playerScore += 1 * scoreMultiplier;
     }
 
     void OnGameOver() {
         SaveLoadController.GetInstance().GetEndlessSession().SetScore(playerScore);
+    }
+
+    void SetSpeedMultiplier() {
+        if (scoreMultiplier == 2) {
+            scoreMultiplier = 1;
+        } else {
+            scoreMultiplier = 2;
+        }
     }
 }
