@@ -53,6 +53,8 @@ public class Spawner : MonoBehaviour {
 
     void Start() {
         EventManager.StartListening(EventTypes.PLAYER_IN_POSITION, StartSpawning);
+        EventManager.StartListening(EventTypes.START_SPAWNING, ContinueSpawning);
+        EventManager.StartListening(EventTypes.STOP_SPAWNING, PauseSpawning);
 
         currentActiveObstacles = minActiveObstacles;
         currentActivePickups = minActivePickups;
@@ -63,11 +65,21 @@ public class Spawner : MonoBehaviour {
         if (CanStartSpawning)
         {
             spawnObjects();
-        }
 
-        pickUpDelay -= 0.01;
-        obstacleDelay -= 0.01;
-        powerUpDelay -= 0.01;
+            pickUpDelay -= 0.01;
+            obstacleDelay -= 0.01;
+            powerUpDelay -= 0.01;
+        }
+    }
+
+    void ContinueSpawning() {
+        CanStartSpawning = true;
+    }
+
+    void PauseSpawning() {
+        CanStartSpawning = false;
+        pickUpDelay = 0;
+        obstacleDelay = 0;
     }
 
     void StartSpawning() {

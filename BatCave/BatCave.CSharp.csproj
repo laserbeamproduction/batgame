@@ -288,6 +288,8 @@
     <Compile Include="Assets\Scripts\Spawnables\PickUps\Fly\FlyController.cs" />
     <Compile Include="Assets\Scripts\Spawnables\PickUps\Fly\ParticalAttractor.cs" />
     <Compile Include="Assets\Scripts\Spawnables\Spawner.cs" />
+    <Compile Include="Assets\Scripts\Spawnables\TensionMoments\TensionController.cs" />
+    <Compile Include="Assets\Scripts\Spawnables\TensionMoments\WallerTension.cs" />
     <Compile Include="Assets\Scripts\SplashScreen\SplashScreen.cs" />
     <Compile Include="Assets\Scripts\Util\AchievementChecker.cs" />
     <Compile Include="Assets\Scripts\Util\SimpleMoveScript.cs" />

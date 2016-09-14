@@ -30,4 +30,11 @@ public class EventTypes {
 
     public static string PLAYER_SPEED_PICKUP = "playerSpeedPickUp";
     public static string PLAYER_SPEED_ENDED = "playerSpeedEnded";
+
+    //Tension Moments
+    public static string START_TENSION = "startTension";
+    public static string STOP_TENSION = "stopTension";
+
+    public static string START_SPAWNING = "startSpawning";
+    public static string STOP_SPAWNING = "stopSpawning";
 }
