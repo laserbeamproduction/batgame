@@ -294,6 +294,7 @@
     <Compile Include="Assets\Scripts\Spawnables\TensionMoments\TensionController.cs" />
     <Compile Include="Assets\Scripts\Spawnables\TensionMoments\WallerTension.cs" />
     <Compile Include="Assets\Scripts\SplashScreen\SplashScreen.cs" />
+    <Compile Include="Assets\Scripts\SpriteOutline.cs" />
     <Compile Include="Assets\Scripts\Util\AchievementChecker.cs" />
     <Compile Include="Assets\Scripts\Util\DummyBatController.cs" />
     <Compile Include="Assets\Scripts\Util\SimpleDestroyScript.cs" />
@@ -306,6 +307,7 @@
     <None Include="Assets\GooglePlayGames\Editor\template-Constants.txt" />
     <None Include="Assets\GooglePlayGames\Editor\template-GameInfo.txt" />
     <None Include="Assets\Plugins\Android\MainLibProj\AndroidManifest.xml" />
+    <None Include="Assets\Shaders\Sprites-Diffuse.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

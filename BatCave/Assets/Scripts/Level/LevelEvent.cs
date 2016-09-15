@@ -31,10 +31,12 @@ public class LevelEvent : MonoBehaviour {
     }
 
     void SpeedPowerUpActive() {
+        dayNightCycle.IncreasePlayerLightRange();
         playerControls.SetShield(true);
     }
 
     void SpeedPowerUpEnded() {
+        dayNightCycle.DecreasePlayerLightRange();
         playerControls.SetShield(false);
     }
 }

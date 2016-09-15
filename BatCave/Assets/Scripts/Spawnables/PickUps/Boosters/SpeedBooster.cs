@@ -21,6 +21,7 @@ public class SpeedBooster : PowerUpController
     {
         yield return new WaitForSeconds(speedDuration);
         EventManager.TriggerEvent(EventTypes.PLAYER_SPEED_ENDED);
+        StopCoroutine(startCoolDown());
     }
 
     public void OnCollisionEnter2D(Collision2D col)
