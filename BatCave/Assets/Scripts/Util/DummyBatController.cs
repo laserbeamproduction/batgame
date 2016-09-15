@@ -18,12 +18,6 @@ public class DummyBatController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-        Vector2 pos = rigidbody.position;
-        pos.y = Mathf.MoveTowards(pos.y, 0, speed * Time.deltaTime);
-        rigidbody.position = pos;
-
-        //rigidbody.AddForce(transform.forward * speed * Time.deltaTime, ForceMode2D.Force);
         if (isDead && !particleSystem.isPlaying) {
             Debug.Log("Remove dummy bat");
             Destroy(gameObject);
