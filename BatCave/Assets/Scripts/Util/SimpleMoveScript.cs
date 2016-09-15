@@ -10,7 +10,7 @@ public class SimpleMoveScript : MonoBehaviour {
     private bool isIntro = true;
     //public float speed;
     //public Vector3 direction;
-    public float speedIncreaseTime;
+    private float speedIncreaseTime = 360;
     public float maxSpeedIncrease;
     public int amountOfSpeedIncrements = 4;
     private bool increaseSpeed = true;

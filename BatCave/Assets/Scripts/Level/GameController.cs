@@ -89,6 +89,7 @@ public class GameController : MonoBehaviour {
 
     void OnPlayerPositioned() {
         playerInPosition = true;
+        transform.position = new Vector3(0,0,transform.position.z);
 
         // Reactivate UI
         skillSlider.SetActive(true);

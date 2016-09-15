@@ -28,7 +28,6 @@ public class PlayerControls : MonoBehaviour {
     private bool isPaused;
     private bool playerIsDead;
     private bool controlsEnabled;
-    private bool playerIsFlyingIn;
     private bool lightIsFadingIn;
     private bool lightIsFadingOut;
 
@@ -43,9 +42,9 @@ public class PlayerControls : MonoBehaviour {
         EventManager.StartListening(EventTypes.GAME_RESUME, OnGameResume);
         EventManager.StartListening(EventTypes.GAME_PAUSED, OnGamePaused);
         EventManager.StartListening(EventTypes.PLAYER_DIED, OnPlayerDied);
-        EventManager.StartListening(EventTypes.PLAYER_FLY_IN, OnPlayerFliesIn);
         EventManager.StartListening(EventTypes.ENABLE_PLAYER_LIGHT, OnPlayerLightEnabled);
         EventManager.StartListening(EventTypes.DISABLE_PLAYER_LIGHT, OnPlayerLightDisabled);
+        EventManager.StartListening(EventTypes.PLAYER_IN_POSITION, OnPlayerInPosition);
     }
 
     void OnDestroy() {
@@ -53,17 +52,13 @@ public class PlayerControls : MonoBehaviour {
         EventManager.StopListening(EventTypes.GAME_RESUME, OnGameResume);
         EventManager.StopListening(EventTypes.GAME_PAUSED, OnGamePaused);
         EventManager.StopListening(EventTypes.PLAYER_DIED, OnPlayerDied);
-        EventManager.StopListening(EventTypes.PLAYER_FLY_IN, OnPlayerFliesIn);
         EventManager.StopListening(EventTypes.ENABLE_PLAYER_LIGHT, OnPlayerLightEnabled);
         EventManager.StopListening(EventTypes.DISABLE_PLAYER_LIGHT, OnPlayerLightDisabled);
+        EventManager.StopListening(EventTypes.PLAYER_IN_POSITION, OnPlayerInPosition);
     }
 
     void OnGamePaused() {
         isPaused = true;
-    }
-
-    void OnPlayerFliesIn() {
-        playerIsFlyingIn = true;
     }
 
     void OnGameResume() {
@@ -89,6 +84,12 @@ public class PlayerControls : MonoBehaviour {
         playerIsDead = true;
     }
 
+    void OnPlayerInPosition() {
+        transform.position = new Vector3(transform.position.x, playerYposition, transform.position.z);
+        controlsEnabled = true;
+        rigidbody.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+    }
+
     void Update() {
         if (!isPaused && !playerIsDead && controlsEnabled)
         {
@@ -100,33 +101,6 @@ public class PlayerControls : MonoBehaviour {
             CheckForSwipe();
             rigidbody.AddForce(transform.forward * speed * Time.deltaTime, ForceMode2D.Force);
         }
-
-        rigidbody.velocity = movement;
-        if (playerIsFlyingIn)
-        {
-            if (transform.localScale.x < 1 || transform.localScale.y < 1) {
-                transform.localScale += new Vector3(playerScaleUpSpeed, playerScaleUpSpeed, playerScaleUpSpeed);
-            } else {
-                transform.localScale = new Vector3(1f, 1f, 1f);
-            }
-            Vector2 pos = rigidbody.position;
-            //pos = Vector2.MoveTowards(pos, new Vector2(pos.x, playerYposition), 5f * Time.deltaTime);
-            //rigidbody.position = pos;
-            //rigidbody.MovePosition(pos - new Vector2(pos.x, playerYposition) * (2.25f * Time.deltaTime));
-            transform.Translate(0, 0.05f, 0);
-
-            if (pos.y >= playerYposition)
-            {
-                pos.y = playerYposition;
-                playerIsFlyingIn = false;
-                controlsEnabled = true;
-                EventManager.TriggerEvent(EventTypes.PLAYER_IN_POSITION);
-                rigidbody.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
-            }
-        }
-        //Motion Contols
-        //movement = new Vector2(Input.GetAxis("Horizontal"), 0) * speed; //turn this on for desktop controls
-        //movement = new Vector2(Input.acceleration.x, 0) * speed; //turn this on for android controls
     }
 
     void FixedUpdate()
@@ -265,9 +239,9 @@ public class PlayerControls : MonoBehaviour {
                 else if ((fp.x - lp.x) < -10){
                     touchStarted = false;
                 }
-                else if ((fp.x - lp.x) > -3 && fp.y < (Screen.height/2)) {
+                else if ((fp.x - lp.x) > -3 && fp.y < (Screen.height - Screen.height/4)) {
                     SpawnEcho();
-                } else if ((fp.x - lp.x) < 3 && fp.y < (Screen.height / 2)) {
+                } else if ((fp.x - lp.x) < 3 && fp.y < (Screen.height - Screen.height / 4)) {
                     SpawnEcho();
                 }
             }
