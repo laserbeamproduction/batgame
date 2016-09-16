@@ -2,9 +2,7 @@
 using System.Collections;
 
 public class DummyBatController : MonoBehaviour {
-
-    public float speed;
-
+    
     private Rigidbody2D rigidbody;
     private ParticleSystem particleSystem;
     private bool isDead;
@@ -19,7 +17,6 @@ public class DummyBatController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (isDead && !particleSystem.isPlaying) {
-            Debug.Log("Remove dummy bat");
             Destroy(gameObject);
         }
     }

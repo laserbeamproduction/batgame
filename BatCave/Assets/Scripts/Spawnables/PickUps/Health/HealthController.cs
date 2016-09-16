@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-public class FlyController : MonoBehaviour {
+public class HealthController : MonoBehaviour {
     public bool markedForDestroy = false;
     private ParticleSystem particle;
     private SpriteRenderer spriteRenderer;
@@ -33,7 +33,7 @@ public class FlyController : MonoBehaviour {
         if (!isHitByPlayer) {
             if (col.gameObject.tag == "Player") {
                 gameObject.GetComponent<BoxCollider2D>().enabled = false;
-                EventManager.TriggerEvent(EventTypes.FLY_PICK_UP);
+                EventManager.TriggerEvent(EventTypes.HEALTH_PICKED_UP);
                 isHitByPlayer = true;
             }
 

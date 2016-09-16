@@ -10,7 +10,7 @@ public class EventTypes {
 
     public static string NEW_HIGHSCORE = "newHighscore";
 
-    public static string FLY_PICK_UP = "flyPickUp";
+    public static string HEALTH_PICKED_UP = "healthPickedUp";
     public static string ECHO_USED = "echoUsed";
     public static string ECHO_USED_RESOURCES = "echoUsedResources";
     public static string SKILL_VALUE = "skillValue";
@@ -21,6 +21,7 @@ public class EventTypes {
     public static string PLAYER_SPEED_CHANGED = "playerSpeedChanged";
     public static string PLAYER_DIED = "playerDied";
     public static string PLAYER_FLY_IN = "playerFlyIn";
+    public static string PLAYER_TAKES_DAMAGE = "playerTakesDamage";
     public static string ENABLE_PLAYER_LIGHT = "enablePlayerLight";
     public static string DISABLE_PLAYER_LIGHT = "disablePlayerLight";
     public static string PLAYER_IN_POSITION = "playerInPosition";

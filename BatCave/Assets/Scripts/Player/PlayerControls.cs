@@ -81,6 +81,12 @@ public class PlayerControls : MonoBehaviour {
     }
 
     void OnPlayerDied() {
+        // Hide player sprite
+        GetComponent<SpriteRenderer>().enabled = false;
+
+        // Start blood effect
+        GetComponent<ParticleSystem>().Play();
+
         playerIsDead = true;
     }
 
@@ -126,9 +132,7 @@ public class PlayerControls : MonoBehaviour {
     }
 
     public void SpawnEcho() {
-        if (CanAffordEcho(playerResources.echoCost)) {
-            EventManager.TriggerEvent(EventTypes.ECHO_USED);
-        }
+        EventManager.TriggerEvent(EventTypes.ECHO_USED);
     }
 
     void OnSkillValueRecieved() {
@@ -144,25 +148,21 @@ public class PlayerControls : MonoBehaviour {
         }
     }
 
-    bool CanAffordEcho(float cost) {
-        return playerResources.stamina >= cost;
-    }
-
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.tag == "Obstacle" && canDie)
+        if (col.gameObject.tag == "Obstacle")
         {
-            // Hide player sprite
-            GetComponent<SpriteRenderer>().enabled = false;
+            // take damage
+            if (canDie) {
+                playerResources.removeHealth(playerResources.damageAmount);
+                EventManager.TriggerEvent(EventTypes.PLAYER_TAKES_DAMAGE);
+            } else {
+                col.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            }
 
-            // Start blood effect
-            GetComponent<ParticleSystem>().Play();
-
-            EventManager.TriggerEvent(EventTypes.PLAYER_DIED);
-        }
-
-        if (col.gameObject.tag == "Obstacle" && !canDie) {
-            col.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            // check if player died
+            if (playerResources.health <= 0)
+                EventManager.TriggerEvent(EventTypes.PLAYER_DIED);
         }
     }
 

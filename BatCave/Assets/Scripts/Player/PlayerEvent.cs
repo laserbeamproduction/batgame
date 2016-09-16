@@ -7,26 +7,25 @@ public class PlayerEvent : MonoBehaviour {
     public PlayerControls playerControls;
 
     void OnEnable() {
-        EventManager.StartListening(EventTypes.FLY_PICK_UP, flyPickedUp);
+        EventManager.StartListening(EventTypes.HEALTH_PICKED_UP, healthPickedUp);
         EventManager.StartListening(EventTypes.ECHO_USED_RESOURCES, echoUsed);
         EventManager.StartListening(EventTypes.PLAYER_SHIELD_PICKUP, shieldActive);
         EventManager.StartListening(EventTypes.PLAYER_SHIELD_ENDED, shieldEnded);
     }
 
     void OnDisable() {
-        EventManager.StopListening(EventTypes.FLY_PICK_UP, flyPickedUp);
+        EventManager.StopListening(EventTypes.HEALTH_PICKED_UP, healthPickedUp);
         EventManager.StopListening(EventTypes.ECHO_USED_RESOURCES, echoUsed);
         EventManager.StopListening(EventTypes.PLAYER_SHIELD_PICKUP, shieldActive);
         EventManager.StopListening(EventTypes.PLAYER_SHIELD_ENDED, shieldEnded);
     }
 
-    void flyPickedUp() {
-        playerResource.addStamina(playerResource.batResourcePickup);
+    void healthPickedUp() {
+        playerResource.addHealth(playerResource.healthPickupAmount);
         SaveLoadController.GetInstance().GetEndlessSession().AddResourcesGathered(1);
     }
 
     void echoUsed() {
-        playerResource.removeStamina(playerResource.echoCost);
         playerResource.echoUsed();
     }
 
