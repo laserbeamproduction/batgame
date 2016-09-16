@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: c61beb884dddeff49bccbb176a3e461d
-timeCreated: 1474025227
+timeCreated: 1474035568
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -69,7 +69,7 @@ TextureImporter:
       name: Bat_animation_sheet_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 2
         y: 0
         width: 64
         height: 32
@@ -82,7 +82,7 @@ TextureImporter:
       name: Bat_animation_sheet_1
       rect:
         serializedVersion: 2
-        x: 67
+        x: 74
         y: 1
         width: 58
         height: 30
@@ -95,7 +95,7 @@ TextureImporter:
       name: Bat_animation_sheet_2
       rect:
         serializedVersion: 2
-        x: 131
+        x: 138
         y: 0
         width: 58
         height: 32
@@ -108,7 +108,7 @@ TextureImporter:
       name: Bat_animation_sheet_3
       rect:
         serializedVersion: 2
-        x: 194
+        x: 201
         y: 0
         width: 40
         height: 32
@@ -121,7 +121,7 @@ TextureImporter:
       name: Bat_animation_sheet_4
       rect:
         serializedVersion: 2
-        x: 244
+        x: 253
         y: 2
         width: 44
         height: 30
@@ -134,10 +134,10 @@ TextureImporter:
       name: Bat_animation_sheet_5
       rect:
         serializedVersion: 2
-        x: 298
-        y: 2
+        x: 303
+        y: 1
         width: 54
-        height: 30
+        height: 31
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -147,23 +147,10 @@ TextureImporter:
       name: Bat_animation_sheet_6
       rect:
         serializedVersion: 2
-        x: 354
+        x: 361
         y: 1
         width: 62
         height: 31
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Bat_animation_sheet_7
-      rect:
-        serializedVersion: 2
-        x: 418
-        y: 0
-        width: 64
-        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
