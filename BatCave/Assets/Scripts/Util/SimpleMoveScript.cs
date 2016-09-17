@@ -31,15 +31,15 @@ public class SimpleMoveScript : MonoBehaviour {
         StartCoroutine(StartTimer());
     }
 
-    void OnGamePaused() {
+    void OnGamePaused(Dictionary<string, object> arg0) {
         isPaused = true;
     }
 
-    void OnGameResume() {
+    void OnGameResume(Dictionary<string, object> arg0) {
         isPaused = false;
     }
 
-    void OnIntroCompleet() {
+    void OnIntroCompleet(Dictionary<string, object> arg0) {
         isIntro = false;
     }
 
@@ -58,7 +58,9 @@ public class SimpleMoveScript : MonoBehaviour {
         EventManager.StopListening(EventTypes.GAME_RESUME, OnGameResume);
         EventManager.StopListening(EventTypes.GAME_PAUSED, OnGamePaused);
         EventManager.StopListening(EventTypes.PLAYER_DIED, OnGamePaused);
-
+        EventManager.StopListening(EventTypes.PLAYER_IN_POSITION, OnIntroCompleet);
+        EventManager.StopListening(EventTypes.PLAYER_SPEED_PICKUP, ActivateSpeedBoost);
+        EventManager.StopListening(EventTypes.PLAYER_SPEED_ENDED, DeactivateSpeedBoost);
     }
 
     IEnumerator StartTimer() {
@@ -75,11 +77,11 @@ public class SimpleMoveScript : MonoBehaviour {
         }
     }
 
-    public void ActivateSpeedBoost() {
+    public void ActivateSpeedBoost(Dictionary<string, object> arg0) {
         SpeedBoostActive = true;
     }
 
-    public void DeactivateSpeedBoost() {
+    public void DeactivateSpeedBoost(Dictionary<string, object> arg0) {
         SpeedBoostActive = false;
     }
 }

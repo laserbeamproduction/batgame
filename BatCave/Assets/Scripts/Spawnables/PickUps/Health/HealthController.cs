@@ -33,7 +33,7 @@ public class HealthController : MonoBehaviour {
         if (!isHitByPlayer) {
             if (col.gameObject.tag == "Player") {
                 gameObject.GetComponent<BoxCollider2D>().enabled = false;
-                EventManager.TriggerEvent(EventTypes.HEALTH_PICKED_UP);
+                EventManager.TriggerEvent(EventTypes.HEALTH_PICKED_UP, null);
                 isHitByPlayer = true;
             }
 

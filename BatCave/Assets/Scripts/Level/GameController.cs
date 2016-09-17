@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.Events;
+using System;
+using System.Collections.Generic;
 
 public class GameController : MonoBehaviour {
     public GameObject pausePanel;
@@ -33,14 +35,14 @@ public class GameController : MonoBehaviour {
         EventManager.StartListening(EventTypes.PLAYER_DIED, OnPlayerDied);
         EventManager.StartListening(EventTypes.PLAYER_IN_POSITION, OnPlayerPositioned);
 
-        EventManager.TriggerEvent(EventTypes.GAME_START);
+        EventManager.TriggerEvent(EventTypes.GAME_START, null);
     }
 
     void FixedUpdate() {
         if (directionalLight != null) {
             if (fadeOutDelayCounter >= fadeOutDelay) {
                 if (!playerFlyInTriggered) {
-                    EventManager.TriggerEvent(EventTypes.ENABLE_PLAYER_LIGHT);
+                    EventManager.TriggerEvent(EventTypes.ENABLE_PLAYER_LIGHT, null);
                     playerFlyInTriggered = true;
                 }
                 directionalLight.intensity = Mathf.Lerp(directionalLight.intensity, 0f, fadeOutSpeed * Time.deltaTime);
@@ -54,7 +56,7 @@ public class GameController : MonoBehaviour {
         if (playerFliesInCounter != -1f) {
             if (playerFliesInCounter >= playerFliesInDelay) {
                 playerFliesInCounter = -1f;
-                EventManager.TriggerEvent(EventTypes.PLAYER_FLY_IN);
+                EventManager.TriggerEvent(EventTypes.PLAYER_FLY_IN, null);
             } else {
                 playerFliesInCounter += Time.deltaTime;
             }
@@ -66,7 +68,7 @@ public class GameController : MonoBehaviour {
             playerDiesCounter += Time.deltaTime;
             if (playerDiesCounter >= playerDiesTime) {
                 playerDied = false;
-                EventManager.TriggerEvent(EventTypes.GAME_OVER);
+                EventManager.TriggerEvent(EventTypes.GAME_OVER, null);
             }
         }
 
@@ -78,16 +80,16 @@ public class GameController : MonoBehaviour {
         //start tension
         if (scoreCalculator.playerScore % scoreIntervalTension == 0 && scoreCalculator.playerScore != 0)
         {
-            EventManager.TriggerEvent(EventTypes.START_TENSION);
+            EventManager.TriggerEvent(EventTypes.START_TENSION, null);
         }
 
         if (scoreCalculator.playerScore > scoreForPowerups && !powerUpsActive) {
             powerUpsActive = true;
-            EventManager.TriggerEvent(EventTypes.ACTIVATE_POWERUPS);
+            EventManager.TriggerEvent(EventTypes.ACTIVATE_POWERUPS, null);
         }
     }
 
-    void OnPlayerPositioned() {
+    void OnPlayerPositioned(Dictionary<string, object> arg0) {
         playerInPosition = true;
         transform.position = new Vector3(0,0,transform.position.z);
 
@@ -97,12 +99,12 @@ public class GameController : MonoBehaviour {
         scorePanel.SetActive(true);
     }
 
-    void OnPlayerDied() {
+    void OnPlayerDied(Dictionary<string, object> arg0) {
         playerDied = true;
         pauseButton.SetActive(false);
     }
 
-    void OnGameStart() {
+    void OnGameStart(Dictionary<string, object> arg0) {
         // reset player model
         SaveLoadController.GetInstance().GetEndlessSession().Reset();
 
@@ -113,16 +115,16 @@ public class GameController : MonoBehaviour {
     }
 
     public void PauseGame() {
-        EventManager.TriggerEvent(EventTypes.GAME_PAUSED);
+        EventManager.TriggerEvent(EventTypes.GAME_PAUSED, null);
         pausePanel.SetActive(true);
     }
 
     public void ResumeGame() {
         pausePanel.SetActive(false);
-        EventManager.TriggerEvent(EventTypes.GAME_RESUME);
+        EventManager.TriggerEvent(EventTypes.GAME_RESUME, null);
     }
 
-    void OnGameOver() {
+    void OnGameOver(Dictionary<string, object> arg0) {
         PlayerSave player = SaveLoadController.GetInstance().GetPlayer();
         EndlessSessionSave gameSession = SaveLoadController.GetInstance().GetEndlessSession();
         GooglePlayHelper gph = GooglePlayHelper.GetInstance();
@@ -141,7 +143,7 @@ public class GameController : MonoBehaviour {
 
         // highscore post
         if (gameSession.GetTotalScore() > player.GetHighscore()) {
-            EventManager.TriggerEvent(EventTypes.NEW_HIGHSCORE);
+            EventManager.TriggerEvent(EventTypes.NEW_HIGHSCORE, null);
             player.SetHighscore(gameSession.GetTotalScore());
             gph.PostHighscore(player.GetHighscore(), GPGSConstant.leaderboard_endless_mode);
         }
@@ -154,5 +156,7 @@ public class GameController : MonoBehaviour {
     void OnDestroy() {
         EventManager.StopListening(EventTypes.GAME_OVER, OnGameOver);
         EventManager.StopListening(EventTypes.GAME_START, OnGameStart);
+        EventManager.StopListening(EventTypes.PLAYER_DIED, OnPlayerDied);
+        EventManager.StopListening(EventTypes.PLAYER_IN_POSITION, OnPlayerPositioned);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class SkillSlider : MonoBehaviour {
 
@@ -31,11 +32,11 @@ public class SkillSlider : MonoBehaviour {
         EventManager.StartListening(EventTypes.GAME_PAUSED, OnGamePaused);
     }
 
-    void OnGamePaused() {
+    void OnGamePaused(Dictionary<string, object> arg0) {
         isPaused = true;
     }
 
-    void OnGameResume() {
+    void OnGameResume(Dictionary<string, object> arg0) {
         isPaused = false;
         StartAtRandomPosition();
     }
@@ -85,9 +86,11 @@ public class SkillSlider : MonoBehaviour {
         slider.value += (direction * speed * Time.deltaTime);
     }
 
-    void OnSkillShotTriggered() {
+    void OnSkillShotTriggered(Dictionary<string, object> arg0) {
         if (onCooldown) 
             return;
+
+        Debug.Log(arg0["KEY"]);
 
         // set value
         lastSkillValue = slider.value;
@@ -99,8 +102,8 @@ public class SkillSlider : MonoBehaviour {
         AchievementChecker.CheckForTimingAchievement(excellentEchosSequence, goodEchosSequence);
 
         // dispatch value for the beam
-        EventManager.TriggerEvent(EventTypes.SKILL_VALUE);
-        EventManager.TriggerEvent(EventTypes.ECHO_USED_RESOURCES);
+        EventManager.TriggerEvent(EventTypes.SKILL_VALUE, null);
+        EventManager.TriggerEvent(EventTypes.ECHO_USED_RESOURCES, null);
 
         // Activate cooldown
         ResetCoolDown();

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.Events;
+using System.Collections.Generic;
 
 public class DayLightBooster : PowerUpController
 {
@@ -12,7 +12,7 @@ public class DayLightBooster : PowerUpController
         EventManager.StartListening(EventTypes.SET_DAY_TIME, startCycle);
     }
 
-    void startCycle()
+    void startCycle(Dictionary<string, object> arg0)
     {
         StartCoroutine(startCoolDown());
     }
@@ -20,7 +20,7 @@ public class DayLightBooster : PowerUpController
     IEnumerator startCoolDown()
     {
         yield return new WaitForSeconds(DayTimeUpTime);
-        EventManager.TriggerEvent(EventTypes.SET_NIGHT_TIME);
+        EventManager.TriggerEvent(EventTypes.SET_NIGHT_TIME, null);
     }
 
     public void OnCollisionEnter2D(Collision2D col)
@@ -29,7 +29,7 @@ public class DayLightBooster : PowerUpController
         {
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            EventManager.TriggerEvent(EventTypes.SET_DAY_TIME);
+            EventManager.TriggerEvent(EventTypes.SET_DAY_TIME, null);
         }
 
         if (col.gameObject.tag == "CleanUp")

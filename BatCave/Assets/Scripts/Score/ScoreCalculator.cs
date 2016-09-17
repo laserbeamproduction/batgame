@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class ScoreCalculator : MonoBehaviour {
     private float timePlayed = 0;
@@ -20,15 +20,15 @@ public class ScoreCalculator : MonoBehaviour {
         EventManager.StartListening(EventTypes.PLAYER_SPEED_ENDED, SetSpeedMultiplier);
     }
 
-    void OnGamePaused() {
+    void OnGamePaused(Dictionary<string, object> arg0) {
         isPaused = true;
     }
 
-    void OnGameResume() {
+    void OnGameResume(Dictionary<string, object> arg0) {
         isPaused = false;
     }
 
-    void OnIntroCompleet() {
+    void OnIntroCompleet(Dictionary<string, object> arg0) {
         gameStarted = true;
     }
 
@@ -58,11 +58,11 @@ public class ScoreCalculator : MonoBehaviour {
             playerScore += 1 * scoreMultiplier;
     }
 
-    void OnGameOver() {
+    void OnGameOver(Dictionary<string, object> arg0) {
         SaveLoadController.GetInstance().GetEndlessSession().SetScore(playerScore);
     }
 
-    void SetSpeedMultiplier() {
+    void SetSpeedMultiplier(Dictionary<string, object> arg0) {
         if (scoreMultiplier == 3) {
             scoreMultiplier = 1;
         } else {

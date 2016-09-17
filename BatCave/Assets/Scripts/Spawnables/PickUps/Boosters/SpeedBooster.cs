@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.Events;
+using System.Collections.Generic;
 
 public class SpeedBooster : PowerUpController
 {
@@ -12,7 +13,7 @@ public class SpeedBooster : PowerUpController
         EventManager.StartListening(EventTypes.PLAYER_SPEED_PICKUP, activateSpeed);
     }
 
-    void activateSpeed()
+    void activateSpeed(Dictionary<string, object> arg0)
     {
         StartCoroutine(startCoolDown());
     }
@@ -20,7 +21,7 @@ public class SpeedBooster : PowerUpController
     IEnumerator startCoolDown()
     {
         yield return new WaitForSeconds(speedDuration);
-        EventManager.TriggerEvent(EventTypes.PLAYER_SPEED_ENDED);
+        EventManager.TriggerEvent(EventTypes.PLAYER_SPEED_ENDED, null);
         StopCoroutine(startCoolDown());
     }
 
@@ -30,7 +31,7 @@ public class SpeedBooster : PowerUpController
         {
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            EventManager.TriggerEvent(EventTypes.PLAYER_SPEED_PICKUP);
+            EventManager.TriggerEvent(EventTypes.PLAYER_SPEED_PICKUP, null);
         }
 
         if (col.gameObject.tag == "CleanUp")

@@ -20,6 +20,6 @@ public class UIBars : MonoBehaviour {
     }
 
     public void ActivteShapeShift() {
-        EventManager.TriggerEvent(EventTypes.SHAPE_SHIFT);
+        EventManager.TriggerEvent(EventTypes.SHAPE_SHIFT, null);
     }
 }

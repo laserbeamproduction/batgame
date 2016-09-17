@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class DisplayScore : MonoBehaviour {
     public ScoreCalculator score;
@@ -26,11 +26,11 @@ public class DisplayScore : MonoBehaviour {
         EventManager.StopListening(EventTypes.GAME_PAUSED, OnGamePaused);
     }
 
-    void OnGamePaused() {
+    void OnGamePaused(Dictionary<string, object> arg0) {
         isPaused = true;
     }
 
-    void OnGameResume() {
+    void OnGameResume(Dictionary<string, object> arg0) {
         isPaused = false;
     }
 }

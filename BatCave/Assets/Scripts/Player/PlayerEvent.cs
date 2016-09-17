@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.Events;
+using System.Collections.Generic;
 
 public class PlayerEvent : MonoBehaviour {
     public PlayerResources playerResource;
@@ -20,20 +19,20 @@ public class PlayerEvent : MonoBehaviour {
         EventManager.StopListening(EventTypes.PLAYER_SHIELD_ENDED, shieldEnded);
     }
 
-    void healthPickedUp() {
+    void healthPickedUp(Dictionary<string, object> arg0) {
         playerResource.addHealth(playerResource.healthPickupAmount);
         SaveLoadController.GetInstance().GetEndlessSession().AddResourcesGathered(1);
     }
 
-    void echoUsed() {
+    void echoUsed(Dictionary<string, object> arg0) {
         playerResource.echoUsed();
     }
 
-    void shieldActive() {
+    void shieldActive(Dictionary<string, object> arg0) {
         playerControls.SetShield(true);
     }
 
-    void shieldEnded() {
+    void shieldEnded(Dictionary<string, object> arg0) {
         playerControls.SetShield(false);
     }
 }

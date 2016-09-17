@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.Events;
+using System.Collections.Generic;
 
 abstract public class TensionController : MonoBehaviour {
     public GameObject[] obstacles;
@@ -16,14 +17,14 @@ abstract public class TensionController : MonoBehaviour {
         EventManager.StartListening(EventTypes.STOP_TENSION, TensionStopped);
     }
 
-    private void PickAndStartTension() {
-        EventManager.TriggerEvent(EventTypes.STOP_SPAWNING);
+    private void PickAndStartTension(Dictionary<string, object> arg0) {
+        EventManager.TriggerEvent(EventTypes.STOP_SPAWNING, null);
         //TODO:
         //randomly pick tension moment
         wallerTension.CanStartSpawning();
     }
 
-    private void TensionStopped() {
-        EventManager.TriggerEvent(EventTypes.START_SPAWNING);
+    private void TensionStopped(Dictionary<string, object> arg0) {
+        EventManager.TriggerEvent(EventTypes.START_SPAWNING, null);
     }
 }

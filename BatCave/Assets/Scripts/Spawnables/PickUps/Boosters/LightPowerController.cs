@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class LightPowerController : MonoBehaviour {
 
@@ -14,7 +14,7 @@ public class LightPowerController : MonoBehaviour {
         EventManager.StopListening(EventTypes.SET_DAY_TIME, OnLightPowerPickedUp);
     }
 
-    void OnLightPowerPickedUp() {
+    void OnLightPowerPickedUp(Dictionary<string, object> arg0) {
         particleSystem.Play();
     }
 }

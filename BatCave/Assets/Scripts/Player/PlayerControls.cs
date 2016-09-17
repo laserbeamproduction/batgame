@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerControls : MonoBehaviour {
     public GameObject Echo;
@@ -57,20 +58,20 @@ public class PlayerControls : MonoBehaviour {
         EventManager.StopListening(EventTypes.PLAYER_IN_POSITION, OnPlayerInPosition);
     }
 
-    void OnGamePaused() {
+    void OnGamePaused(Dictionary<string, object> arg0) {
         isPaused = true;
     }
 
-    void OnGameResume() {
+    void OnGameResume(Dictionary<string, object> arg0) {
         StartCoroutine(WaitAbit());
     }
 
-    void OnPlayerLightEnabled() {
+    void OnPlayerLightEnabled(Dictionary<string, object> arg0) {
         lightIsFadingIn = true;
         lightIsFadingOut = false;
     }
 
-    void OnPlayerLightDisabled() {
+    void OnPlayerLightDisabled(Dictionary<string, object> arg0) {
         lightIsFadingIn = false;
         lightIsFadingOut = true;
     }
@@ -80,7 +81,7 @@ public class PlayerControls : MonoBehaviour {
         isPaused = false;
     }
 
-    void OnPlayerDied() {
+    void OnPlayerDied(Dictionary<string, object> arg0) {
         // Hide player sprite
         GetComponent<SpriteRenderer>().enabled = false;
 
@@ -90,7 +91,7 @@ public class PlayerControls : MonoBehaviour {
         playerIsDead = true;
     }
 
-    void OnPlayerInPosition() {
+    void OnPlayerInPosition(Dictionary<string, object> arg0) {
         transform.position = new Vector3(transform.position.x, playerYposition, transform.position.z);
         controlsEnabled = true;
         rigidbody.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
@@ -132,10 +133,10 @@ public class PlayerControls : MonoBehaviour {
     }
 
     public void SpawnEcho() {
-        EventManager.TriggerEvent(EventTypes.ECHO_USED);
+        EventManager.TriggerEvent(EventTypes.ECHO_USED, null);
     }
 
-    void OnSkillValueRecieved() {
+    void OnSkillValueRecieved(Dictionary<string, object> arg0) {
         foreach (GameObject echo in playerEchos)
         {
             if (!echo.activeInHierarchy)
@@ -155,14 +156,16 @@ public class PlayerControls : MonoBehaviour {
             // take damage
             if (canDie) {
                 playerResources.removeHealth(playerResources.damageAmount);
-                EventManager.TriggerEvent(EventTypes.PLAYER_TAKES_DAMAGE);
+                EventManager.TriggerEvent(EventTypes.PLAYER_TAKES_DAMAGE, null);
             } else {
                 col.gameObject.GetComponent<BoxCollider2D>().enabled = false;
             }
 
             // check if player died
             if (playerResources.health <= 0)
-                EventManager.TriggerEvent(EventTypes.PLAYER_DIED);
+                EventManager.TriggerEvent(EventTypes.PLAYER_DIED, null);
+            else
+                GetComponent<ParticleSystem>().Play();
         }
     }
 

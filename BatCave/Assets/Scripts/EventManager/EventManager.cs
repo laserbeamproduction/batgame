@@ -2,10 +2,11 @@
 using UnityEngine.Events;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.EventManager;
 
 public class EventManager : MonoBehaviour {
 
-    private Dictionary<string, UnityEvent> eventDictionary;
+    private Dictionary<string, GameEvent> eventDictionary;
 
     private static EventManager eventManager;
 
@@ -35,41 +36,41 @@ public class EventManager : MonoBehaviour {
     {
         if (eventDictionary == null)
         {
-            eventDictionary = new Dictionary<string, UnityEvent>();
+            eventDictionary = new Dictionary<string, GameEvent>();
         }
     }
 
-    public static void StartListening(string eventName, UnityAction listener)
+    public static void StartListening(string eventName, UnityAction<Dictionary<string, object>> listener)
     {
-        UnityEvent thisEvent = null;
+        GameEvent thisEvent = null;
         if (instance.eventDictionary.TryGetValue(eventName, out thisEvent))
         {
             thisEvent.AddListener(listener);
         }
         else
         {
-            thisEvent = new UnityEvent();
+            thisEvent = new GameEvent();
             thisEvent.AddListener(listener);
             instance.eventDictionary.Add(eventName, thisEvent);
         }
     }
 
-    public static void StopListening(string eventName, UnityAction listener)
+    public static void StopListening(string eventName, UnityAction<Dictionary<string, object>> listener)
     {
         if (eventManager == null) return;
-        UnityEvent thisEvent = null;
+        GameEvent thisEvent = null;
         if (instance.eventDictionary.TryGetValue(eventName, out thisEvent))
         {
             thisEvent.RemoveListener(listener);
         }
     }
 
-    public static void TriggerEvent(string eventName)
+    public static void TriggerEvent(string eventName, Dictionary<string, object> arguments)
     {
-        UnityEvent thisEvent = null;
+        GameEvent thisEvent = null;
         if (instance.eventDictionary.TryGetValue(eventName, out thisEvent))
         {
-            thisEvent.Invoke();
+            thisEvent.Invoke(arguments);
         }
     }
 }

@@ -252,6 +252,7 @@
     <Compile Include="Assets\GooglePlayGames\PluginVersion.cs" />
     <Compile Include="Assets\Scripts\EventManager\EventManager.cs" />
     <Compile Include="Assets\Scripts\EventManager\EventTypes.cs" />
+    <Compile Include="Assets\Scripts\EventManager\GameEvent.cs" />
     <Compile Include="Assets\Scripts\GooglePlay\GooglePlayHelper.cs" />
     <Compile Include="Assets\Scripts\Level\BackgroundTileManager.cs" />
     <Compile Include="Assets\Scripts\Level\DayNightCycle.cs" />

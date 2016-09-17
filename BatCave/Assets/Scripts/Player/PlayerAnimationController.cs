@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerAnimationController : MonoBehaviour {
 
@@ -21,11 +21,11 @@ public class PlayerAnimationController : MonoBehaviour {
         EventManager.StopListening(EventTypes.PLAYER_SPEED_ENDED, OnSpeedBoostEnded);
     }
 
-    void OnSpeedBoostPickedUp() {
+    void OnSpeedBoostPickedUp(Dictionary<string, object> arg0) {
         animator.SetTrigger(BOOST_ANIMATOR_TRIGGER);
     }
 
-    void OnSpeedBoostEnded() {
+    void OnSpeedBoostEnded(Dictionary<string, object> arg0) {
         animator.SetTrigger(FLY_ANIMATOR_TRIGGER);
     }
 }

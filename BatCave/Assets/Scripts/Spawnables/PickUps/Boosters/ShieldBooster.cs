@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.Events;
+using System.Collections.Generic;
 
 public class ShieldBooster : PowerUpController
 {
@@ -11,7 +11,7 @@ public class ShieldBooster : PowerUpController
         EventManager.StartListening(EventTypes.PLAYER_SHIELD_PICKUP, activateShield);
     }
 
-    void activateShield()
+    void activateShield(Dictionary<string, object> arg0)
     {
         StartCoroutine(startCoolDown());
     }
@@ -19,7 +19,7 @@ public class ShieldBooster : PowerUpController
     IEnumerator startCoolDown()
     {
         yield return new WaitForSeconds(shieldDuration);
-        EventManager.TriggerEvent(EventTypes.PLAYER_SHIELD_ENDED);
+        EventManager.TriggerEvent(EventTypes.PLAYER_SHIELD_ENDED, null);
     }
 
     public void OnCollisionEnter2D(Collision2D col)
@@ -28,7 +28,7 @@ public class ShieldBooster : PowerUpController
         {
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            EventManager.TriggerEvent(EventTypes.PLAYER_SHIELD_PICKUP);
+            EventManager.TriggerEvent(EventTypes.PLAYER_SHIELD_PICKUP, null);
         }
 
         if (col.gameObject.tag == "CleanUp")

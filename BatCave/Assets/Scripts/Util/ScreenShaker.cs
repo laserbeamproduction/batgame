@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ScreenShaker : MonoBehaviour {
     
@@ -16,7 +17,7 @@ public class ScreenShaker : MonoBehaviour {
         EventManager.StopListening(EventTypes.PLAYER_TAKES_DAMAGE, OnPlayerTakesDamage);
     }
 
-    void OnPlayerTakesDamage() {
+    void OnPlayerTakesDamage(Dictionary<string, object> arg0) {
         Shake();
     }
 

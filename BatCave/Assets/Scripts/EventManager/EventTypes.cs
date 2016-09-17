@@ -40,4 +40,6 @@ public class EventTypes {
     public static string STOP_SPAWNING = "stopSpawning";
 
     public static string ACTIVATE_POWERUPS = "activatePowerups";
+
+    // Multiplayer 
 }

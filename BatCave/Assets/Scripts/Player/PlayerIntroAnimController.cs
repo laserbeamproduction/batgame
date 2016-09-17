@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerIntroAnimController : MonoBehaviour {
 
@@ -24,7 +24,7 @@ public class PlayerIntroAnimController : MonoBehaviour {
         if (animationStarted) {
             if (counter >= duration) {
                 animationStarted = false;
-                EventManager.TriggerEvent(EventTypes.PLAYER_IN_POSITION);
+                EventManager.TriggerEvent(EventTypes.PLAYER_IN_POSITION, null);
                 Destroy(animator);
             } else {
                 counter += Time.deltaTime;
@@ -32,7 +32,7 @@ public class PlayerIntroAnimController : MonoBehaviour {
         }
 	}
 
-    void OnPlayerFliesIn() {
+    void OnPlayerFliesIn(Dictionary<string, object> arg0) {
         animator.SetTrigger("Play");
         animationStarted = true;
     }

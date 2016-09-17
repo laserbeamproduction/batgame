@@ -102,7 +102,7 @@ public class WallerTension : TensionController {
 
     IEnumerator CoolDownTime() {
         yield return new WaitForSeconds(RestTime);
-        EventManager.TriggerEvent(EventTypes.STOP_TENSION);
+        EventManager.TriggerEvent(EventTypes.STOP_TENSION, null);
         StopCoroutine(CoolDownTime());
     }
 
