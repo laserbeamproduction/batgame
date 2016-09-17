@@ -35,14 +35,14 @@ public class GameController : MonoBehaviour {
         EventManager.StartListening(EventTypes.PLAYER_DIED, OnPlayerDied);
         EventManager.StartListening(EventTypes.PLAYER_IN_POSITION, OnPlayerPositioned);
 
-        EventManager.TriggerEvent(EventTypes.GAME_START, null);
+        EventManager.TriggerEvent(EventTypes.GAME_START);
     }
 
     void FixedUpdate() {
         if (directionalLight != null) {
             if (fadeOutDelayCounter >= fadeOutDelay) {
                 if (!playerFlyInTriggered) {
-                    EventManager.TriggerEvent(EventTypes.ENABLE_PLAYER_LIGHT, null);
+                    EventManager.TriggerEvent(EventTypes.ENABLE_PLAYER_LIGHT);
                     playerFlyInTriggered = true;
                 }
                 directionalLight.intensity = Mathf.Lerp(directionalLight.intensity, 0f, fadeOutSpeed * Time.deltaTime);
@@ -56,7 +56,7 @@ public class GameController : MonoBehaviour {
         if (playerFliesInCounter != -1f) {
             if (playerFliesInCounter >= playerFliesInDelay) {
                 playerFliesInCounter = -1f;
-                EventManager.TriggerEvent(EventTypes.PLAYER_FLY_IN, null);
+                EventManager.TriggerEvent(EventTypes.PLAYER_FLY_IN);
             } else {
                 playerFliesInCounter += Time.deltaTime;
             }
@@ -68,7 +68,7 @@ public class GameController : MonoBehaviour {
             playerDiesCounter += Time.deltaTime;
             if (playerDiesCounter >= playerDiesTime) {
                 playerDied = false;
-                EventManager.TriggerEvent(EventTypes.GAME_OVER, null);
+                EventManager.TriggerEvent(EventTypes.GAME_OVER);
             }
         }
 
@@ -80,12 +80,12 @@ public class GameController : MonoBehaviour {
         //start tension
         if (scoreCalculator.playerScore % scoreIntervalTension == 0 && scoreCalculator.playerScore != 0)
         {
-            EventManager.TriggerEvent(EventTypes.START_TENSION, null);
+            EventManager.TriggerEvent(EventTypes.START_TENSION);
         }
 
         if (scoreCalculator.playerScore > scoreForPowerups && !powerUpsActive) {
             powerUpsActive = true;
-            EventManager.TriggerEvent(EventTypes.ACTIVATE_POWERUPS, null);
+            EventManager.TriggerEvent(EventTypes.ACTIVATE_POWERUPS);
         }
     }
 
@@ -115,13 +115,13 @@ public class GameController : MonoBehaviour {
     }
 
     public void PauseGame() {
-        EventManager.TriggerEvent(EventTypes.GAME_PAUSED, null);
+        EventManager.TriggerEvent(EventTypes.GAME_PAUSED);
         pausePanel.SetActive(true);
     }
 
     public void ResumeGame() {
         pausePanel.SetActive(false);
-        EventManager.TriggerEvent(EventTypes.GAME_RESUME, null);
+        EventManager.TriggerEvent(EventTypes.GAME_RESUME);
     }
 
     void OnGameOver(object arg0) {
@@ -143,7 +143,7 @@ public class GameController : MonoBehaviour {
 
         // highscore post
         if (gameSession.GetTotalScore() > player.GetHighscore()) {
-            EventManager.TriggerEvent(EventTypes.NEW_HIGHSCORE, null);
+            EventManager.TriggerEvent(EventTypes.NEW_HIGHSCORE);
             player.SetHighscore(gameSession.GetTotalScore());
             gph.PostHighscore(player.GetHighscore(), GPGSConstant.leaderboard_endless_mode);
         }

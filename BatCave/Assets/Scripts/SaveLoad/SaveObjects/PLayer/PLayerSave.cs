@@ -34,7 +34,7 @@ public class PlayerSave : SaveObject {
     }
 
     public void SetSpeed(float speed) {
-        EventManager.TriggerEvent(EventTypes.PLAYER_SPEED_CHANGED, null);
+        EventManager.TriggerEvent(EventTypes.PLAYER_SPEED_CHANGED);
         this.speed = speed;
     }
     

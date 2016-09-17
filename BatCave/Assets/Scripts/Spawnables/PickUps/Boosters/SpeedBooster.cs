@@ -21,7 +21,7 @@ public class SpeedBooster : PowerUpController
     IEnumerator startCoolDown()
     {
         yield return new WaitForSeconds(speedDuration);
-        EventManager.TriggerEvent(EventTypes.PLAYER_SPEED_ENDED, null);
+        EventManager.TriggerEvent(EventTypes.PLAYER_SPEED_ENDED);
         StopCoroutine(startCoolDown());
     }
 
@@ -31,7 +31,7 @@ public class SpeedBooster : PowerUpController
         {
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            EventManager.TriggerEvent(EventTypes.PLAYER_SPEED_PICKUP, null);
+            EventManager.TriggerEvent(EventTypes.PLAYER_SPEED_PICKUP);
         }
 
         if (col.gameObject.tag == "CleanUp")

@@ -24,7 +24,7 @@ public class PlayerIntroAnimController : MonoBehaviour {
         if (animationStarted) {
             if (counter >= duration) {
                 animationStarted = false;
-                EventManager.TriggerEvent(EventTypes.PLAYER_IN_POSITION, null);
+                EventManager.TriggerEvent(EventTypes.PLAYER_IN_POSITION);
                 Destroy(animator);
             } else {
                 counter += Time.deltaTime;

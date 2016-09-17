@@ -65,6 +65,13 @@ public class EventManager : MonoBehaviour {
         }
     }
 
+    public static void TriggerEvent(string eventName) {
+        GameEvent thisEvent = null;
+        if (instance.eventDictionary.TryGetValue(eventName, out thisEvent)) {
+            thisEvent.Invoke(null);
+        }
+    }
+
     public static void TriggerEvent(string eventName, object arguments)
     {
         GameEvent thisEvent = null;

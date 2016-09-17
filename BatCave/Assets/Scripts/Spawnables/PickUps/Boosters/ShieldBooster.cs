@@ -19,7 +19,7 @@ public class ShieldBooster : PowerUpController
     IEnumerator startCoolDown()
     {
         yield return new WaitForSeconds(shieldDuration);
-        EventManager.TriggerEvent(EventTypes.PLAYER_SHIELD_ENDED, null);
+        EventManager.TriggerEvent(EventTypes.PLAYER_SHIELD_ENDED);
     }
 
     public void OnCollisionEnter2D(Collision2D col)
@@ -28,7 +28,7 @@ public class ShieldBooster : PowerUpController
         {
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            EventManager.TriggerEvent(EventTypes.PLAYER_SHIELD_PICKUP, null);
+            EventManager.TriggerEvent(EventTypes.PLAYER_SHIELD_PICKUP);
         }
 
         if (col.gameObject.tag == "CleanUp")

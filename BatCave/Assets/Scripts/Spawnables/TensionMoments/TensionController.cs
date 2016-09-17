@@ -18,13 +18,13 @@ abstract public class TensionController : MonoBehaviour {
     }
 
     private void PickAndStartTension(object arg0) {
-        EventManager.TriggerEvent(EventTypes.STOP_SPAWNING, null);
+        EventManager.TriggerEvent(EventTypes.STOP_SPAWNING);
         //TODO:
         //randomly pick tension moment
         wallerTension.CanStartSpawning();
     }
 
     private void TensionStopped(object arg0) {
-        EventManager.TriggerEvent(EventTypes.START_SPAWNING, null);
+        EventManager.TriggerEvent(EventTypes.START_SPAWNING);
     }
 }

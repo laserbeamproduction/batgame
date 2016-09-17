@@ -20,7 +20,7 @@ public class DayLightBooster : PowerUpController
     IEnumerator startCoolDown()
     {
         yield return new WaitForSeconds(DayTimeUpTime);
-        EventManager.TriggerEvent(EventTypes.SET_NIGHT_TIME, null);
+        EventManager.TriggerEvent(EventTypes.SET_NIGHT_TIME);
     }
 
     public void OnCollisionEnter2D(Collision2D col)
@@ -29,7 +29,7 @@ public class DayLightBooster : PowerUpController
         {
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            EventManager.TriggerEvent(EventTypes.SET_DAY_TIME, null);
+            EventManager.TriggerEvent(EventTypes.SET_DAY_TIME);
         }
 
         if (col.gameObject.tag == "CleanUp")

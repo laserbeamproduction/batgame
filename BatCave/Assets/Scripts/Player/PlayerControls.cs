@@ -133,7 +133,7 @@ public class PlayerControls : MonoBehaviour {
     }
 
     public void SpawnEcho() {
-        EventManager.TriggerEvent(EventTypes.ECHO_USED, null);
+        EventManager.TriggerEvent(EventTypes.ECHO_USED);
     }
 
     void OnSkillValueRecieved(object arg0) {
@@ -156,14 +156,14 @@ public class PlayerControls : MonoBehaviour {
             // take damage
             if (canDie) {
                 playerResources.removeHealth(playerResources.damageAmount);
-                EventManager.TriggerEvent(EventTypes.PLAYER_TAKES_DAMAGE, null);
+                EventManager.TriggerEvent(EventTypes.PLAYER_TAKES_DAMAGE);
             } else {
                 col.gameObject.GetComponent<BoxCollider2D>().enabled = false;
             }
 
             // check if player died
             if (playerResources.health <= 0)
-                EventManager.TriggerEvent(EventTypes.PLAYER_DIED, null);
+                EventManager.TriggerEvent(EventTypes.PLAYER_DIED);
             else
                 GetComponent<ParticleSystem>().Play();
         }
