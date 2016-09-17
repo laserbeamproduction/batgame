@@ -58,20 +58,20 @@ public class PlayerControls : MonoBehaviour {
         EventManager.StopListening(EventTypes.PLAYER_IN_POSITION, OnPlayerInPosition);
     }
 
-    void OnGamePaused(Dictionary<string, object> arg0) {
+    void OnGamePaused(object arg0) {
         isPaused = true;
     }
 
-    void OnGameResume(Dictionary<string, object> arg0) {
+    void OnGameResume(object arg0) {
         StartCoroutine(WaitAbit());
     }
 
-    void OnPlayerLightEnabled(Dictionary<string, object> arg0) {
+    void OnPlayerLightEnabled(object arg0) {
         lightIsFadingIn = true;
         lightIsFadingOut = false;
     }
 
-    void OnPlayerLightDisabled(Dictionary<string, object> arg0) {
+    void OnPlayerLightDisabled(object arg0) {
         lightIsFadingIn = false;
         lightIsFadingOut = true;
     }
@@ -81,7 +81,7 @@ public class PlayerControls : MonoBehaviour {
         isPaused = false;
     }
 
-    void OnPlayerDied(Dictionary<string, object> arg0) {
+    void OnPlayerDied(object arg0) {
         // Hide player sprite
         GetComponent<SpriteRenderer>().enabled = false;
 
@@ -91,7 +91,7 @@ public class PlayerControls : MonoBehaviour {
         playerIsDead = true;
     }
 
-    void OnPlayerInPosition(Dictionary<string, object> arg0) {
+    void OnPlayerInPosition(object arg0) {
         transform.position = new Vector3(transform.position.x, playerYposition, transform.position.z);
         controlsEnabled = true;
         rigidbody.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
@@ -136,7 +136,7 @@ public class PlayerControls : MonoBehaviour {
         EventManager.TriggerEvent(EventTypes.ECHO_USED, null);
     }
 
-    void OnSkillValueRecieved(Dictionary<string, object> arg0) {
+    void OnSkillValueRecieved(object arg0) {
         foreach (GameObject echo in playerEchos)
         {
             if (!echo.activeInHierarchy)

@@ -31,15 +31,15 @@ public class SimpleMoveScript : MonoBehaviour {
         StartCoroutine(StartTimer());
     }
 
-    void OnGamePaused(Dictionary<string, object> arg0) {
+    void OnGamePaused(object arg0) {
         isPaused = true;
     }
 
-    void OnGameResume(Dictionary<string, object> arg0) {
+    void OnGameResume(object arg0) {
         isPaused = false;
     }
 
-    void OnIntroCompleet(Dictionary<string, object> arg0) {
+    void OnIntroCompleet(object arg0) {
         isIntro = false;
     }
 
@@ -77,11 +77,11 @@ public class SimpleMoveScript : MonoBehaviour {
         }
     }
 
-    public void ActivateSpeedBoost(Dictionary<string, object> arg0) {
+    public void ActivateSpeedBoost(object arg0) {
         SpeedBoostActive = true;
     }
 
-    public void DeactivateSpeedBoost(Dictionary<string, object> arg0) {
+    public void DeactivateSpeedBoost(object arg0) {
         SpeedBoostActive = false;
     }
 }

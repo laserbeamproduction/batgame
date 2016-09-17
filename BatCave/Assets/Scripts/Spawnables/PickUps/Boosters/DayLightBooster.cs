@@ -12,7 +12,7 @@ public class DayLightBooster : PowerUpController
         EventManager.StartListening(EventTypes.SET_DAY_TIME, startCycle);
     }
 
-    void startCycle(Dictionary<string, object> arg0)
+    void startCycle(object arg0)
     {
         StartCoroutine(startCoolDown());
     }

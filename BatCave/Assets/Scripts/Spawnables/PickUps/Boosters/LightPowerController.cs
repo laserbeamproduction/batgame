@@ -14,7 +14,7 @@ public class LightPowerController : MonoBehaviour {
         EventManager.StopListening(EventTypes.SET_DAY_TIME, OnLightPowerPickedUp);
     }
 
-    void OnLightPowerPickedUp(Dictionary<string, object> arg0) {
+    void OnLightPowerPickedUp(object arg0) {
         particleSystem.Play();
     }
 }

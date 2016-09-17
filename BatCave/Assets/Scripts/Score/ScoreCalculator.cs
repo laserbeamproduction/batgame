@@ -20,15 +20,15 @@ public class ScoreCalculator : MonoBehaviour {
         EventManager.StartListening(EventTypes.PLAYER_SPEED_ENDED, SetSpeedMultiplier);
     }
 
-    void OnGamePaused(Dictionary<string, object> arg0) {
+    void OnGamePaused(object arg0) {
         isPaused = true;
     }
 
-    void OnGameResume(Dictionary<string, object> arg0) {
+    void OnGameResume(object arg0) {
         isPaused = false;
     }
 
-    void OnIntroCompleet(Dictionary<string, object> arg0) {
+    void OnIntroCompleet(object arg0) {
         gameStarted = true;
     }
 
@@ -58,11 +58,11 @@ public class ScoreCalculator : MonoBehaviour {
             playerScore += 1 * scoreMultiplier;
     }
 
-    void OnGameOver(Dictionary<string, object> arg0) {
+    void OnGameOver(object arg0) {
         SaveLoadController.GetInstance().GetEndlessSession().SetScore(playerScore);
     }
 
-    void SetSpeedMultiplier(Dictionary<string, object> arg0) {
+    void SetSpeedMultiplier(object arg0) {
         if (scoreMultiplier == 3) {
             scoreMultiplier = 1;
         } else {

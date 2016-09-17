@@ -17,7 +17,7 @@ public class ScreenShaker : MonoBehaviour {
         EventManager.StopListening(EventTypes.PLAYER_TAKES_DAMAGE, OnPlayerTakesDamage);
     }
 
-    void OnPlayerTakesDamage(Dictionary<string, object> arg0) {
+    void OnPlayerTakesDamage(object arg0) {
         Shake();
     }
 

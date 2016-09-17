@@ -11,7 +11,7 @@ public class ShieldBooster : PowerUpController
         EventManager.StartListening(EventTypes.PLAYER_SHIELD_PICKUP, activateShield);
     }
 
-    void activateShield(Dictionary<string, object> arg0)
+    void activateShield(object arg0)
     {
         StartCoroutine(startCoolDown());
     }

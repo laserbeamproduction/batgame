@@ -19,20 +19,20 @@ public class PlayerEvent : MonoBehaviour {
         EventManager.StopListening(EventTypes.PLAYER_SHIELD_ENDED, shieldEnded);
     }
 
-    void healthPickedUp(Dictionary<string, object> arg0) {
+    void healthPickedUp(object arg0) {
         playerResource.addHealth(playerResource.healthPickupAmount);
         SaveLoadController.GetInstance().GetEndlessSession().AddResourcesGathered(1);
     }
 
-    void echoUsed(Dictionary<string, object> arg0) {
+    void echoUsed(object arg0) {
         playerResource.echoUsed();
     }
 
-    void shieldActive(Dictionary<string, object> arg0) {
+    void shieldActive(object arg0) {
         playerControls.SetShield(true);
     }
 
-    void shieldEnded(Dictionary<string, object> arg0) {
+    void shieldEnded(object arg0) {
         playerControls.SetShield(false);
     }
 }

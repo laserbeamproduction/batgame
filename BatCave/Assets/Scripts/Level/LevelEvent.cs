@@ -21,20 +21,20 @@ public class LevelEvent : MonoBehaviour {
         EventManager.StopListening(EventTypes.PLAYER_SPEED_ENDED, SpeedPowerUpEnded);
     }
 
-    void setDay(Dictionary<string, object> arg0) {
+    void setDay(object arg0) {
         dayNightCycle.setDayTime();
     }
 
-    void setNight(Dictionary<string, object> arg0) {
+    void setNight(object arg0) {
         dayNightCycle.setNightTime();
     }
 
-    void SpeedPowerUpActive(Dictionary<string, object> arg0) {
+    void SpeedPowerUpActive(object arg0) {
         dayNightCycle.IncreasePlayerLightRange();
         playerControls.SetShield(true);
     }
 
-    void SpeedPowerUpEnded(Dictionary<string, object> arg0) {
+    void SpeedPowerUpEnded(object arg0) {
         dayNightCycle.DecreasePlayerLightRange();
         playerControls.SetShield(false);
     }

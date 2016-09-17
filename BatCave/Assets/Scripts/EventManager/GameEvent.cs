@@ -3,6 +3,6 @@ using System.Collections.Generic;
 using UnityEngine.Events;
 
 namespace Assets.Scripts.EventManager {
-    class GameEvent : UnityEvent<Dictionary<string, object>> {
+    class GameEvent : UnityEvent<object> {
     }
 }

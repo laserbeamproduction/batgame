@@ -13,7 +13,7 @@ public class SpeedBooster : PowerUpController
         EventManager.StartListening(EventTypes.PLAYER_SPEED_PICKUP, activateSpeed);
     }
 
-    void activateSpeed(Dictionary<string, object> arg0)
+    void activateSpeed(object arg0)
     {
         StartCoroutine(startCoolDown());
     }

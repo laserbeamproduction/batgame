@@ -24,13 +24,13 @@ public class PlayerShieldController : MonoBehaviour {
         EventManager.StopListening(EventTypes.PLAYER_SHIELD_ENDED, OnsShieldEnded);
     }
 
-    void OnShieldActivated(Dictionary<string, object> arg0) {
+    void OnShieldActivated(object arg0) {
         spriteRenderer.enabled = true;
         powerActive = true;
         shieldDuration = boosterScript.shieldDuration;
     }
 
-    void OnsShieldEnded(Dictionary<string, object> arg0) {
+    void OnsShieldEnded(object arg0) {
         isBlinking = false;
         blinkIntervalCounter = 0;
         spriteRenderer.enabled = false;

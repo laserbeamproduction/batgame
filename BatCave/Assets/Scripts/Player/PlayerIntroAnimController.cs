@@ -32,7 +32,7 @@ public class PlayerIntroAnimController : MonoBehaviour {
         }
 	}
 
-    void OnPlayerFliesIn(Dictionary<string, object> arg0) {
+    void OnPlayerFliesIn(object arg0) {
         animator.SetTrigger("Play");
         animationStarted = true;
     }

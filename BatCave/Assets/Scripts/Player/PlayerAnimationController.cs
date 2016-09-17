@@ -21,11 +21,11 @@ public class PlayerAnimationController : MonoBehaviour {
         EventManager.StopListening(EventTypes.PLAYER_SPEED_ENDED, OnSpeedBoostEnded);
     }
 
-    void OnSpeedBoostPickedUp(Dictionary<string, object> arg0) {
+    void OnSpeedBoostPickedUp(object arg0) {
         animator.SetTrigger(BOOST_ANIMATOR_TRIGGER);
     }
 
-    void OnSpeedBoostEnded(Dictionary<string, object> arg0) {
+    void OnSpeedBoostEnded(object arg0) {
         animator.SetTrigger(FLY_ANIMATOR_TRIGGER);
     }
 }

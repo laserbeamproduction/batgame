@@ -89,7 +89,7 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    void OnPlayerPositioned(Dictionary<string, object> arg0) {
+    void OnPlayerPositioned(object arg0) {
         playerInPosition = true;
         transform.position = new Vector3(0,0,transform.position.z);
 
@@ -99,12 +99,12 @@ public class GameController : MonoBehaviour {
         scorePanel.SetActive(true);
     }
 
-    void OnPlayerDied(Dictionary<string, object> arg0) {
+    void OnPlayerDied(object arg0) {
         playerDied = true;
         pauseButton.SetActive(false);
     }
 
-    void OnGameStart(Dictionary<string, object> arg0) {
+    void OnGameStart(object arg0) {
         // reset player model
         SaveLoadController.GetInstance().GetEndlessSession().Reset();
 
@@ -124,7 +124,7 @@ public class GameController : MonoBehaviour {
         EventManager.TriggerEvent(EventTypes.GAME_RESUME, null);
     }
 
-    void OnGameOver(Dictionary<string, object> arg0) {
+    void OnGameOver(object arg0) {
         PlayerSave player = SaveLoadController.GetInstance().GetPlayer();
         EndlessSessionSave gameSession = SaveLoadController.GetInstance().GetEndlessSession();
         GooglePlayHelper gph = GooglePlayHelper.GetInstance();

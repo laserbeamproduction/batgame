@@ -26,11 +26,11 @@ public class DisplayScore : MonoBehaviour {
         EventManager.StopListening(EventTypes.GAME_PAUSED, OnGamePaused);
     }
 
-    void OnGamePaused(Dictionary<string, object> arg0) {
+    void OnGamePaused(object arg0) {
         isPaused = true;
     }
 
-    void OnGameResume(Dictionary<string, object> arg0) {
+    void OnGameResume(object arg0) {
         isPaused = false;
     }
 }

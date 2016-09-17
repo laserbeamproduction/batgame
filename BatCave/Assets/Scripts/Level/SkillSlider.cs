@@ -32,11 +32,11 @@ public class SkillSlider : MonoBehaviour {
         EventManager.StartListening(EventTypes.GAME_PAUSED, OnGamePaused);
     }
 
-    void OnGamePaused(Dictionary<string, object> arg0) {
+    void OnGamePaused(object arg0) {
         isPaused = true;
     }
 
-    void OnGameResume(Dictionary<string, object> arg0) {
+    void OnGameResume(object arg0) {
         isPaused = false;
         StartAtRandomPosition();
     }
@@ -86,11 +86,9 @@ public class SkillSlider : MonoBehaviour {
         slider.value += (direction * speed * Time.deltaTime);
     }
 
-    void OnSkillShotTriggered(Dictionary<string, object> arg0) {
+    void OnSkillShotTriggered(object arg0) {
         if (onCooldown) 
             return;
-
-        Debug.Log(arg0["KEY"]);
 
         // set value
         lastSkillValue = slider.value;
