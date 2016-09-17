@@ -1,0 +1,139 @@
+/* Color variables */
+
+$bg-dark: #343c4d;
+$bg-light: #4e5b73;
+$highlight-darker: #2c2d2d;
+$hightlight-dark: #353535;
+$highlight-yellow: #bd9827;
+$text-highlight: #b585fb;
+$text-main: #f2f2f2;
+
+/* Font */
+
+@import 'https://fonts.googleapis.com/css?family=Lato:400,400i,700|Press+Start+2P|Source+Serif+Pro';
+$font-normal: 'Source Serif Pro',
+serif;
+$font-heading: 'Lato',
+sans-serif;
+$font-logo: 'Press Start 2P',
+cursive;
+
+/* helpers */
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+/* General */
+
+body {
+  background: url('https://s9.postimg.io/5sa82izql/website_backgroundfinal.png');
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+;
+  color: $text-main;
+}
+
+header {
+  margin-top: 80px;
+}
+
+h1 {
+  font-family: $font-logo;
+  -webkit-text-stroke: 2px black;
+  text-shadow: 5px 5px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  margin-bottom: 20px;
+  font-size: 100px;
+
+  @media (max-width: 900px) {
+    font-size: 60px;
+  }
+
+  @media (max-width: 500px) {
+    font-size: 30px;
+  }
+}
+
+.bat-logo {
+  width: 200px;
+}
+
+h3 {
+  font-family: $font-heading;
+  font-size: 30px;
+}
+
+.icon {
+  width: 80px;
+  margin-bottom: 50px;
+  &:first-child {
+    margin-right: 40px;
+  }
+  &:last-child {
+    margin-left: 40px;
+  }
+}
+
+.google-play {
+  margin-top: 20px;
+  width: 220px;
+}
+
+.description {
+  font-family: $font-normal;
+  font-size: 20px;
+  line-height: 30px;
+  padding-right: 80px;
+}
+
+.content {
+  margin-top: 100px;
+  margin-bottom: 150px;
+  h3 {
+    color: $highlight-yellow;
+  }
+  .phone1 {
+    width: 250px;
+    -webkit-animation-delay: 1s; /* Chrome, Safari, Opera */
+    animation-delay: 1s;
+  }
+  @media (max-width: 639px) {
+    .phone1 {
+      display: block;
+      margin: auto;
+      text-align: center;
+      width: 180px;
+      margin-bottom: 60px;
+    }
+    .description {
+      text-align: center;
+      padding-left: 80px;
+      ul {
+        margin-left: 0;
+      }
+      li {
+        list-style: none;
+      }
+    }
+  }
+}
+
+footer {
+  padding-top: 40px;
+  padding-bottom: 30px;
+  background: darken($bg-dark, 5%);
+  h3 {
+    color: $highlight-yellow;
+    letter-spacing: 6px;
+  }
+  @media (max-width: 639px) {
+    h3 {
+      font-size: 20px;
+    }
+    .icon {
+      width: 50px;
+    }
+  }
+}

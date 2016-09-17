@@ -1,0 +1,146 @@
+/* Color variables */
+/* Font */
+@import "https://fonts.googleapis.com/css?family=Lato:400,400i,700|Press+Start+2P|Source+Serif+Pro";
+/* helpers */
+/* line 23, ../scss/style.scss */
+.uppercase {
+  text-transform: uppercase;
+}
+
+/* General */
+/* line 29, ../scss/style.scss */
+body {
+  background: url("https://s9.postimg.io/5sa82izql/website_backgroundfinal.png");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  color: #f2f2f2;
+}
+
+/* line 39, ../scss/style.scss */
+header {
+  margin-top: 80px;
+}
+
+/* line 43, ../scss/style.scss */
+h1 {
+  font-family: "Press Start 2P", cursive;
+  -webkit-text-stroke: 2px black;
+  text-shadow: 5px 5px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  margin-bottom: 20px;
+  font-size: 100px;
+}
+@media (max-width: 900px) {
+  /* line 43, ../scss/style.scss */
+  h1 {
+    font-size: 60px;
+  }
+}
+@media (max-width: 500px) {
+  /* line 43, ../scss/style.scss */
+  h1 {
+    font-size: 30px;
+  }
+}
+
+/* line 59, ../scss/style.scss */
+.bat-logo {
+  width: 200px;
+}
+
+/* line 63, ../scss/style.scss */
+h3 {
+  font-family: "Lato", sans-serif;
+  font-size: 30px;
+}
+
+/* line 68, ../scss/style.scss */
+.icon {
+  width: 80px;
+  margin-bottom: 50px;
+}
+/* line 71, ../scss/style.scss */
+.icon:first-child {
+  margin-right: 40px;
+}
+/* line 74, ../scss/style.scss */
+.icon:last-child {
+  margin-left: 40px;
+}
+
+/* line 79, ../scss/style.scss */
+.google-play {
+  margin-top: 20px;
+  width: 220px;
+}
+
+/* line 84, ../scss/style.scss */
+.description {
+  font-family: "Source Serif Pro", serif;
+  font-size: 20px;
+  line-height: 30px;
+  padding-right: 80px;
+}
+
+/* line 91, ../scss/style.scss */
+.content {
+  margin-top: 100px;
+  margin-bottom: 150px;
+}
+/* line 94, ../scss/style.scss */
+.content h3 {
+  color: #bd9827;
+}
+/* line 97, ../scss/style.scss */
+.content .phone1 {
+  width: 250px;
+  -webkit-animation-delay: 1s;
+  /* Chrome, Safari, Opera */
+  animation-delay: 1s;
+}
+@media (max-width: 639px) {
+  /* line 103, ../scss/style.scss */
+  .content .phone1 {
+    display: block;
+    margin: auto;
+    text-align: center;
+    width: 180px;
+    margin-bottom: 60px;
+  }
+  /* line 110, ../scss/style.scss */
+  .content .description {
+    text-align: center;
+    padding-left: 80px;
+  }
+  /* line 113, ../scss/style.scss */
+  .content .description ul {
+    margin-left: 0;
+  }
+  /* line 116, ../scss/style.scss */
+  .content .description li {
+    list-style: none;
+  }
+}
+
+/* line 123, ../scss/style.scss */
+footer {
+  padding-top: 40px;
+  padding-bottom: 30px;
+  background: #2a303e;
+}
+/* line 127, ../scss/style.scss */
+footer h3 {
+  color: #bd9827;
+  letter-spacing: 6px;
+}
+@media (max-width: 639px) {
+  /* line 132, ../scss/style.scss */
+  footer h3 {
+    font-size: 20px;
+  }
+  /* line 135, ../scss/style.scss */
+  footer .icon {
+    width: 50px;
+  }
+}
