@@ -25,7 +25,6 @@ public class GameController : MonoBehaviour {
     private float playerFliesInCounter;
     private bool playerDied;
     private bool playerFlyInTriggered;
-    private bool playerInPosition;
     private bool powerUpsActive = false;
 
     // Use this for initialization
@@ -72,11 +71,6 @@ public class GameController : MonoBehaviour {
             }
         }
 
-        if (!playerInPosition && playerFliesInCounter == -1f) {
-            //camera.transform.position = Vector3.MoveTowards(transform.position, new Vector3(0f,0f,-10f), step);
-            camera.transform.Translate(0, 0.05f, 0);
-        }
-
         //start tension
         if (scoreCalculator.playerScore % scoreIntervalTension == 0 && scoreCalculator.playerScore != 0)
         {
@@ -90,8 +84,8 @@ public class GameController : MonoBehaviour {
     }
 
     void OnPlayerPositioned(object arg0) {
-        playerInPosition = true;
         transform.position = new Vector3(0,0,transform.position.z);
+        Destroy(GetComponent<Animator>());
 
         // Reactivate UI
         skillSlider.SetActive(true);

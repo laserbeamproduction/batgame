@@ -157,6 +157,7 @@ public class PlayerControls : MonoBehaviour {
             if (canDie) {
                 playerResources.removeHealth(playerResources.damageAmount);
                 EventManager.TriggerEvent(EventTypes.PLAYER_TAKES_DAMAGE);
+                GetComponent<ParticleSystem>().Play();
             } else {
                 col.gameObject.GetComponent<BoxCollider2D>().enabled = false;
             }
@@ -164,8 +165,6 @@ public class PlayerControls : MonoBehaviour {
             // check if player died
             if (playerResources.health <= 0)
                 EventManager.TriggerEvent(EventTypes.PLAYER_DIED);
-            else
-                GetComponent<ParticleSystem>().Play();
         }
     }
 
