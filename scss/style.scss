@@ -11,12 +11,9 @@ $text-main: #f2f2f2;
 /* Font */
 
 @import 'https://fonts.googleapis.com/css?family=Lato:400,400i,700|Press+Start+2P|Source+Serif+Pro';
-$font-normal: 'Source Serif Pro',
-serif;
-$font-heading: 'Lato',
-sans-serif;
-$font-logo: 'Press Start 2P',
-cursive;
+$font-normal: 'Source Serif Pro', serif;
+$font-heading: 'Lato', sans-serif;
+$font-logo: 'Press Start 2P', cursive;
 
 /* helpers */
 
@@ -27,12 +24,11 @@ cursive;
 /* General */
 
 body {
-  background: url('https://s9.postimg.io/5sa82izql/website_backgroundfinal.png');
+  background-image: url('https://s12.postimg.io/9pb8yz4bv/website_backgroundfinal.png');
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-;
   color: $text-main;
 }
 
@@ -117,6 +113,12 @@ h3 {
         list-style: none;
       }
     }
+  }
+}
+
+.screenshots {
+  img {
+    margin-bottom: 80px;
   }
 }
 
