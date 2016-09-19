@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 12073171e7302c747a227faec883238e
-timeCreated: 1473845793
+timeCreated: 1474290845
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -65,9 +65,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2
-        y: 4
-        width: 62
-        height: 27
+        y: 10
+        width: 64
+        height: 33
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -77,10 +77,10 @@ TextureImporter:
       name: Bat_animation_sheet_boost_1
       rect:
         serializedVersion: 2
-        x: 69
-        y: 4
-        width: 62
-        height: 27
+        x: 67
+        y: 10
+        width: 66
+        height: 33
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -90,10 +90,10 @@ TextureImporter:
       name: Bat_animation_sheet_boost_2
       rect:
         serializedVersion: 2
-        x: 137
-        y: 4
-        width: 62
-        height: 27
+        x: 134
+        y: 10
+        width: 67
+        height: 33
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -103,10 +103,10 @@ TextureImporter:
       name: Bat_animation_sheet_boost_3
       rect:
         serializedVersion: 2
-        x: 203
-        y: 4
-        width: 62
-        height: 27
+        x: 202
+        y: 10
+        width: 65
+        height: 33
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -116,10 +116,10 @@ TextureImporter:
       name: Bat_animation_sheet_boost_4
       rect:
         serializedVersion: 2
-        x: 270
-        y: 4
-        width: 62
-        height: 27
+        x: 268
+        y: 10
+        width: 66
+        height: 33
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -129,10 +129,10 @@ TextureImporter:
       name: Bat_animation_sheet_boost_5
       rect:
         serializedVersion: 2
-        x: 337
-        y: 4
-        width: 62
-        height: 27
+        x: 335
+        y: 10
+        width: 66
+        height: 33
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -142,10 +142,10 @@ TextureImporter:
       name: Bat_animation_sheet_boost_6
       rect:
         serializedVersion: 2
-        x: 403
-        y: 4
-        width: 62
-        height: 27
+        x: 402
+        y: 10
+        width: 65
+        height: 33
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -155,10 +155,10 @@ TextureImporter:
       name: Bat_animation_sheet_boost_7
       rect:
         serializedVersion: 2
-        x: 469
-        y: 4
-        width: 62
-        height: 27
+        x: 468
+        y: 10
+        width: 71
+        height: 33
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
