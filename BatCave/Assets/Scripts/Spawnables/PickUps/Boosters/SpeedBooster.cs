@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.Events;
+using System.Collections.Generic;
 
 public class SpeedBooster : PowerUpController
 {
@@ -12,7 +13,7 @@ public class SpeedBooster : PowerUpController
         EventManager.StartListening(EventTypes.PLAYER_SPEED_PICKUP, activateSpeed);
     }
 
-    void activateSpeed()
+    void activateSpeed(object arg0)
     {
         StartCoroutine(startCoolDown());
     }

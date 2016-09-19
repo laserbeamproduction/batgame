@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class SkillSlider : MonoBehaviour {
 
@@ -31,11 +32,11 @@ public class SkillSlider : MonoBehaviour {
         EventManager.StartListening(EventTypes.GAME_PAUSED, OnGamePaused);
     }
 
-    void OnGamePaused() {
+    void OnGamePaused(object arg0) {
         isPaused = true;
     }
 
-    void OnGameResume() {
+    void OnGameResume(object arg0) {
         isPaused = false;
         StartAtRandomPosition();
     }
@@ -85,7 +86,7 @@ public class SkillSlider : MonoBehaviour {
         slider.value += (direction * speed * Time.deltaTime);
     }
 
-    void OnSkillShotTriggered() {
+    void OnSkillShotTriggered(object arg0) {
         if (onCooldown) 
             return;
 

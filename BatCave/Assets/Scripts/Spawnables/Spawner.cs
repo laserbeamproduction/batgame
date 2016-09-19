@@ -74,23 +74,23 @@ public class Spawner : MonoBehaviour {
         }
     }
 
-    void ContinueSpawning() {
+    void ContinueSpawning(object arg0) {
         CanStartSpawning = true;
     }
 
-    void PauseSpawning() {
+    void PauseSpawning(object arg0) {
         CanStartSpawning = false;
         pickUpDelay = 0;
         obstacleDelay = 0;
     }
 
-    void StartSpawning() {
+    void StartSpawning(object arg0) {
         CanStartSpawning = true;
         cleanUp.SetActive(true);
         StartCoroutine(StartTimer());
     }
 
-    void UnlockPowerups() {
+    void UnlockPowerups(object arg0) {
         powerUpsActivated = true;
     }
 

@@ -44,13 +44,13 @@ public class WallerTension : TensionController {
                         }
                         else
                         {
-                            if (Random.Range(1, 101) < 75) { SpawnPickUp(i); }
+                            if (Random.Range(1, 101) < 10) { SpawnPickUp(i); }
                             currentOpenings++;
                         }
                     }
                     else if (currentOpenings < amountOfOpenings)
                     {
-                        if (Random.Range(1, 101) < 75) { SpawnPickUp(i); }
+                        if (Random.Range(1, 101) < 10) { SpawnPickUp(i); }
                         currentOpenings++;
                     }
                     else {

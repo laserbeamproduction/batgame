@@ -250,10 +250,9 @@
     <Compile Include="Assets\GooglePlayGames\Platforms\PlayGamesClientFactory.cs" />
     <Compile Include="Assets\GooglePlayGames\Platforms\TokenClient.cs" />
     <Compile Include="Assets\GooglePlayGames\PluginVersion.cs" />
-    <Compile Include="Assets\LightPowerController.cs" />
-    <Compile Include="Assets\PlayerIntroAnimController.cs" />
     <Compile Include="Assets\Scripts\EventManager\EventManager.cs" />
     <Compile Include="Assets\Scripts\EventManager\EventTypes.cs" />
+    <Compile Include="Assets\Scripts\EventManager\GameEvent.cs" />
     <Compile Include="Assets\Scripts\GooglePlay\GooglePlayHelper.cs" />
     <Compile Include="Assets\Scripts\Level\BackgroundTileManager.cs" />
     <Compile Include="Assets\Scripts\Level\DayNightCycle.cs" />
@@ -271,6 +270,7 @@
     <Compile Include="Assets\Scripts\Player\PlayerAnimationController.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerControls.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerEvent.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerIntroAnimController.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerResources.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerShieldController.cs" />
     <Compile Include="Assets\Scripts\Player\UIBars.cs" />
@@ -286,11 +286,12 @@
     <Compile Include="Assets\Scripts\Score\ScoreCalculator.cs" />
     <Compile Include="Assets\Scripts\Spawnables\Obstacle\ObstacleCleanUp.cs" />
     <Compile Include="Assets\Scripts\Spawnables\PickUps\Boosters\DayLightBooster.cs" />
+    <Compile Include="Assets\Scripts\Spawnables\PickUps\Boosters\LightPowerController.cs" />
     <Compile Include="Assets\Scripts\Spawnables\PickUps\Boosters\PowerUpController.cs" />
     <Compile Include="Assets\Scripts\Spawnables\PickUps\Boosters\ShieldBooster.cs" />
     <Compile Include="Assets\Scripts\Spawnables\PickUps\Boosters\SpeedBooster.cs" />
-    <Compile Include="Assets\Scripts\Spawnables\PickUps\Fly\FlyController.cs" />
-    <Compile Include="Assets\Scripts\Spawnables\PickUps\Fly\ParticalAttractor.cs" />
+    <Compile Include="Assets\Scripts\Spawnables\PickUps\Health\HealthController.cs" />
+    <Compile Include="Assets\Scripts\Spawnables\PickUps\Health\ParticalAttractor.cs" />
     <Compile Include="Assets\Scripts\Spawnables\Spawner.cs" />
     <Compile Include="Assets\Scripts\Spawnables\TensionMoments\TensionController.cs" />
     <Compile Include="Assets\Scripts\Spawnables\TensionMoments\WallerTension.cs" />
@@ -298,6 +299,7 @@
     <Compile Include="Assets\Scripts\SpriteOutline.cs" />
     <Compile Include="Assets\Scripts\Util\AchievementChecker.cs" />
     <Compile Include="Assets\Scripts\Util\DummyBatController.cs" />
+    <Compile Include="Assets\Scripts\Util\ScreenShaker.cs" />
     <Compile Include="Assets\Scripts\Util\SimpleDestroyScript.cs" />
     <Compile Include="Assets\Scripts\Util\SimpleMoveScript.cs" />
     <Compile Include="Assets\Scripts\Util\SimpleObjectRotater.cs" />

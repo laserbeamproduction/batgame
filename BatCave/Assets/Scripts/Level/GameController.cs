@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.Events;
+using System;
+using System.Collections.Generic;
 
 public class GameController : MonoBehaviour {
     public GameObject pausePanel;
@@ -23,7 +25,6 @@ public class GameController : MonoBehaviour {
     private float playerFliesInCounter;
     private bool playerDied;
     private bool playerFlyInTriggered;
-    private bool playerInPosition;
     private bool powerUpsActive = false;
 
     // Use this for initialization
@@ -70,11 +71,6 @@ public class GameController : MonoBehaviour {
             }
         }
 
-        if (!playerInPosition && playerFliesInCounter == -1f) {
-            //camera.transform.position = Vector3.MoveTowards(transform.position, new Vector3(0f,0f,-10f), step);
-            camera.transform.Translate(0, 0.05f, 0);
-        }
-
         //start tension
         if (scoreCalculator.playerScore % scoreIntervalTension == 0 && scoreCalculator.playerScore != 0)
         {
@@ -87,9 +83,9 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    void OnPlayerPositioned() {
-        playerInPosition = true;
+    void OnPlayerPositioned(object arg0) {
         transform.position = new Vector3(0,0,transform.position.z);
+        Destroy(GetComponent<Animator>());
 
         // Reactivate UI
         skillSlider.SetActive(true);
@@ -97,12 +93,12 @@ public class GameController : MonoBehaviour {
         scorePanel.SetActive(true);
     }
 
-    void OnPlayerDied() {
+    void OnPlayerDied(object arg0) {
         playerDied = true;
         pauseButton.SetActive(false);
     }
 
-    void OnGameStart() {
+    void OnGameStart(object arg0) {
         // reset player model
         SaveLoadController.GetInstance().GetEndlessSession().Reset();
 
@@ -122,7 +118,7 @@ public class GameController : MonoBehaviour {
         EventManager.TriggerEvent(EventTypes.GAME_RESUME);
     }
 
-    void OnGameOver() {
+    void OnGameOver(object arg0) {
         PlayerSave player = SaveLoadController.GetInstance().GetPlayer();
         EndlessSessionSave gameSession = SaveLoadController.GetInstance().GetEndlessSession();
         GooglePlayHelper gph = GooglePlayHelper.GetInstance();
@@ -154,5 +150,7 @@ public class GameController : MonoBehaviour {
     void OnDestroy() {
         EventManager.StopListening(EventTypes.GAME_OVER, OnGameOver);
         EventManager.StopListening(EventTypes.GAME_START, OnGameStart);
+        EventManager.StopListening(EventTypes.PLAYER_DIED, OnPlayerDied);
+        EventManager.StopListening(EventTypes.PLAYER_IN_POSITION, OnPlayerPositioned);
     }
 }

@@ -2,30 +2,30 @@
 using System.Collections;
 
 public class PlayerResources : MonoBehaviour {
-    public float stamina;
-    public float maxStamina;
+    public float health;
+    public float maxHealth;
     public int echoUsedAmount;
 
-    public int echoCost;
-    public int batResourcePickup;
+    public int damageAmount;
+    public int healthPickupAmount;
 	
 	// Update is called once per frame
 	void Update () {
-        if (stamina < 0) {
-            stamina = 0;
+        if (health < 0) {
+            health = 0;
         }
 
-        if (stamina > maxStamina) {
-            stamina = maxStamina;
+        if (health > maxHealth) {
+            health = maxHealth;
         }
 	}
 
-    public void addStamina(int value) {
-        stamina += value;
+    public void addHealth(int value) {
+        health += value;
     }
 
-    public void removeStamina(int value) {
-        stamina -= value;
+    public void removeHealth(int value) {
+        health -= value;
     }
 
     public void echoUsed() {

@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.Events;
+using System.Collections.Generic;
 
 public class LevelEvent : MonoBehaviour {
     public DayNightCycle dayNightCycle;
@@ -22,20 +21,20 @@ public class LevelEvent : MonoBehaviour {
         EventManager.StopListening(EventTypes.PLAYER_SPEED_ENDED, SpeedPowerUpEnded);
     }
 
-    void setDay() {
+    void setDay(object arg0) {
         dayNightCycle.setDayTime();
     }
 
-    void setNight() {
+    void setNight(object arg0) {
         dayNightCycle.setNightTime();
     }
 
-    void SpeedPowerUpActive() {
+    void SpeedPowerUpActive(object arg0) {
         dayNightCycle.IncreasePlayerLightRange();
         playerControls.SetShield(true);
     }
 
-    void SpeedPowerUpEnded() {
+    void SpeedPowerUpEnded(object arg0) {
         dayNightCycle.DecreasePlayerLightRange();
         playerControls.SetShield(false);
     }

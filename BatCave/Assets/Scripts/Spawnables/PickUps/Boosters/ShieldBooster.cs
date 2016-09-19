@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.Events;
+using System.Collections.Generic;
 
 public class ShieldBooster : PowerUpController
 {
@@ -11,7 +11,7 @@ public class ShieldBooster : PowerUpController
         EventManager.StartListening(EventTypes.PLAYER_SHIELD_PICKUP, activateShield);
     }
 
-    void activateShield()
+    void activateShield(object arg0)
     {
         StartCoroutine(startCoolDown());
     }

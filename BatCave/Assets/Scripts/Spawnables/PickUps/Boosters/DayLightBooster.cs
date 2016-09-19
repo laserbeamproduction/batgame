@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.Events;
+using System.Collections.Generic;
 
 public class DayLightBooster : PowerUpController
 {
@@ -12,7 +12,7 @@ public class DayLightBooster : PowerUpController
         EventManager.StartListening(EventTypes.SET_DAY_TIME, startCycle);
     }
 
-    void startCycle()
+    void startCycle(object arg0)
     {
         StartCoroutine(startCoolDown());
     }

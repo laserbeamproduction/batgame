@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerShieldController : MonoBehaviour {
 
@@ -24,13 +24,13 @@ public class PlayerShieldController : MonoBehaviour {
         EventManager.StopListening(EventTypes.PLAYER_SHIELD_ENDED, OnsShieldEnded);
     }
 
-    void OnShieldActivated() {
+    void OnShieldActivated(object arg0) {
         spriteRenderer.enabled = true;
         powerActive = true;
         shieldDuration = boosterScript.shieldDuration;
     }
 
-    void OnsShieldEnded() {
+    void OnsShieldEnded(object arg0) {
         isBlinking = false;
         blinkIntervalCounter = 0;
         spriteRenderer.enabled = false;
