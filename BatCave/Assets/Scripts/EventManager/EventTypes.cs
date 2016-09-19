@@ -39,4 +39,7 @@ public class EventTypes {
     public static string STOP_SPAWNING = "stopSpawning";
 
     public static string ACTIVATE_POWERUPS = "activatePowerups";
+
+    //NETWORK EVENTS
+    public static string INSTANTIATE_OBJECT_POOL = "instantiateObjectPool";
 }
