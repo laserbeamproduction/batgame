@@ -1,10 +1,15 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class BatchModel {
 
-    private List<SpawnPointModel> spawnPoints;
+    private SpawnPointModel[] spawnPoints;
+    private PickupModel[] pickups;
+    private ObstacleModel[] obstacles;
 
-    public BatchModel(List<SpawnPointModel> spawnPoints) {
+    public BatchModel(SpawnPointModel[] spawnPoints, PickupModel[] pickups, ObstacleModel[] obstacles) {
         this.spawnPoints = spawnPoints;
+        this.pickups = pickups;
+        this.obstacles = obstacles;
     }
 }

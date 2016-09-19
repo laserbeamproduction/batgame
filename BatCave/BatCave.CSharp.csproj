@@ -256,8 +256,13 @@
     <Compile Include="Assets\Scripts\GooglePlay\GooglePlayHelper.cs" />
     <Compile Include="Assets\Scripts\Level\BackgroundTileManager.cs" />
     <Compile Include="Assets\Scripts\Level\DayNightCycle.cs" />
+    <Compile Include="Assets\Scripts\Level\Endless\SpawnSystem\Controller\ObstacleController.cs" />
+    <Compile Include="Assets\Scripts\Level\Endless\SpawnSystem\Controller\PickupController.cs" />
     <Compile Include="Assets\Scripts\Level\Endless\SpawnSystem\Controller\SpawnController.cs" />
+    <Compile Include="Assets\Scripts\Level\Endless\SpawnSystem\Controller\SpawnSystemEvents.cs" />
     <Compile Include="Assets\Scripts\Level\Endless\SpawnSystem\Model\BatchModel.cs" />
+    <Compile Include="Assets\Scripts\Level\Endless\SpawnSystem\Model\ObstacleModel.cs" />
+    <Compile Include="Assets\Scripts\Level\Endless\SpawnSystem\Model\PickupModel.cs" />
     <Compile Include="Assets\Scripts\Level\Endless\SpawnSystem\Model\SpawnPointModel.cs" />
     <Compile Include="Assets\Scripts\Level\Endless\SpawnSystem\View\BatchView.cs" />
     <Compile Include="Assets\Scripts\Level\GameController.cs" />

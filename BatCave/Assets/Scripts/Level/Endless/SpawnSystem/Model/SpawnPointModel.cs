@@ -1,13 +1,8 @@
 ﻿using UnityEngine;
 
-public class SpawnPointModel {
-
-    private Vector3 position;
+public class SpawnPointModel : MonoBehaviour {
+    
     private GameObject item;
-
-    public SpawnPointModel(Vector3 position) {
-        this.position = position;
-    }
 
     public void SetItem(GameObject item) {
         this.item = item;
