@@ -266,6 +266,10 @@
     <Compile Include="Assets\Scripts\Menu\InfoScene.cs" />
     <Compile Include="Assets\Scripts\Menu\MenuButtons.cs" />
     <Compile Include="Assets\Scripts\Menu\OptionsMenu.cs" />
+    <Compile Include="Assets\Scripts\Multiplayer\Player\Player.cs" />
+    <Compile Include="Assets\Scripts\Network\NetworkEvent.cs" />
+    <Compile Include="Assets\Scripts\Network\NetworkInstantiator.cs" />
+    <Compile Include="Assets\Scripts\Network\NetworkManager.cs" />
     <Compile Include="Assets\Scripts\Player\Echo\MoveEcho.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerAnimationController.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerControls.cs" />

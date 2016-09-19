@@ -41,10 +41,6 @@ public class EventTypes {
 
     public static string ACTIVATE_POWERUPS = "activatePowerups";
 
-<<<<<<< HEAD
     //NETWORK EVENTS
     public static string INSTANTIATE_OBJECT_POOL = "instantiateObjectPool";
-=======
-    // Multiplayer 
->>>>>>> 48dda15ced9dad2a0b5af1c164ecbdcf727dd28f
 }
