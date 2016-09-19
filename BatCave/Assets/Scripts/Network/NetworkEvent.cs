@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.Events;
 
 public class NetworkEvent : MonoBehaviour {
     public NetworkInstantiator networkInstantiator;
@@ -15,7 +13,7 @@ public class NetworkEvent : MonoBehaviour {
         EventManager.StopListening(EventTypes.INSTANTIATE_OBJECT_POOL, InstantiateNetworkObjects);
     }
 
-    void InstantiateNetworkObjects() {
+    void InstantiateNetworkObjects(object arg0) {
         networkInstantiator.CanStartSpawning();
     }
 }
