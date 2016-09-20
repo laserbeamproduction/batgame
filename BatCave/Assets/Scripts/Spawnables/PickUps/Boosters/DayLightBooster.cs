@@ -27,20 +27,7 @@ public class DayLightBooster : PowerUpController
     {
         if (col.gameObject.tag == "Player")
         {
-            gameObject.GetComponent<BoxCollider2D>().enabled = false;
-            gameObject.GetComponent<SpriteRenderer>().enabled = false;
             EventManager.TriggerEvent(EventTypes.SET_DAY_TIME);
-        }
-
-        if (col.gameObject.tag == "CleanUp")
-        {
-            gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            gameObject.transform.position = new Vector2(-10, 0);
-        }
-
-        if (col.gameObject.tag == "Obstacle")
-        {
-            gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + 2.5f);
         }
     }
 }

@@ -70,22 +70,12 @@ public class GameController : MonoBehaviour {
                 EventManager.TriggerEvent(EventTypes.GAME_OVER);
             }
         }
-
-        //start tension
-        if (scoreCalculator.playerScore % scoreIntervalTension == 0 && scoreCalculator.playerScore != 0)
-        {
-            EventManager.TriggerEvent(EventTypes.START_TENSION);
-        }
-
-        if (scoreCalculator.playerScore > scoreForPowerups && !powerUpsActive) {
-            powerUpsActive = true;
-            EventManager.TriggerEvent(EventTypes.ACTIVATE_POWERUPS);
-        }
     }
 
     void OnPlayerPositioned(object arg0) {
         transform.position = new Vector3(0,0,transform.position.z);
         Destroy(GetComponent<Animator>());
+        EventManager.TriggerEvent(SpawnSystemEvents.TOGGLE_SPAWNING, true);
 
         // Reactivate UI
         skillSlider.SetActive(true);

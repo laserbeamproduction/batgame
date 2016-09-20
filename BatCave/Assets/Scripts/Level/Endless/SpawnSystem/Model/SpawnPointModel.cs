@@ -2,13 +2,29 @@
 
 public class SpawnPointModel : MonoBehaviour {
     
-    private GameObject item;
-
-    public void SetItem(GameObject item) {
+    private GameItem item;
+    private bool isTaken;
+    
+    public void SetItem(GameItem item) {
         this.item = item;
+        isTaken = true;
+    }
+
+    // reserve slot but leave obstacle and pickup empty
+    public void reserveSlot() {
+        isTaken = true;
     }
 
     public bool IsSlotTaken() {
-        return this.item != null;
+        return isTaken;
+    }
+
+    public GameItem GetItem() {
+        return this.item;
+    }
+
+    public void Reset() {
+        this.item = null;
+        this.isTaken = false;
     }
 }

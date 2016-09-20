@@ -1,4 +1,5 @@
 ﻿public class SpawnSystemEvents {
+    public const string TOGGLE_SPAWNING = "spawnsystemevents_toggle_spawning";
     public const string NEW_BATCH_CREATED = "spawnsystemevents_new_batch_created";
     public const string ASSIGN_OBSTACLES_TO_BATCH = "spawnsystemevents_assign_obstacles_to_batch";
     public const string OBSTACLES_ASSIGNED = "spawnsystemevents_obstacles_assigned";
