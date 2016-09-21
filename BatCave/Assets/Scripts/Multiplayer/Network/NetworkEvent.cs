@@ -35,16 +35,13 @@ public class NetworkEvent : MonoBehaviour {
 
     private void StartCountdown(object value) {
         //Start Countdown & Instantiate Object Pools
-        if (Network.isServer)
-        {
-            networkInstantiator.InstantiateNetworkObjectPool();
-        }
-
+      
         StartCoroutine(MatchCountDown());
     }
 
     IEnumerator MatchCountDown() {
         yield return new WaitForSeconds(3);
+        EventManager.TriggerEvent(SpawnSystemEvents.TOGGLE_SPAWNING, true);
         GetComponent<NetworkView>().RPC("StartMatchEvent", RPCMode.All);
         Debug.Log("Match Started");
     }

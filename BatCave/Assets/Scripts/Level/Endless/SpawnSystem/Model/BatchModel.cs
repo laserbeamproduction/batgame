@@ -72,7 +72,7 @@ public class BatchModel {
         List<SpawnPointModel> spawnPointOptions = new List<SpawnPointModel>();
 
         // find possible solutions to place the obstacle
-        for (int i = 0; i < spawnPoints.Length - item.laneWeight; i++) {
+        for (int i = 0; i < spawnPoints.Length - item.laneWeight + 1; i++) {
             if (spawnPoints[i].IsSlotTaken())
                 continue;
 
