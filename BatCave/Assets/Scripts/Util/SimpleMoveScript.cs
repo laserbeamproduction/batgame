@@ -25,8 +25,8 @@ public class SimpleMoveScript : MonoBehaviour {
         EventManager.StartListening(EventTypes.GAME_PAUSED, OnGamePaused);
         EventManager.StartListening(EventTypes.PLAYER_DIED, OnGamePaused);
         EventManager.StartListening(EventTypes.PLAYER_IN_POSITION, OnIntroCompleet);
-        EventManager.StartListening(EventTypes.PLAYER_SPEED_PICKUP, ActivateSpeedBoost);
-        EventManager.StartListening(EventTypes.PLAYER_SPEED_ENDED, DeactivateSpeedBoost);
+        EventManager.StartListening(PowerupEvents.PLAYER_SPEED_PICKUP, ActivateSpeedBoost);
+        EventManager.StartListening(PowerupEvents.PLAYER_SPEED_ENDED, DeactivateSpeedBoost);
 
         StartCoroutine(StartTimer());
     }
@@ -44,12 +44,11 @@ public class SimpleMoveScript : MonoBehaviour {
     }
 
     void Update() {
-        if (!isPaused && !isIntro && !SpeedBoostActive) {
-            transform.Translate(Speed.x, Speed.y, 0);
-        }
-
-        if (!isPaused && !isIntro && SpeedBoostActive) {
-            transform.Translate(BoostSpeed.x, BoostSpeed.y, 0);
+        if (!isPaused && !isIntro) {
+            if (SpeedBoostActive)
+                transform.Translate(BoostSpeed.x, BoostSpeed.y, 0);
+            else 
+                transform.Translate(Speed.x, Speed.y, 0);
         }
     }
 
@@ -59,8 +58,8 @@ public class SimpleMoveScript : MonoBehaviour {
         EventManager.StopListening(EventTypes.GAME_PAUSED, OnGamePaused);
         EventManager.StopListening(EventTypes.PLAYER_DIED, OnGamePaused);
         EventManager.StopListening(EventTypes.PLAYER_IN_POSITION, OnIntroCompleet);
-        EventManager.StopListening(EventTypes.PLAYER_SPEED_PICKUP, ActivateSpeedBoost);
-        EventManager.StopListening(EventTypes.PLAYER_SPEED_ENDED, DeactivateSpeedBoost);
+        EventManager.StopListening(PowerupEvents.PLAYER_SPEED_PICKUP, ActivateSpeedBoost);
+        EventManager.StopListening(PowerupEvents.PLAYER_SPEED_ENDED, DeactivateSpeedBoost);
     }
 
     IEnumerator StartTimer() {

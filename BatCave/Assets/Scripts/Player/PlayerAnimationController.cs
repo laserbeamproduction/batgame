@@ -12,13 +12,13 @@ public class PlayerAnimationController : MonoBehaviour {
 	void Start () {
         animator = GetComponent<Animator>();
 
-        EventManager.StartListening(EventTypes.PLAYER_SPEED_PICKUP, OnSpeedBoostPickedUp);
-        EventManager.StartListening(EventTypes.PLAYER_SPEED_ENDED, OnSpeedBoostEnded);
+        EventManager.StartListening(PowerupEvents.PLAYER_SPEED_PICKUP, OnSpeedBoostPickedUp);
+        EventManager.StartListening(PowerupEvents.PLAYER_SPEED_ENDED, OnSpeedBoostEnded);
     }
 
     void OnDestroy() {
-        EventManager.StopListening(EventTypes.PLAYER_SPEED_PICKUP, OnSpeedBoostPickedUp);
-        EventManager.StopListening(EventTypes.PLAYER_SPEED_ENDED, OnSpeedBoostEnded);
+        EventManager.StopListening(PowerupEvents.PLAYER_SPEED_PICKUP, OnSpeedBoostPickedUp);
+        EventManager.StopListening(PowerupEvents.PLAYER_SPEED_ENDED, OnSpeedBoostEnded);
     }
 
     void OnSpeedBoostPickedUp(object arg0) {

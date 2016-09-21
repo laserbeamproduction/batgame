@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>5.4.0f3</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -256,8 +258,17 @@
     <Compile Include="Assets\Scripts\GooglePlay\GooglePlayHelper.cs" />
     <Compile Include="Assets\Scripts\Level\BackgroundTileManager.cs" />
     <Compile Include="Assets\Scripts\Level\DayNightCycle.cs" />
+    <Compile Include="Assets\Scripts\Level\Endless\SpawnSystem\Controller\ObstacleController.cs" />
+    <Compile Include="Assets\Scripts\Level\Endless\SpawnSystem\Controller\PickupController.cs" />
+    <Compile Include="Assets\Scripts\Level\Endless\SpawnSystem\Controller\SpawnController.cs" />
+    <Compile Include="Assets\Scripts\Level\Endless\SpawnSystem\Controller\SpawnSystemEvents.cs" />
+    <Compile Include="Assets\Scripts\Level\Endless\SpawnSystem\Model\BatchModel.cs" />
+    <Compile Include="Assets\Scripts\Level\Endless\SpawnSystem\Model\GameItem.cs" />
+    <Compile Include="Assets\Scripts\Level\Endless\SpawnSystem\Model\ObstacleModel.cs" />
+    <Compile Include="Assets\Scripts\Level\Endless\SpawnSystem\Model\PickupModel.cs" />
+    <Compile Include="Assets\Scripts\Level\Endless\SpawnSystem\Model\SpawnPointModel.cs" />
+    <Compile Include="Assets\Scripts\Level\Endless\SpawnSystem\View\BatchView.cs" />
     <Compile Include="Assets\Scripts\Level\GameController.cs" />
-    <Compile Include="Assets\Scripts\Level\LevelEvent.cs" />
     <Compile Include="Assets\Scripts\Level\SkillSlider.cs" />
     <Compile Include="Assets\Scripts\Level\SkillSliderFeedback.cs" />
     <Compile Include="Assets\Scripts\Level\WallManager.cs" />
@@ -272,6 +283,7 @@
     <Compile Include="Assets\Scripts\Network\NetworkManager.cs" />
     <Compile Include="Assets\Scripts\Player\Echo\MoveEcho.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerAnimationController.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerBoostParticles.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerControls.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerEvent.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerIntroAnimController.cs" />
@@ -288,17 +300,15 @@
     <Compile Include="Assets\Scripts\Score\DisplayScore.cs" />
     <Compile Include="Assets\Scripts\Score\EndScreenScore.cs" />
     <Compile Include="Assets\Scripts\Score\ScoreCalculator.cs" />
-    <Compile Include="Assets\Scripts\Spawnables\Obstacle\ObstacleCleanUp.cs" />
     <Compile Include="Assets\Scripts\Spawnables\PickUps\Boosters\DayLightBooster.cs" />
     <Compile Include="Assets\Scripts\Spawnables\PickUps\Boosters\LightPowerController.cs" />
-    <Compile Include="Assets\Scripts\Spawnables\PickUps\Boosters\PowerUpController.cs" />
+    <Compile Include="Assets\Scripts\Spawnables\PickUps\Boosters\Powerup.cs" />
     <Compile Include="Assets\Scripts\Spawnables\PickUps\Boosters\ShieldBooster.cs" />
     <Compile Include="Assets\Scripts\Spawnables\PickUps\Boosters\SpeedBooster.cs" />
     <Compile Include="Assets\Scripts\Spawnables\PickUps\Health\HealthController.cs" />
     <Compile Include="Assets\Scripts\Spawnables\PickUps\Health\ParticalAttractor.cs" />
-    <Compile Include="Assets\Scripts\Spawnables\Spawner.cs" />
-    <Compile Include="Assets\Scripts\Spawnables\TensionMoments\TensionController.cs" />
-    <Compile Include="Assets\Scripts\Spawnables\TensionMoments\WallerTension.cs" />
+    <Compile Include="Assets\Scripts\Spawnables\PickUps\PowerupController.cs" />
+    <Compile Include="Assets\Scripts\Spawnables\PickUps\PowerupEvents.cs" />
     <Compile Include="Assets\Scripts\SplashScreen\SplashScreen.cs" />
     <Compile Include="Assets\Scripts\SpriteOutline.cs" />
     <Compile Include="Assets\Scripts\Util\AchievementChecker.cs" />

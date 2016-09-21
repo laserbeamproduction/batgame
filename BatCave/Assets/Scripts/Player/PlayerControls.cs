@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class PlayerControls : MonoBehaviour {
     public GameObject Echo;
@@ -57,7 +58,7 @@ public class PlayerControls : MonoBehaviour {
         EventManager.StopListening(EventTypes.DISABLE_PLAYER_LIGHT, OnPlayerLightDisabled);
         EventManager.StopListening(EventTypes.PLAYER_IN_POSITION, OnPlayerInPosition);
     }
-
+    
     void OnGamePaused(object arg0) {
         isPaused = true;
     }
@@ -80,6 +81,8 @@ public class PlayerControls : MonoBehaviour {
         yield return 1;
         isPaused = false;
     }
+
+
 
     void OnPlayerDied(object arg0) {
         // Hide player sprite
