@@ -7,10 +7,6 @@ public class NetworkEvent : MonoBehaviour {
     public NetworkInstantiator networkInstantiator;
     public LocalInstantiator localInstantiator;
 
-    private int playerCount = 0;
-
-    private bool playersReady = false;
-
     void OnEnable() {
         //Start Listening to Events
         EventManager.StartListening(EventTypes.SERVER_STARTED, ServerStarted);
@@ -25,20 +21,16 @@ public class NetworkEvent : MonoBehaviour {
         EventManager.StopListening(EventTypes.START_COUNTDOWN, StartCountdown);
     }
 
-    void FixedUpdate() {
-        if (playersReady) {
-            EventManager.TriggerEvent(EventTypes.START_COUNTDOWN);
-            playersReady = false;
-        }
-    }
-
     private void ServerStarted(object value)
     {
         networkInstantiator.InstantiatePlayerOne();
+        localInstantiator.InstantiateLocalObjectPool();
     }
 
-    private void PlayerJoinedServer(object value) {
+    private void PlayerJoinedServer(object value)
+    {
         networkInstantiator.InstantiatePlayerTwo();
+        localInstantiator.InstantiateLocalObjectPool();
     }
 
     private void StartCountdown(object value) {
@@ -48,8 +40,27 @@ public class NetworkEvent : MonoBehaviour {
             networkInstantiator.InstantiateNetworkObjectPool();
         }
 
-        localInstantiator.InstantiateLocalObjectPool();
+        StartCoroutine(MatchCountDown());
+    }
 
+    IEnumerator MatchCountDown() {
+        yield return new WaitForSeconds(3);
+        GetComponent<NetworkView>().RPC("StartMatchEvent", RPCMode.All);
+        Debug.Log("Match Started");
+    }
+
+    void OnPlayerConnected(NetworkPlayer player)
+    {
+        GetComponent<NetworkView>().RPC("CountdownEvent", RPCMode.All);
+        Debug.Log("Player Connected to Server");
+    }
+
+    [RPC]
+    void CountdownEvent() {
+        EventManager.TriggerEvent(EventTypes.START_COUNTDOWN);
+    }
+    [RPC]
+    void StartMatchEvent() {
         EventManager.TriggerEvent(EventTypes.START_MATCH);
     }
 }

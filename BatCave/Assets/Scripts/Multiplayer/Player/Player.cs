@@ -10,15 +10,17 @@ public class Player : MonoBehaviour {
     private bool playerLeft;
     private bool playerRight;
     private bool touchStarted = false;
+    private NetworkView view;
 
     // Use this for initialization
     void Start () {
         rigidbody = GetComponent<Rigidbody2D>();
+        view = GetComponent<NetworkView>();
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (GetComponent<NetworkView>().isMine)
+        if (view.isMine)
         {
             CheckPlayerPosition();
             //Swipe Controls

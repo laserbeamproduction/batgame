@@ -7,20 +7,17 @@ public class NetworkInstantiator : MonoBehaviour
     //Obstacles & Pickups & Powerups
     public GameObject[] obstacles;
     public GameObject[] pickUps;
-    public GameObject[] powerUps;
     public GameObject player;
 
     //Instantiated objects
     public static List<GameObject> netObstacles;
     public static List<GameObject> netPickups;
-    public static List<GameObject> netPowerups;
 
     public Transform spawnPoint;
 
     void Start() {
         netObstacles = new List<GameObject>();
         netPickups = new List<GameObject>();
-        netPowerups = new List<GameObject>();
     }
 
     public void InstantiateNetworkObjectPool() {
@@ -34,13 +31,9 @@ public class NetworkInstantiator : MonoBehaviour
         {
             netPickups.Add(Network.Instantiate(pickUps[i], spawnPoint.position, Quaternion.identity, 0) as GameObject);
         }
-
-        for (int i = 0; i < powerUps.Length; i++)
-        {
-            netPowerups.Add(Network.Instantiate(powerUps[i], spawnPoint.position, Quaternion.identity, 0) as GameObject);
-        }
     }    
 
+    //Instantiate players
     public void InstantiatePlayerOne() {
         Network.Instantiate(player, new Vector3(-1, -3, 0), Quaternion.identity, 1);
     }

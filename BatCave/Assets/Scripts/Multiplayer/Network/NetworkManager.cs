@@ -6,6 +6,7 @@ public class NetworkManager : MonoBehaviour {
     private const string gameName = "endlessMode";
     private HostData[] hostList;
 
+    //When Player clicks Play Online button
     public void PlayOnlineClicked() {
         if (!Network.isClient && !Network.isServer) {
             RefreshHostList();
@@ -14,8 +15,9 @@ public class NetworkManager : MonoBehaviour {
         StartCoroutine(WaitForList());
     }
 
+    //Simple Matchmaking
     IEnumerator WaitForList() {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3);
 
         if (hostList != null && hostList.Length >= 1)
         {
@@ -36,34 +38,12 @@ public class NetworkManager : MonoBehaviour {
                 JoinServer(hostList[i]);
                 return;
             }
-
-            if ((i + 1) == hostList.Length) {
-                StartServer();
-                return;
-            }
         }
-    }
 
-    public void HostServerClicked() {
         StartServer();
     }
 
-    public void RefreshServerClicked()
-    {
-        RefreshHostList();
-    }
-
-    void OnGUI(){
-        if (hostList != null)
-        {
-            for (int i = 0; i < hostList.Length; i++)
-            {
-                if (GUI.Button(new Rect(0, 0 + (0 * i), 0, 0), hostList[i].gameName))
-                    JoinServer(hostList[i]);
-            }
-        }
-    }
-
+    //Start the server & Register to Hostlist
     private void StartServer() {
         Network.InitializeServer(1, 25000, !Network.HavePublicAddress());
         MasterServer.RegisterHost(typeName, gameName);
@@ -72,7 +52,7 @@ public class NetworkManager : MonoBehaviour {
     void OnServerInitialized()
     {
         Debug.Log("Server Initializied");
-        EventManager.TriggerEvent(EventTypes.SERVER_STARTED); //Sent Event to start spawning objectpool
+        EventManager.TriggerEvent(EventTypes.SERVER_STARTED);
     }
 
     void OnMasterServerEvent(MasterServerEvent msEvent)
@@ -81,19 +61,28 @@ public class NetworkManager : MonoBehaviour {
             hostList = MasterServer.PollHostList();
     }
 
+    //Get HostList from Masterserver
     private void RefreshHostList()
     {
         MasterServer.RequestHostList(typeName);
     }
 
+    //Join Selected server
     private void JoinServer(HostData hostData)
     {
         Network.Connect(hostData);
     }
 
+    //Player Connected to server - Time to launch the game.
     void OnConnectedToServer()
     {
         Debug.Log("Server Joined");
         EventManager.TriggerEvent(EventTypes.PLAYER_TWO_JOINED);
+    }
+
+    //Throw Error when connection failed & Restart search for game
+    void OnFailedToConnect(NetworkConnectionError error) {
+        Debug.Log("Connection Failed: " + error + " //Starting Search Again");
+        PlayOnlineClicked();
     }
 }
