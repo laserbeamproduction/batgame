@@ -3,8 +3,6 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
     private Rigidbody2D rigidbody;
-    private Animator animator;
-    private Vector2 movement;
     public float speed = 30;
     private Vector2 fp; // first finger position
     private Vector2 lp; // last finger position
@@ -55,25 +53,15 @@ public class Player : MonoBehaviour {
             {
                 //SpawnEcho();
             }
-            if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.LeftArrow))
+            if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.LeftArrow) && !playerLeft)
             {
                 playerLeft = true;
                 xPosition -= 1;
             }
-            if (Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.RightArrow))
+            if (Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.RightArrow) && !playerRight)
             {
                 playerRight = true;
                 xPosition += 1;
-            }
-
-            if (Input.GetKeyUp(KeyCode.P))
-            {
-                animator.SetBool("isBoosting", true);
-            }
-
-            if (Input.GetKeyUp(KeyCode.O))
-            {
-                animator.SetBool("isBoosting", false);
             }
             return;
         }

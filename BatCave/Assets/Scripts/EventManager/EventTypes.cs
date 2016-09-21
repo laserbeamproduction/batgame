@@ -41,6 +41,9 @@ public class EventTypes {
 
     public static string ACTIVATE_POWERUPS = "activatePowerups";
 
-    //NETWORK EVENTS
-    public static string INSTANTIATE_OBJECT_POOL = "instantiateObjectPool";
+    //NETWORK 
+    public static string SERVER_STARTED = "serverStarted";
+    public static string PLAYER_TWO_JOINED = "playerTwoJoined";
+    public static string START_MATCH = "startMatch";
+    public static string START_COUNTDOWN = "startCountdown";
 }

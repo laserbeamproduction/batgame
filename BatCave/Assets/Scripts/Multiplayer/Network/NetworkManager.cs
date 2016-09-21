@@ -5,7 +5,44 @@ public class NetworkManager : MonoBehaviour {
     private const string typeName = "BatCompanyOnline";
     private const string gameName = "endlessMode";
     private HostData[] hostList;
-    public GameObject playerPrefab;
+
+    public void PlayOnlineClicked() {
+        if (!Network.isClient && !Network.isServer) {
+            RefreshHostList();
+        }
+
+        StartCoroutine(WaitForList());
+    }
+
+    IEnumerator WaitForList() {
+        yield return new WaitForSeconds(5);
+
+        if (hostList != null && hostList.Length >= 1)
+        {
+            StartSearch();
+        }
+        else {
+            StartServer();
+        }
+
+        StopCoroutine(WaitForList());
+    }
+
+    private void StartSearch() {
+        for (int i = 0; hostList.Length > i; i++)
+        {
+            if (hostList[i].connectedPlayers < hostList[i].playerLimit)
+            {
+                JoinServer(hostList[i]);
+                return;
+            }
+
+            if ((i + 1) == hostList.Length) {
+                StartServer();
+                return;
+            }
+        }
+    }
 
     public void HostServerClicked() {
         StartServer();
@@ -21,22 +58,21 @@ public class NetworkManager : MonoBehaviour {
         {
             for (int i = 0; i < hostList.Length; i++)
             {
-                if (GUI.Button(new Rect(10, 300 + (110 * i), 100, 50), hostList[i].gameName))
+                if (GUI.Button(new Rect(0, 0 + (0 * i), 0, 0), hostList[i].gameName))
                     JoinServer(hostList[i]);
             }
         }
     }
 
     private void StartServer() {
-        Network.InitializeServer(2, 25000, !Network.HavePublicAddress());
+        Network.InitializeServer(1, 25000, !Network.HavePublicAddress());
         MasterServer.RegisterHost(typeName, gameName);
     }
 
     void OnServerInitialized()
     {
         Debug.Log("Server Initializied");
-        SpawnPlayerOne();
-        EventManager.TriggerEvent(EventTypes.INSTANTIATE_OBJECT_POOL); //Sent Event to start spawning objectpool
+        EventManager.TriggerEvent(EventTypes.SERVER_STARTED); //Sent Event to start spawning objectpool
     }
 
     void OnMasterServerEvent(MasterServerEvent msEvent)
@@ -58,14 +94,6 @@ public class NetworkManager : MonoBehaviour {
     void OnConnectedToServer()
     {
         Debug.Log("Server Joined");
-        SpawnPlayerTwo();
-    }
-
-    void SpawnPlayerOne() {
-        Network.Instantiate(playerPrefab, new Vector3(1f, -3f, 0), Quaternion.identity, 0);
-    }
-
-    void SpawnPlayerTwo() {
-        Network.Instantiate(playerPrefab, new Vector3(-1f, -3f, 0), Quaternion.identity, 0);
+        EventManager.TriggerEvent(EventTypes.PLAYER_TWO_JOINED);
     }
 }
