@@ -19,7 +19,7 @@ public class HealthController : MonoBehaviour {
             if (!isEmittingBlood) {
                 StartBloodParticles();
                 isEmittingBlood = true;
-                spriteRenderer.enabled = false;
+                isHitByPlayer = false;
             } else {
                 if (!particle.isPlaying) {
                     OnParticleAnimFinished();
@@ -28,20 +28,16 @@ public class HealthController : MonoBehaviour {
         }
     }
 
-    void OnCollisionEnter2D(Collision2D col) {
+    void OnTriggerEnter2D(Collider2D col) {
         if (!isHitByPlayer) {
             if (col.gameObject.tag == "Player") {
-                gameObject.GetComponent<BoxCollider2D>().enabled = false;
                 EventManager.TriggerEvent(EventTypes.HEALTH_PICKED_UP);
                 isHitByPlayer = true;
+                spriteRenderer.enabled = false;
             }
-
-            if (col.gameObject.tag == "CleanUp") {
-                //markedForDestroy = true;
-                //gameObject.SetActive(false);
-                //gameObject.GetComponent<SpriteRenderer>().enabled = false;
-               // gameObject.transform.position = new Vector2(-7.18f, 1.036f);
-            }
+        }
+        if (col.gameObject.tag == "CleanUp") {
+            spriteRenderer.enabled = true;
         }
     }
 
@@ -50,11 +46,6 @@ public class HealthController : MonoBehaviour {
     }
 
     void OnParticleAnimFinished() {
-        spriteRenderer.enabled = true;
-        isHitByPlayer = false;
         isEmittingBlood = false;
-        //gameObject.SetActive(false);
-        //gameObject.GetComponent<SpriteRenderer>().enabled = false;
-        //gameObject.transform.position = new Vector2(-7.18f, 1.036f);
     }
 }

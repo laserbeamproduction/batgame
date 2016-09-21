@@ -7,11 +7,11 @@ public class LightPowerController : MonoBehaviour {
 
     void Start() {
         particleSystem = GetComponent<ParticleSystem>();
-        EventManager.StartListening(EventTypes.SET_DAY_TIME, OnLightPowerPickedUp);
+        EventManager.StartListening(PowerupEvents.PLAYER_LIGHT_PICKUP, OnLightPowerPickedUp);
     }
 
     void OnDestroy() {
-        EventManager.StopListening(EventTypes.SET_DAY_TIME, OnLightPowerPickedUp);
+        EventManager.StopListening(PowerupEvents.PLAYER_LIGHT_PICKUP, OnLightPowerPickedUp);
     }
 
     void OnLightPowerPickedUp(object arg0) {

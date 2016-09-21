@@ -2,32 +2,22 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class DayLightBooster : PowerUpController
+public class DayLightBooster : Powerup
 {
     public float DayTimeUpTime;
+    private SpriteRenderer spriteRenderer;
 
-    // Use this for initialization
-    void Start()
-    {
-        EventManager.StartListening(EventTypes.SET_DAY_TIME, startCycle);
+    void Start() {
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    void startCycle(object arg0)
-    {
-        StartCoroutine(startCoolDown());
-    }
-
-    IEnumerator startCoolDown()
-    {
-        yield return new WaitForSeconds(DayTimeUpTime);
-        EventManager.TriggerEvent(EventTypes.SET_NIGHT_TIME);
-    }
-
-    public void OnCollisionEnter2D(Collision2D col)
-    {
-        if (col.gameObject.tag == "Player")
-        {
-            EventManager.TriggerEvent(EventTypes.SET_DAY_TIME);
+    void OnTriggerEnter2D(Collider2D col) {
+        if (col.gameObject.tag == "Player") {
+            spriteRenderer.enabled = false;
+            EventManager.TriggerEvent(PowerupEvents.PLAYER_LIGHT_PICKUP, DayTimeUpTime);
+        }
+        if (col.gameObject.tag == "CleanUp") {
+            spriteRenderer.enabled = true;
         }
     }
 }

@@ -6,13 +6,14 @@ public class PlayerBoostParticles : MonoBehaviour {
 
 	void Start () {
         particleSystem = GetComponent<ParticleSystem>();
-        EventManager.StartListening(EventTypes.PLAYER_SPEED_ENDED, OnSpeedBoostEnded);
-        EventManager.StartListening(EventTypes.PLAYER_SPEED_PICKUP, OnSpeedBoostPickedUp);
+        particleSystem.enableEmission = false;
+        EventManager.StartListening(PowerupEvents.PLAYER_SPEED_ENDED, OnSpeedBoostEnded);
+        EventManager.StartListening(PowerupEvents.PLAYER_SPEED_PICKUP, OnSpeedBoostPickedUp);
     }
 
     void OnDestroy () {
-        EventManager.StopListening(EventTypes.PLAYER_SPEED_ENDED, OnSpeedBoostEnded);
-        EventManager.StopListening(EventTypes.PLAYER_SPEED_PICKUP, OnSpeedBoostPickedUp);
+        EventManager.StopListening(PowerupEvents.PLAYER_SPEED_ENDED, OnSpeedBoostEnded);
+        EventManager.StopListening(PowerupEvents.PLAYER_SPEED_PICKUP, OnSpeedBoostPickedUp);
     }
 
     private void OnSpeedBoostPickedUp(object arg0)

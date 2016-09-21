@@ -6,7 +6,6 @@ public class PlayerShieldController : MonoBehaviour {
     private SpriteRenderer spriteRenderer;
     public float blinkInterval;
     public bool powerActive;
-    public ShieldBooster boosterScript;
 
     private float blinkIntervalCounter;
     private bool isBlinking;
@@ -15,19 +14,20 @@ public class PlayerShieldController : MonoBehaviour {
     void Start() {
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.enabled = false;
-        EventManager.StartListening(EventTypes.PLAYER_SHIELD_PICKUP, OnShieldActivated);
-        EventManager.StartListening(EventTypes.PLAYER_SHIELD_ENDED, OnsShieldEnded);
+        EventManager.StartListening(PowerupEvents.PLAYER_SHIELD_PICKUP, OnShieldActivated);
+        EventManager.StartListening(PowerupEvents.PLAYER_SHIELD_ENDED, OnsShieldEnded);
     }
 
     void OnDestroy() {
-        EventManager.StopListening(EventTypes.PLAYER_SHIELD_PICKUP, OnShieldActivated);
-        EventManager.StopListening(EventTypes.PLAYER_SHIELD_ENDED, OnsShieldEnded);
+        EventManager.StopListening(PowerupEvents.PLAYER_SHIELD_PICKUP, OnShieldActivated);
+        EventManager.StopListening(PowerupEvents.PLAYER_SHIELD_ENDED, OnsShieldEnded);
     }
 
-    void OnShieldActivated(object arg0) {
+    void OnShieldActivated(object duration) {
         spriteRenderer.enabled = true;
         powerActive = true;
-        shieldDuration = boosterScript.shieldDuration;
+        shieldDuration = (float)duration;
+        isBlinking = false;
     }
 
     void OnsShieldEnded(object arg0) {

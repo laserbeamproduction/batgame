@@ -19,7 +19,7 @@ public class GameItem : MonoBehaviour {
         this.isAvailable = available;
     }
 
-    void OnCollisionEnter2D(Collision2D col) {
+    void OnTriggerEnter2D(Collider2D col) {
         if (col.gameObject.name == "CleanUp") {
             SetAvailable(true);
         }

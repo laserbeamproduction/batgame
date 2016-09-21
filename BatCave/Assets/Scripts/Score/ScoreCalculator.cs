@@ -16,8 +16,8 @@ public class ScoreCalculator : MonoBehaviour {
         EventManager.StartListening(EventTypes.GAME_PAUSED, OnGamePaused);
         EventManager.StartListening(EventTypes.PLAYER_DIED, OnGamePaused);
         EventManager.StartListening(EventTypes.PLAYER_IN_POSITION, OnIntroCompleet);
-        EventManager.StartListening(EventTypes.PLAYER_SPEED_PICKUP, SetSpeedMultiplier);
-        EventManager.StartListening(EventTypes.PLAYER_SPEED_ENDED, SetSpeedMultiplier);
+        EventManager.StartListening(PowerupEvents.PLAYER_SPEED_PICKUP, SetSpeedMultiplier);
+        EventManager.StartListening(PowerupEvents.PLAYER_SPEED_ENDED, SetSpeedMultiplier);
     }
 
     void OnGamePaused(object arg0) {
@@ -51,6 +51,8 @@ public class ScoreCalculator : MonoBehaviour {
         EventManager.StopListening(EventTypes.GAME_PAUSED, OnGamePaused);
         EventManager.StopListening(EventTypes.PLAYER_DIED, OnGamePaused);
         EventManager.StopListening(EventTypes.PLAYER_IN_POSITION, OnIntroCompleet);
+        EventManager.StopListening(PowerupEvents.PLAYER_SPEED_PICKUP, SetSpeedMultiplier);
+        EventManager.StopListening(PowerupEvents.PLAYER_SPEED_ENDED, SetSpeedMultiplier);
     }
 
     void FixedUpdate() {

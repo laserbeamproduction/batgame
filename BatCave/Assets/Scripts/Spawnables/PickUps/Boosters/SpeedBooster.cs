@@ -3,35 +3,24 @@ using System.Collections;
 using UnityEngine.Events;
 using System.Collections.Generic;
 
-public class SpeedBooster : PowerUpController
+public class SpeedBooster : Powerup
 {
 
     public float speedDuration;
+    private SpriteRenderer spriteRenderer;
 
-    void Start()
-    {
-        EventManager.StartListening(EventTypes.PLAYER_SPEED_PICKUP, activateSpeed);
+    void Start() {
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    void activateSpeed(object arg0)
-    {
-        StartCoroutine(startCoolDown());
-    }
-
-    IEnumerator startCoolDown()
-    {
-        yield return new WaitForSeconds(speedDuration);
-        EventManager.TriggerEvent(EventTypes.PLAYER_SPEED_ENDED);
-        StopCoroutine(startCoolDown());
-    }
-
-    public void OnCollisionEnter2D(Collision2D col)
-    {
+    void OnTriggerEnter2D(Collider2D col) {
         if (col.gameObject.tag == "Player")
         {
-            //gameObject.GetComponent<BoxCollider2D>().enabled = false;
-            //gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            EventManager.TriggerEvent(EventTypes.PLAYER_SPEED_PICKUP);
+            spriteRenderer.enabled = false;
+            EventManager.TriggerEvent(PowerupEvents.PLAYER_SPEED_PICKUP, speedDuration);
+        }
+        if (col.gameObject.tag == "CleanUp") {
+            spriteRenderer.enabled = true;
         }
     }
 }
