@@ -24,16 +24,10 @@ public class EventTypes {
     public const string DISABLE_PLAYER_LIGHT = "disablePlayerLight";
     public const string PLAYER_IN_POSITION = "playerInPosition";
 
-
-
-<<<<<<< HEAD
     //NETWORK 
-    public static string SERVER_STARTED = "serverStarted";
-    public static string PLAYER_TWO_JOINED = "playerTwoJoined";
-    public static string START_MATCH = "startMatch";
-    public static string START_COUNTDOWN = "startCountdown";
-=======
-    //NETWORK EVENTS
+    public const string SERVER_STARTED = "serverStarted";
+    public const string PLAYER_TWO_JOINED = "playerTwoJoined";
+    public const string START_MATCH = "startMatch";
+    public const string START_COUNTDOWN = "startCountdown";
     public const string INSTANTIATE_OBJECT_POOL = "instantiateObjectPool";
->>>>>>> cbf2922d301a0f594703744d8370c7485323ee7c
 }
