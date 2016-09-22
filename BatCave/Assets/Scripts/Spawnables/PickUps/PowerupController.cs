@@ -29,6 +29,8 @@ public class PowerupController : MonoBehaviour {
                 shieldDuration -= Time.deltaTime;
             } else {
                 shieldActive = false;
+                if (!speedActive)
+                    playerControls.SetShield(false);
                 EventManager.TriggerEvent(PowerupEvents.PLAYER_SHIELD_ENDED);
             }
         }
@@ -39,6 +41,8 @@ public class PowerupController : MonoBehaviour {
             } else {
                 speedActive = false;
                 dayNightCycle.DecreasePlayerLightRange();
+                if (!shieldActive)
+                    playerControls.SetShield(false);
                 EventManager.TriggerEvent(PowerupEvents.PLAYER_SPEED_ENDED);
             }
         }
