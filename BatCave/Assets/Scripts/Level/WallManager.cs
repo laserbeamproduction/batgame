@@ -31,8 +31,8 @@ public class WallManager : MonoBehaviour {
     }
 
     //Get new sprites from WallSpriteSelector
-    private void WallSpritesUpdated(object value) {
-        sprites = GetComponent<WallSpriteSelector>().currentWallSprites;
+    private void WallSpritesUpdated(object newSprites) {
+        sprites = newSprites as Sprite[];
     }
 
     private void TransitionStarted(object value) {
