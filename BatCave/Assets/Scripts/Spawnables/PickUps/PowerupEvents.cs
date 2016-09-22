@@ -7,4 +7,6 @@
 
     public const string PLAYER_SPEED_PICKUP = "playerSpeedPickUp";
     public const string PLAYER_SPEED_ENDED = "playerSpeedEnded";
+
+    public const string PLAYER_COIN_PICKUP = "playerCoinPickUp";
 }
