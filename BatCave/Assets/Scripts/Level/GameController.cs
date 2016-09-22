@@ -7,7 +7,6 @@ using System.Collections.Generic;
 public class GameController : MonoBehaviour {
     public GameObject pausePanel;
     public GameObject pauseButton;
-    public GameObject camera;
     public GameObject scorePanel;
     public GameObject skillSlider;
     public ScoreCalculator scoreCalculator;

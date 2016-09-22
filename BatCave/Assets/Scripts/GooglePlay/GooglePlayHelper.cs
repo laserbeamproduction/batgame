@@ -108,7 +108,7 @@ public class GooglePlayHelper {
     /// Logs out current active user from Google Play
     /// </summary>
     public void Logout() {
-        ((GooglePlayGames.PlayGamesPlatform)Social.Active).SignOut();
+        ((PlayGamesPlatform)Social.Active).SignOut();
     }
 
     /// <summary>

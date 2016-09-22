@@ -19,7 +19,8 @@ public class PowerupController : MonoBehaviour {
 	void Start () {
         EventManager.StartListening(PowerupEvents.PLAYER_SHIELD_PICKUP, OnShieldPickedUp);
         EventManager.StartListening(PowerupEvents.PLAYER_SPEED_PICKUP, OnPlayerSpeedPickedUp);
-        EventManager.StartListening(PowerupEvents.PLAYER_LIGHT_PICKUP, OnPlayerLightPickedUp);
+        EventManager.StartListening(PowerupEvents.PLAYER_LIGHT_PICKUP, OnPlayerLightPickedUp); 
+        EventManager.StartListening(PowerupEvents.PLAYER_COIN_PICKUP, OnPlayerCoinPickedUp);
     }
 
     void Update() {
@@ -71,9 +72,14 @@ public class PowerupController : MonoBehaviour {
         dayNightCycle.setDayTime();
     }
 
+    private void OnPlayerCoinPickedUp(object coins) {
+        SaveLoadController.GetInstance().GetPlayer().AddTotalCoins((int)coins);
+    }
+
     void OnDestroy() {
         EventManager.StopListening(PowerupEvents.PLAYER_SHIELD_PICKUP, OnShieldPickedUp);
         EventManager.StopListening(PowerupEvents.PLAYER_SPEED_PICKUP, OnPlayerSpeedPickedUp);
         EventManager.StopListening(PowerupEvents.PLAYER_LIGHT_PICKUP, OnPlayerLightPickedUp);
+        EventManager.StopListening(PowerupEvents.PLAYER_COIN_PICKUP, OnPlayerCoinPickedUp);
     }
 }
