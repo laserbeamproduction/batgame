@@ -9,33 +9,18 @@ public class NetworkEvent : MonoBehaviour {
 
     void OnEnable() {
         //Start Listening to Events
-        EventManager.StartListening(EventTypes.SERVER_STARTED, ServerStarted);
-        EventManager.StartListening(EventTypes.PLAYER_TWO_JOINED, PlayerJoinedServer);
         EventManager.StartListening(EventTypes.START_COUNTDOWN, StartCountdown);
     }
 
     void OnDisable() {
         //Stop Listening to Events
-        EventManager.StopListening(EventTypes.SERVER_STARTED, ServerStarted);
-        EventManager.StopListening(EventTypes.PLAYER_TWO_JOINED, PlayerJoinedServer);
         EventManager.StopListening(EventTypes.START_COUNTDOWN, StartCountdown);
-    }
-
-    private void ServerStarted(object value)
-    {
-        networkInstantiator.InstantiatePlayerOne();
-        localInstantiator.InstantiateLocalObjectPool();
-    }
-
-    private void PlayerJoinedServer(object value)
-    {
-        networkInstantiator.InstantiatePlayerTwo();
-        localInstantiator.InstantiateLocalObjectPool();
     }
 
     private void StartCountdown(object value) {
         //Start Countdown & Instantiate Object Pools
-      
+        networkInstantiator.InstantiatePlayerOne();
+        localInstantiator.InstantiateLocalObjectPool();
         StartCoroutine(MatchCountDown());
     }
 
@@ -55,6 +40,7 @@ public class NetworkEvent : MonoBehaviour {
     [RPC]
     void CountdownEvent() {
         EventManager.TriggerEvent(EventTypes.START_COUNTDOWN);
+        EventManager.TriggerEvent(EventTypes.HIDE_LOBBY);
     }
     [RPC]
     void StartMatchEvent() {

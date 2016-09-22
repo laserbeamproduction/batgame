@@ -25,7 +25,8 @@ public class LoadingController : MonoBehaviour {
         GAME_OVER = 3,
         LOADING_SCENE = 4,
         OPTION_MENU = 5,
-        INFO_MENU = 6
+        INFO_MENU = 6,
+        MULTIPLAYER = 7
     }
 
     private static Scenes sceneToBeLoaded;

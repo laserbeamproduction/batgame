@@ -276,6 +276,7 @@
     <Compile Include="Assets\Scripts\Menu\MenuButtons.cs" />
     <Compile Include="Assets\Scripts\Menu\OptionsMenu.cs" />
     <Compile Include="Assets\Scripts\Multiplayer\LocalInstantiator.cs" />
+    <Compile Include="Assets\Scripts\Multiplayer\Network\LobbyManager.cs" />
     <Compile Include="Assets\Scripts\Multiplayer\Network\NetworkEvent.cs" />
     <Compile Include="Assets\Scripts\Multiplayer\Network\NetworkInstantiator.cs" />
     <Compile Include="Assets\Scripts\Multiplayer\Network\NetworkManager.cs" />

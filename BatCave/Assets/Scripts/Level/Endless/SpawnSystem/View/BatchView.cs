@@ -38,7 +38,7 @@ public class BatchView : MonoBehaviour {
 
 
     void Start() {
-        EventManager.StartListening(EventTypes.SERVER_STARTED, OnServerStarted);
+        EventManager.StartListening(EventTypes.START_COUNTDOWN, OnServerStarted);
         if (!isNetwork) 
             EventManager.StartListening(SpawnSystemEvents.TOGGLE_SPAWNING, OnSpawningToggled);
         
@@ -46,7 +46,7 @@ public class BatchView : MonoBehaviour {
 
     void OnDestroy() {
         EventManager.StopListening(SpawnSystemEvents.TOGGLE_SPAWNING, OnSpawningToggled);
-        EventManager.StopListening(EventTypes.SERVER_STARTED, OnServerStarted);
+        EventManager.StopListening(EventTypes.START_COUNTDOWN, OnServerStarted);
 
     }
 

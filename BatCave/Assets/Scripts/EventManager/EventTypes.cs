@@ -30,4 +30,7 @@ public class EventTypes {
     public const string START_MATCH = "startMatch";
     public const string START_COUNTDOWN = "startCountdown";
     public const string INSTANTIATE_OBJECT_POOL = "instantiateObjectPool";
+    public const string PLAY_ONLINE_PRESSED = "playOnlinePressed";
+    public const string HIDE_LOBBY = "hideLobby";
+    public const string RESTART_SEARCH = "restartSearch";
 }

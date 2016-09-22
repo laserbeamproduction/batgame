@@ -73,6 +73,11 @@ public class MenuButtons : MonoBehaviour {
         LoadingController.LoadScene(LoadingController.Scenes.MAIN_MENU);
     }
 
+    public void Multiplayer() {
+        PlayerPrefs.SetString("FailedToFindPlayer", "false");
+        LoadingController.LoadScene(LoadingController.Scenes.MULTIPLAYER);
+    }
+
     public void Leaderboards()
     {
 
