@@ -3,6 +3,7 @@ using System.Collections;
 
 public class FloorSpriteSelector : MonoBehaviour {
     public Sprite[] currentFloorSprites;
+
     public Sprite[] purpleCaveSprites;
     public Sprite[] woodsSprites;
 
@@ -33,7 +34,7 @@ public class FloorSpriteSelector : MonoBehaviour {
 
     private void FloorSpritesUpdated()
     {
-        EventManager.TriggerEvent(EventTypes.FLOOR_SPRITES_UPDATED);
+        EventManager.TriggerEvent(EventTypes.FLOOR_SPRITES_UPDATED, currentFloorSprites);
         Debug.Log("Floor sprites updated!");
     }
 }

@@ -3,6 +3,7 @@ using System.Collections;
 
 public class WallSpriteSelector : MonoBehaviour {
     public Sprite[] currentWallSprites;
+
     public Sprite[] purpleCaveSprites;
     public Sprite[] woodsSprites;
 
@@ -19,10 +20,12 @@ public class WallSpriteSelector : MonoBehaviour {
 
         switch (environment) {
             case EnvironmentTypes.PURPLE_CAVE:
+                Debug.Log("It's all so Purple here!");
                 currentWallSprites = purpleCaveSprites;
                 WallSpritesUpdated();
                 break;
             case EnvironmentTypes.WOODS:
+                Debug.Log("Run Forest Run!");
                 currentWallSprites = woodsSprites;
                 WallSpritesUpdated();
                 break;
@@ -33,8 +36,8 @@ public class WallSpriteSelector : MonoBehaviour {
     }
 
     private void WallSpritesUpdated() {
-        EventManager.TriggerEvent(EventTypes.WALL_SPRITES_UPDATED);
         Debug.Log("Wall sprites updated!");
+        EventManager.TriggerEvent(EventTypes.WALL_SPRITES_UPDATED, currentWallSprites);
     }
 
 }

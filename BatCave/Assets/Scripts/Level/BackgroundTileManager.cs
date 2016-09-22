@@ -35,9 +35,9 @@ public class BackgroundTileManager : MonoBehaviour {
     }
 
     //Get new sprites from WallSpriteSelector
-    private void FloorSpritesUpdated(object value)
+    private void FloorSpritesUpdated(object newSprites)
     {
-        sprites = GetComponent<FloorSpriteSelector>().currentFloorSprites;
+        sprites = newSprites as Sprite[];
     }
 
     private void SetUpTiles() {
