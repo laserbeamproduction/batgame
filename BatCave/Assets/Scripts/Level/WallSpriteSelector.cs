@@ -2,12 +2,13 @@
 using System.Collections;
 
 public class WallSpriteSelector : MonoBehaviour {
-    public Sprite[] currentWallSprites;
 
     public Sprite[] purpleCaveSprites;
     public Sprite[] woodsSprites;
 
-	private void Start () {
+    private Sprite[] currentWallSprites;
+
+    private void Start () {
         EventManager.StartListening(EventTypes.CHANGE_ENVIRONMENT, SetWallSprites);
 	}
 

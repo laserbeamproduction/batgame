@@ -12,6 +12,7 @@ public class GameItem : MonoBehaviour {
 
     public int stageLevel;
 
+    public bool changeSpriteWithEnviroment;
     public Sprite woods;
     public Sprite purpleCave; 
 
@@ -52,6 +53,9 @@ public class GameItem : MonoBehaviour {
     }
 
     void OnEnviromentChanged(object type) {
+        if (!changeSpriteWithEnviroment)
+            return;
+
         string enviroment = (string)type;
         switch (enviroment) {
             case EnvironmentTypes.WOODS:

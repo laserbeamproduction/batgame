@@ -2,10 +2,11 @@
 using System.Collections;
 
 public class FloorSpriteSelector : MonoBehaviour {
-    public Sprite[] currentFloorSprites;
 
     public Sprite[] purpleCaveSprites;
     public Sprite[] woodsSprites;
+
+    private Sprite[] currentFloorSprites;
 
     private void Start()
     {

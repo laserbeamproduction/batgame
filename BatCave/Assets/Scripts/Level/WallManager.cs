@@ -8,7 +8,7 @@ public class WallManager : MonoBehaviour {
     //Current wall sprites
     public Sprite[] sprites;
 
-    private float yBounds = -10.5f;
+    private float yBounds = -11f;
     private bool isTransition;
 
     void Start() {
@@ -20,14 +20,14 @@ public class WallManager : MonoBehaviour {
 
     private void SetupWalls()
     {
-        foreach (SpriteRenderer wall in bottomWalls)
+        /*foreach (SpriteRenderer wall in bottomWalls)
         {
             SetRandomSprite(wall);
         }
         foreach (SpriteRenderer wall in topWalls)
         {
             SetRandomSprite(wall);
-        }
+        }*/
     }
 
     //Get new sprites from WallSpriteSelector
@@ -44,9 +44,9 @@ public class WallManager : MonoBehaviour {
     }
 
     void FixedUpdate () {
-        if (!isTransition) {
+        //if (!isTransition) {
             CheckWallPosition();
-        }
+        //}
     }
 
     /// <summary>

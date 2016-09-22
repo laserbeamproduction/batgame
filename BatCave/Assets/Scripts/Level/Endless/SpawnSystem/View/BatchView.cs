@@ -123,15 +123,16 @@ public class BatchView : MonoBehaviour {
                 }
             }
 
-            if (score % stageDurationInScore == 0) {
+            if ((score == 1 || score % stageDurationInScore == 0) && score != 0 ) {
                 // move to the next stage
                 currentEnviroment++;
                 int chosenStage = currentEnviroment;
 
                 // if all enviroments have been played, start random enviroments
-                if (currentEnviroment >= enviromentsOrder.Length - 1)
+                if (currentEnviroment > enviromentsOrder.Length - 1)
                     chosenStage = UnityEngine.Random.Range(0, enviromentsOrder.Length - 1);
 
+                Debug.Log("StartEnviroment: " + enviromentsOrder[chosenStage]);
                 EventManager.TriggerEvent(EventTypes.CHANGE_ENVIRONMENT, enviromentsOrder[chosenStage]);
             }
         }

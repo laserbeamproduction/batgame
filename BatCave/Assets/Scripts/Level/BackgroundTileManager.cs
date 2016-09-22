@@ -19,9 +19,9 @@ public class BackgroundTileManager : MonoBehaviour {
     }
 	
 	void FixedUpdate () {
-        if (!isTransition) {
+        //if (!isTransition) {
             CheckTilePosition();
-        }
+        //}
     }
 
     private void TransitionStarted(object value)
@@ -41,12 +41,12 @@ public class BackgroundTileManager : MonoBehaviour {
     }
 
     private void SetUpTiles() {
-        foreach (SpriteRenderer tile in bottomTiles) {
+        /*foreach (SpriteRenderer tile in bottomTiles) {
             SetRandomSprite(tile);
         }
         foreach (SpriteRenderer tile in topTiles) {
             SetRandomSprite(tile);
-        }
+        }*/
     }
 
     private void SetRandomSprite(SpriteRenderer tile) {
