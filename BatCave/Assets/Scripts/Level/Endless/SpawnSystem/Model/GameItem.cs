@@ -24,4 +24,10 @@ public class GameItem : MonoBehaviour {
             SetAvailable(true);
         }
     }
+
+    void OnTriggerEnter2D(Collider2D col) {
+        if (col.gameObject.name == "CleanUp") {
+            SetAvailable(true);
+        }
+    }
 }
