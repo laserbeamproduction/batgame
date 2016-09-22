@@ -267,10 +267,13 @@
     <Compile Include="Assets\Scripts\Level\Endless\SpawnSystem\Model\PickupModel.cs" />
     <Compile Include="Assets\Scripts\Level\Endless\SpawnSystem\Model\SpawnPointModel.cs" />
     <Compile Include="Assets\Scripts\Level\Endless\SpawnSystem\View\BatchView.cs" />
+    <Compile Include="Assets\Scripts\Level\EnviromentTypes.cs" />
+    <Compile Include="Assets\Scripts\Level\FloorSpriteSelector.cs" />
     <Compile Include="Assets\Scripts\Level\GameController.cs" />
     <Compile Include="Assets\Scripts\Level\SkillSlider.cs" />
     <Compile Include="Assets\Scripts\Level\SkillSliderFeedback.cs" />
     <Compile Include="Assets\Scripts\Level\WallManager.cs" />
+    <Compile Include="Assets\Scripts\Level\WallSpriteSelector.cs" />
     <Compile Include="Assets\Scripts\Level\loadGame.cs" />
     <Compile Include="Assets\Scripts\Loading\LoadingController.cs" />
     <Compile Include="Assets\Scripts\Menu\InfoScene.cs" />

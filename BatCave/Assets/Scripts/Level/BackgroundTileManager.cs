@@ -8,14 +8,36 @@ public class BackgroundTileManager : MonoBehaviour {
     public Sprite[] sprites;
 
     private float yBounds = -11f;
+    private bool isTransition;
 
     // Use this for initialization
     void Start () {
+        EventManager.StartListening(EventTypes.FLOOR_SPRITES_UPDATED, FloorSpritesUpdated);
+        EventManager.StartListening(EventTypes.TRANSITION_START, TransitionStarted);
+        EventManager.StartListening(EventTypes.TRANSITION_END, TransitionEnded);
         SetUpTiles();
     }
 	
 	void FixedUpdate () {
-        CheckTilePosition();
+        if (!isTransition) {
+            CheckTilePosition();
+        }
+    }
+
+    private void TransitionStarted(object value)
+    {
+        isTransition = true;
+    }
+
+    private void TransitionEnded(object value)
+    {
+        isTransition = false;
+    }
+
+    //Get new sprites from WallSpriteSelector
+    private void FloorSpritesUpdated(object value)
+    {
+        sprites = GetComponent<FloorSpriteSelector>().currentFloorSprites;
     }
 
     private void SetUpTiles() {

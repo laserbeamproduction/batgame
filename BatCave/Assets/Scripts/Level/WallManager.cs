@@ -5,24 +5,47 @@ public class WallManager : MonoBehaviour {
     public SpriteRenderer[] bottomWalls;
     public SpriteRenderer[] topWalls;
 
+    //Current wall sprites
     public Sprite[] sprites;
 
     private float yBounds = -10.5f;
+    private bool isTransition;
 
     void Start() {
+        EventManager.StartListening(EventTypes.WALL_SPRITES_UPDATED, WallSpritesUpdated);
+        EventManager.StartListening(EventTypes.TRANSITION_START, TransitionStarted);
+        EventManager.StartListening(EventTypes.TRANSITION_END, TransitionEnded);
         SetupWalls();
     }
-    
-	void FixedUpdate () {
-        CheckWallPosition();
-    }
 
-    private void SetupWalls() {
-        foreach (SpriteRenderer wall in bottomWalls) {
+    private void SetupWalls()
+    {
+        foreach (SpriteRenderer wall in bottomWalls)
+        {
             SetRandomSprite(wall);
         }
-        foreach (SpriteRenderer wall in topWalls) {
+        foreach (SpriteRenderer wall in topWalls)
+        {
             SetRandomSprite(wall);
+        }
+    }
+
+    //Get new sprites from WallSpriteSelector
+    private void WallSpritesUpdated(object value) {
+        sprites = GetComponent<WallSpriteSelector>().currentWallSprites;
+    }
+
+    private void TransitionStarted(object value) {
+        isTransition = true;
+    }
+
+    private void TransitionEnded(object value) {
+        isTransition = false;
+    }
+
+    void FixedUpdate () {
+        if (!isTransition) {
+            CheckWallPosition();
         }
     }
 

@@ -24,6 +24,13 @@ public class EventTypes {
     public const string DISABLE_PLAYER_LIGHT = "disablePlayerLight";
     public const string PLAYER_IN_POSITION = "playerInPosition";
 
+    //ENVIROMENTAL CHANGES
+    public const string TRANSITION_START = "transitionStart";
+    public const string TRANSITION_END = "transitionEnd";
+    public const string CHANGE_ENVIRONMENT = "changeEnvironment";
+    public const string WALL_SPRITES_UPDATED = "wallSpritesUpdated";
+    public const string FLOOR_SPRITES_UPDATED = "floorSpritesUpdated";
+
     //NETWORK 
     public const string SERVER_STARTED = "serverStarted";
     public const string PLAYER_TWO_JOINED = "playerTwoJoined";
