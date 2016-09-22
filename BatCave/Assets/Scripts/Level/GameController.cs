@@ -71,9 +71,11 @@ public class GameController : MonoBehaviour {
         }
     }
 
+    // called when the intro animation has finished
     void OnPlayerPositioned(object arg0) {
         transform.position = new Vector3(0,0,transform.position.z);
         Destroy(GetComponent<Animator>());
+        EventManager.TriggerEvent(EventTypes.CHANGE_ENVIRONMENT, EnvironmentTypes.WOODS);
         EventManager.TriggerEvent(SpawnSystemEvents.TOGGLE_SPAWNING, true);
 
         // Reactivate UI

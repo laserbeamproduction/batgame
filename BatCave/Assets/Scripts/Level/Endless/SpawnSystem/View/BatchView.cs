@@ -8,15 +8,22 @@ public class BatchView : MonoBehaviour {
     public bool isNetwork;
 
     public SpawnPointModel[] spawnPoints;
+
     public PickupModel[] pickups;
+    private PickupModel[] pickupsForStage;
+
     public ObstacleModel[] obstacles;
+    private ObstacleModel[] obstaclesForStage;
+
+    public string[] enviromentsOrder;
+    private int currentEnviroment = -1;
+
     public GameObject cleanUp;
     public ScoreCalculator scoreCalculator;
 
     public float increaseDifficultyStep;
     public float highestDifficultyScore;
-    public float tensionMomentStep;
-    public float startSpawningPickupsScore;
+    public float stageDurationInScore;
 
     public float initialSpawnDelay;
     public float endSpawnDelay;
@@ -34,19 +41,55 @@ public class BatchView : MonoBehaviour {
     public float endYoffsetError;
     public float currentYoffsetError;
 
-    private bool powerupsEnabled;
+    private int currentStage = 0;
 
 
     void Start() {
         EventManager.StartListening(EventTypes.START_COUNTDOWN, OnServerStarted);
+        EventManager.StartListening(EventTypes.GAME_PAUSED, OnGamePaused);
+        EventManager.StartListening(EventTypes.GAME_RESUME, OnGameResumed);
+        EventManager.StartListening(EventTypes.CHANGE_ENVIRONMENT, OnEnviromentChanged);
         if (!isNetwork) 
             EventManager.StartListening(SpawnSystemEvents.TOGGLE_SPAWNING, OnSpawningToggled);
         
     }
 
+    void OnEnviromentChanged(object type) {
+        currentStage++;
+
+        List<PickupModel> pickupList = new List<PickupModel>();
+        foreach (PickupModel pm in pickups) {
+            if (pm.GetStageLevel() >= currentStage) {
+                pickupList.Add(pm);
+            }
+        }
+
+        List<ObstacleModel> obstacleList = new List<ObstacleModel>();
+        foreach (ObstacleModel om in obstacles) {
+            if (om.GetStageLevel() >= currentStage) {
+                obstacleList.Add(om);
+            }
+        }
+
+        pickupsForStage = pickupList.ToArray();
+        obstaclesForStage = obstacleList.ToArray();
+
+    }
+
+    void OnGameResumed(object arg0) {
+        OnSpawningToggled(true);
+    }
+
+    void OnGamePaused(object arg0) {
+        OnSpawningToggled(false);
+    }
+
     void OnDestroy() {
         EventManager.StopListening(SpawnSystemEvents.TOGGLE_SPAWNING, OnSpawningToggled);
         EventManager.StopListening(EventTypes.START_COUNTDOWN, OnServerStarted);
+        EventManager.StopListening(EventTypes.GAME_PAUSED, OnGamePaused);
+        EventManager.StopListening(EventTypes.GAME_RESUME, OnGameResumed);
+        EventManager.StopListening(EventTypes.CHANGE_ENVIRONMENT, OnEnviromentChanged);
 
     }
 
@@ -78,16 +121,18 @@ public class BatchView : MonoBehaviour {
                     currentTotalPickupResources = (int)UpdateCurrentValueByScore(currentStep, totalDifficultySteps, initialTotalPickupResouces, endTotalPickupResouces);
                     currentYoffsetError = UpdateCurrentValueByScore(currentStep, totalDifficultySteps, initialYoffsetError, endYoffsetError);
                 }
+            }
 
-                // check if we start a tension moment
-                if (score % tensionMomentStep == 0) {
-                    // dispatch start tension
-                }
+            if (score % stageDurationInScore == 0) {
+                // move to the next stage
+                currentEnviroment++;
+                int chosenStage = currentEnviroment;
 
-                // check if pick ups need to be enabled
-                if (!powerupsEnabled && score > startSpawningPickupsScore) {
-                    // dispatch power ups enabled
-                }
+                // if all enviroments have been played, start random enviroments
+                if (currentEnviroment >= enviromentsOrder.Length - 1)
+                    chosenStage = UnityEngine.Random.Range(0, enviromentsOrder.Length - 1);
+
+                EventManager.TriggerEvent(EventTypes.CHANGE_ENVIRONMENT, enviromentsOrder[chosenStage]);
             }
         }
     }
