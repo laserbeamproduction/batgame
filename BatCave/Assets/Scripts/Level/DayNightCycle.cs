@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class DayNightCycle : MonoBehaviour {
     public Light playerLight;
@@ -9,20 +10,34 @@ public class DayNightCycle : MonoBehaviour {
     public float speedFadeOut;
     public float speedAngleFadeOut;
     private bool isFadingOut = false;
+    private bool isFadingIn = false;
     private bool speedBoosterActive = false;
     private bool speedBoosterFadeOut = false;
 
+    void Start() {
+        EventManager.StartListening(EventTypes.TRANSITION_START, OnTransitionStart);
+        EventManager.StartListening(EventTypes.TRANSITION_END, OnTransitionEnd);
+    }
+
+    void OnTransitionEnd(object arg0) {
+        setNightTime();
+    }
+
+    void OnTransitionStart(object arg0) {
+        setDayTime();
+    }
+
+    void OnDestroy() {
+        EventManager.StopListening(EventTypes.TRANSITION_START, OnTransitionStart);
+        EventManager.StopListening(EventTypes.TRANSITION_END, OnTransitionEnd);
+    }
+
     public void setDayTime() {
-        //do stuff for day time
-        playerLight.intensity = 0;
-        DayTimeLight.intensity = 3.5f;
+        isFadingIn = true;
     }
 
     public void setNightTime() {
-        //do stuff for night time
-        //playerLight.intensity = 8;
         isFadingOut = true;
-        //DayTimeLight.intensity = 0;
     }
 
     void Update() {
@@ -30,8 +45,15 @@ public class DayNightCycle : MonoBehaviour {
             DayTimeLight.intensity = Mathf.Lerp(DayTimeLight.intensity, 0f, fadeOutSpeed * Time.deltaTime);
             playerLight.intensity = Mathf.Lerp(playerLight.intensity, 8f, fadeOutSpeed * Time.deltaTime);
 
-            if (DayTimeLight.intensity <= 0 && playerLight.intensity == 8) {
+            if (DayTimeLight.intensity <= 0f && playerLight.intensity == 8f) {
                 isFadingOut = false;
+            }
+        } else if (isFadingIn) {
+            DayTimeLight.intensity = Mathf.Lerp(DayTimeLight.intensity, 8f, fadeOutSpeed * Time.deltaTime);
+            playerLight.intensity = Mathf.Lerp(playerLight.intensity, 0f, fadeOutSpeed * Time.deltaTime);
+
+            if (DayTimeLight.intensity >= 7f && playerLight.intensity == 0f) {
+                isFadingIn = false;
             }
         }
 

@@ -15,9 +15,6 @@ public class BatchView : MonoBehaviour {
     public ObstacleModel[] obstacles;
     private ObstacleModel[] obstaclesForStage;
 
-    public string[] enviromentsOrder;
-    private int currentEnviroment = -1;
-
     public GameObject cleanUp;
     public ScoreCalculator scoreCalculator;
 
@@ -43,7 +40,6 @@ public class BatchView : MonoBehaviour {
 
     private int currentStage = 0;
 
-
     void Start() {
         EventManager.StartListening(EventTypes.START_COUNTDOWN, OnServerStarted);
         EventManager.StartListening(EventTypes.GAME_PAUSED, OnGamePaused);
@@ -57,6 +53,7 @@ public class BatchView : MonoBehaviour {
     void OnEnviromentChanged(object type) {
         currentStage++;
 
+        // select only available pickups and obstacles
         List<PickupModel> pickupList = new List<PickupModel>();
         foreach (PickupModel pm in pickups) {
             if (pm.GetStageLevel() >= currentStage) {
@@ -74,6 +71,7 @@ public class BatchView : MonoBehaviour {
         pickupsForStage = pickupList.ToArray();
         obstaclesForStage = obstacleList.ToArray();
 
+        EventManager.TriggerEvent(SpawnSystemEvents.TOGGLE_SPAWNING, true);
     }
 
     void OnGameResumed(object arg0) {
@@ -90,7 +88,6 @@ public class BatchView : MonoBehaviour {
         EventManager.StopListening(EventTypes.GAME_PAUSED, OnGamePaused);
         EventManager.StopListening(EventTypes.GAME_RESUME, OnGameResumed);
         EventManager.StopListening(EventTypes.CHANGE_ENVIRONMENT, OnEnviromentChanged);
-
     }
 
     float UpdateCurrentValueByScore(float currentDifficultyStep, float totalDifficultySteps , float initValue, float endValue) {
@@ -124,16 +121,8 @@ public class BatchView : MonoBehaviour {
             }
 
             if ((score == 1 || score % stageDurationInScore == 0) && score != 0 ) {
-                // move to the next stage
-                currentEnviroment++;
-                int chosenStage = currentEnviroment;
-
-                // if all enviroments have been played, start random enviroments
-                if (currentEnviroment > enviromentsOrder.Length - 1)
-                    chosenStage = UnityEngine.Random.Range(0, enviromentsOrder.Length - 1);
-
-                Debug.Log("StartEnviroment: " + enviromentsOrder[chosenStage]);
-                EventManager.TriggerEvent(EventTypes.CHANGE_ENVIRONMENT, enviromentsOrder[chosenStage]);
+                EventManager.TriggerEvent(EventTypes.TRANSITION_START);
+                EventManager.TriggerEvent(SpawnSystemEvents.TOGGLE_SPAWNING, false);
             }
         }
     }
