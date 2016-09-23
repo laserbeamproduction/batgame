@@ -75,7 +75,7 @@ public class GameController : MonoBehaviour {
     void OnPlayerPositioned(object arg0) {
         transform.position = new Vector3(0,0,transform.position.z);
         Destroy(GetComponent<Animator>());
-        EventManager.TriggerEvent(EventTypes.CHANGE_ENVIRONMENT, EnvironmentTypes.WOODS);
+        //EventManager.TriggerEvent(EventTypes.CHANGE_ENVIRONMENT, EnvironmentTypes.WOODS);
         EventManager.TriggerEvent(SpawnSystemEvents.TOGGLE_SPAWNING, true);
 
         // Reactivate UI

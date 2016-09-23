@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class FloorSpriteSelector : MonoBehaviour {
-
     public Sprite[] purpleCaveSprites;
     public Sprite[] woodsSprites;
 

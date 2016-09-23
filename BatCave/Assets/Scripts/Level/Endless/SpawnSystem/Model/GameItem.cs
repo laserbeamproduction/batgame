@@ -23,7 +23,7 @@ public class GameItem : MonoBehaviour {
     void Start() {
         spriteRenderer = GetComponent<SpriteRenderer>();
         EventManager.StartListening(EventTypes.TRANSITION_START, OnTransitionStart);
-        EventManager.StartListening(EventTypes.TRANSITION_END, OnTransitionEnd);
+        //EventManager.StartListening(EventTypes.TRANSITION_END, OnTransitionEnd);
     }
 
     void Update() {
