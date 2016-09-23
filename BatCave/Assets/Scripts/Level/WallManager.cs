@@ -44,9 +44,9 @@ public class WallManager : MonoBehaviour {
     }
 
     void FixedUpdate () {
-        //if (!isTransition) {
+        if (isTransition) {
             CheckWallPosition();
-        //}
+        }
     }
 
     /// <summary>

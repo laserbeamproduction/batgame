@@ -6,32 +6,27 @@ public class BackgroundTileManager : MonoBehaviour {
     public SpriteRenderer[] bottomTiles, topTiles;
 
     public Sprite[] sprites;
+    public Sprite[] transitionSprites;
 
     private float yBounds = -11f;
-    private bool isTransition;
+
+    private bool isTransitionOut;
+    private bool isTransitionIn;
 
     // Use this for initialization
     void Start () {
         EventManager.StartListening(EventTypes.FLOOR_SPRITES_UPDATED, FloorSpritesUpdated);
-        EventManager.StartListening(EventTypes.TRANSITION_START, TransitionStarted);
-        EventManager.StartListening(EventTypes.TRANSITION_END, TransitionEnded);
+        EventManager.StartListening(EventTypes.SET_TRANSITION_OUT_SPRITES, SetTransitionOutSprites);
         SetUpTiles();
     }
 	
 	void FixedUpdate () {
-        //if (!isTransition) {
-            CheckTilePosition();
-        //}
+        CheckTilePosition();
     }
 
-    private void TransitionStarted(object value)
-    {
-        isTransition = true;
-    }
-
-    private void TransitionEnded(object value)
-    {
-        isTransition = false;
+    private void SetTransitionOutSprites(object transitionOutSprites) {
+        transitionSprites = transitionOutSprites as Sprite[];
+        isTransitionOut = true;
     }
 
     //Get new sprites from WallSpriteSelector
@@ -47,6 +42,10 @@ public class BackgroundTileManager : MonoBehaviour {
         foreach (SpriteRenderer tile in topTiles) {
             SetRandomSprite(tile);
         }*/
+    }
+
+    private void SetTransitionSprite(SpriteRenderer tile) {
+        tile.sprite = transitionSprites[Mathf.RoundToInt(Random.Range(0, sprites.Length))];
     }
 
     private void SetRandomSprite(SpriteRenderer tile) {
@@ -71,7 +70,23 @@ public class BackgroundTileManager : MonoBehaviour {
     /// </summary>
     /// <param name="tile"></param>
     private void ResetTile(SpriteRenderer tile, float yPos) {
-        tile.transform.position = new Vector3(tile.transform.position.x, yPos, tile.transform.position.z);
-        SetRandomSprite(tile);
+        if (isTransitionOut)
+        {
+            tile.transform.position = new Vector3(tile.transform.position.x, yPos, tile.transform.position.z);
+            SetTransitionSprite(tile);
+            isTransitionOut = false;
+            EventManager.TriggerEvent(EventTypes.TRANSITION_ACTIVE);
+        }
+        else if (isTransitionIn)
+        {
+            tile.transform.position = new Vector3(tile.transform.position.x, yPos, tile.transform.position.z);
+            SetTransitionSprite(tile);
+            isTransitionIn = false;
+            EventManager.TriggerEvent(EventTypes.TRANSITION_END);
+        }
+        else {
+            tile.transform.position = new Vector3(tile.transform.position.x, yPos, tile.transform.position.z);
+            SetRandomSprite(tile);
+        }
     }
 }
