@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class WallManager : MonoBehaviour {
     public SpriteRenderer[] bottomWalls;
     public SpriteRenderer[] topWalls;
+    public Sprite[] woodsSprites;
 
     //Current wall sprites
     public Sprite[] sprites;
@@ -12,41 +13,26 @@ public class WallManager : MonoBehaviour {
     private bool isTransition;
 
     void Start() {
-        EventManager.StartListening(EventTypes.WALL_SPRITES_UPDATED, WallSpritesUpdated);
-        EventManager.StartListening(EventTypes.TRANSITION_START, TransitionStarted);
-        EventManager.StartListening(EventTypes.TRANSITION_END, TransitionEnded);
-        SetupWalls();
+        EventManager.StartListening(EventTypes.TRANSITION_START, StartTransition);
+        EventManager.StartListening(EventTypes.TRANSITION_END, EndTransition);
     }
 
-    private void SetupWalls()
+    private void StartTransition(object value)
     {
-        /*foreach (SpriteRenderer wall in bottomWalls)
-        {
-            SetRandomSprite(wall);
-        }
-        foreach (SpriteRenderer wall in topWalls)
-        {
-            SetRandomSprite(wall);
-        }*/
-    }
-
-    //Get new sprites from WallSpriteSelector
-    private void WallSpritesUpdated(object newSprites) {
-        sprites = newSprites as Sprite[];
-    }
-
-    private void TransitionStarted(object value) {
+        sprites = null;
+        EnvironmentModel newSprites = value as EnvironmentModel;
+        sprites = woodsSprites;
         isTransition = true;
     }
 
-    private void TransitionEnded(object value) {
-        isTransition = false;
+    private void EndTransition(object value)
+    {
+        EnvironmentModel newSprites = value as EnvironmentModel;
+        sprites = newSprites.wallSprites as Sprite[];
     }
 
     void FixedUpdate () {
-        if (isTransition) {
             CheckWallPosition();
-        }
     }
 
     /// <summary>

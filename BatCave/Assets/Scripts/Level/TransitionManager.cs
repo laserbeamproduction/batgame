@@ -2,11 +2,8 @@
 using System.Collections;
 
 public class TransitionManager : MonoBehaviour {
-    private EnvironmentModel currentEnvironment;
     public EnvironmentModel[] environments;
-
     private int currentEnviroment = -1;
-    private int currentStage = 0;
 
     void Start () {
         EventManager.StartListening(EventTypes.CHANGE_ENVIRONMENT, ChangeEnvironment);
@@ -20,7 +17,7 @@ public class TransitionManager : MonoBehaviour {
 
         // if all enviroments have been played, start random enviroments
         if (currentEnviroment >= environments.Length - 1)
-            chosenStage = UnityEngine.Random.Range(0, environments.Length - 1);
+            chosenStage = UnityEngine.Random.Range(0, environments.Length);
 
         EventManager.TriggerEvent(EventTypes.TRANSITION_END, environments[chosenStage]);
     }

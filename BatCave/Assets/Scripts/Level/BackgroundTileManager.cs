@@ -6,8 +6,7 @@ public class BackgroundTileManager : MonoBehaviour {
     public GameObject transitionOut, transitionIn;
 
     public Sprite[] woodsSprites;
-
-    private Sprite[] sprites;
+    public Sprite[] sprites;
 
     private float yBounds = -11f;
     public int treeTime;
@@ -22,12 +21,14 @@ public class BackgroundTileManager : MonoBehaviour {
 
 
     private void StartTransition(object value) {
+        sprites = null;
         EnvironmentModel newSprites = value as EnvironmentModel;
         sprites = woodsSprites;
         isTransition = true;
     }
 
     private void EndTransition(object value) {
+        sprites = null;
         EnvironmentModel newSprites = value as EnvironmentModel;
         sprites = newSprites.backgroundTiles as Sprite[];
         transitionOut.GetComponent<SpriteRenderer>().sprite = newSprites.transitionOut;
@@ -36,6 +37,14 @@ public class BackgroundTileManager : MonoBehaviour {
 
     void FixedUpdate () {
         CheckTilePosition();
+
+        if (currentTreeTime >= (treeTime*4))
+        {
+            isTransition = false;
+            currentTreeTime = 0;
+            EventManager.TriggerEvent(EventTypes.CHANGE_ENVIRONMENT);
+
+        }
     }
 
     private void SetRandomSprite(SpriteRenderer tile) {
@@ -59,16 +68,11 @@ public class BackgroundTileManager : MonoBehaviour {
     /// </summary>
     /// <param name="tile"></param>
     private void ResetTile(SpriteRenderer tile, float yPos) {
-            tile.transform.position = new Vector3(tile.transform.position.x, yPos, tile.transform.position.z);
-            SetRandomSprite(tile);
+        tile.transform.position = new Vector3(tile.transform.position.x, yPos, tile.transform.position.z);
+        SetRandomSprite(tile);
 
         if (isTransition) {
             currentTreeTime++;
-            if (currentTreeTime <= treeTime) {
-                isTransition = false;
-                currentTreeTime = 0;
-                EventManager.TriggerEvent(EventTypes.CHANGE_ENVIRONMENT);
-            }
         }
     }
 }
