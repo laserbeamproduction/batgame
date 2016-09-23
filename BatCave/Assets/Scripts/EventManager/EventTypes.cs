@@ -26,13 +26,10 @@ public class EventTypes {
 
     //ENVIROMENTAL CHANGES
     public const string TRANSITION_START = "transitionStart";
-    public const string TRANSITION_ACTIVE = "transitionActive";
     public const string TRANSITION_END = "transitionEnd";
     public const string CHANGE_ENVIRONMENT = "changeEnvironment";
     public const string WALL_SPRITES_UPDATED = "wallSpritesUpdated";
     public const string FLOOR_SPRITES_UPDATED = "floorSpritesUpdated";
-    public const string SET_TRANSITION_OUT_SPRITES = "setTransitionOutSprites";
-    public const string SET_TRANSITION_IN_SPRITES = "setTransitionInSprites";
 
     //NETWORK 
     public const string SERVER_STARTED = "serverStarted";

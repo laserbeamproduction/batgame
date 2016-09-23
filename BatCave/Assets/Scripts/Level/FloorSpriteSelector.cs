@@ -2,22 +2,14 @@
 using System.Collections;
 
 public class FloorSpriteSelector : MonoBehaviour {
-
     public Sprite[] purpleCaveSprites;
     public Sprite[] woodsSprites;
-    public Sprite[] transitionSprites;
 
     private Sprite[] currentFloorSprites;
 
     private void Start()
     {
         EventManager.StartListening(EventTypes.CHANGE_ENVIRONMENT, SetFloorSprites);
-        EventManager.StartListening(EventTypes.TRANSITION_ACTIVE, SetTransitionActiveSprites);
-    }
-
-    private void SetTransitionActiveSprites(object value) {
-        currentFloorSprites = woodsSprites;
-        FloorSpritesUpdated();
     }
 
     private void SetFloorSprites(object environmentType)

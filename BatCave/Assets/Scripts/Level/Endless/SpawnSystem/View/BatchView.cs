@@ -120,9 +120,13 @@ public class BatchView : MonoBehaviour {
                 }
             }
 
-            if ((score == 1 || score % stageDurationInScore == 0) && score != 0 ) {
+            if (score % stageDurationInScore == 0 && score != 0 ) {
                 EventManager.TriggerEvent(EventTypes.TRANSITION_START);
                 EventManager.TriggerEvent(SpawnSystemEvents.TOGGLE_SPAWNING, false);
+            }
+
+            if (score == 200) {
+                EventManager.TriggerEvent(EventTypes.CHANGE_ENVIRONMENT);
             }
         }
     }

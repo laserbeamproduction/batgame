@@ -2,50 +2,40 @@
 using System.Collections;
 
 public class BackgroundTileManager : MonoBehaviour {
-
     public SpriteRenderer[] bottomTiles, topTiles;
+    public GameObject transitionOut, transitionIn;
 
-    public Sprite[] sprites;
-    public Sprite[] transitionSprites;
+    public Sprite[] woodsSprites;
+
+    private Sprite[] sprites;
 
     private float yBounds = -11f;
-
-    private bool isTransitionOut;
-    private bool isTransitionIn;
+    public int treeTime;
+    private int currentTreeTime;
+    private bool isTransition = false;
 
     // Use this for initialization
     void Start () {
-        EventManager.StartListening(EventTypes.FLOOR_SPRITES_UPDATED, FloorSpritesUpdated);
-        EventManager.StartListening(EventTypes.SET_TRANSITION_OUT_SPRITES, SetTransitionOutSprites);
-        SetUpTiles();
+        EventManager.StartListening(EventTypes.TRANSITION_START, StartTransition);
+        EventManager.StartListening(EventTypes.TRANSITION_END, EndTransition);
     }
-	
-	void FixedUpdate () {
+
+
+    private void StartTransition(object value) {
+        EnvironmentModel newSprites = value as EnvironmentModel;
+        sprites = woodsSprites;
+        isTransition = true;
+    }
+
+    private void EndTransition(object value) {
+        EnvironmentModel newSprites = value as EnvironmentModel;
+        sprites = newSprites.backgroundTiles as Sprite[];
+        transitionOut.GetComponent<SpriteRenderer>().sprite = newSprites.transitionOut;
+        transitionIn.GetComponent<SpriteRenderer>().sprite = newSprites.transitionIn;
+    }
+
+    void FixedUpdate () {
         CheckTilePosition();
-    }
-
-    private void SetTransitionOutSprites(object transitionOutSprites) {
-        transitionSprites = transitionOutSprites as Sprite[];
-        isTransitionOut = true;
-    }
-
-    //Get new sprites from WallSpriteSelector
-    private void FloorSpritesUpdated(object newSprites)
-    {
-        sprites = newSprites as Sprite[];
-    }
-
-    private void SetUpTiles() {
-        /*foreach (SpriteRenderer tile in bottomTiles) {
-            SetRandomSprite(tile);
-        }
-        foreach (SpriteRenderer tile in topTiles) {
-            SetRandomSprite(tile);
-        }*/
-    }
-
-    private void SetTransitionSprite(SpriteRenderer tile) {
-        tile.sprite = transitionSprites[Mathf.RoundToInt(Random.Range(0, sprites.Length))];
     }
 
     private void SetRandomSprite(SpriteRenderer tile) {
@@ -64,29 +54,21 @@ public class BackgroundTileManager : MonoBehaviour {
             }
         }
     }
-
     /// <summary>
     /// Repositions the tile sprite back to the top and gives it a random sprite from the sprites array.
     /// </summary>
     /// <param name="tile"></param>
     private void ResetTile(SpriteRenderer tile, float yPos) {
-        if (isTransitionOut)
-        {
-            tile.transform.position = new Vector3(tile.transform.position.x, yPos, tile.transform.position.z);
-            SetTransitionSprite(tile);
-            isTransitionOut = false;
-            EventManager.TriggerEvent(EventTypes.TRANSITION_ACTIVE);
-        }
-        else if (isTransitionIn)
-        {
-            tile.transform.position = new Vector3(tile.transform.position.x, yPos, tile.transform.position.z);
-            SetTransitionSprite(tile);
-            isTransitionIn = false;
-            EventManager.TriggerEvent(EventTypes.TRANSITION_END);
-        }
-        else {
             tile.transform.position = new Vector3(tile.transform.position.x, yPos, tile.transform.position.z);
             SetRandomSprite(tile);
+
+        if (isTransition) {
+            currentTreeTime++;
+            if (currentTreeTime <= treeTime) {
+                isTransition = false;
+                currentTreeTime = 0;
+                EventManager.TriggerEvent(EventTypes.CHANGE_ENVIRONMENT);
+            }
         }
     }
 }
