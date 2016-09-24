@@ -1,3 +1,10 @@
 ﻿public class GPMPEvents {
     public const string GPMP_MATCH_MAKING_DONE = "GPMP_MATCH_MAKING_DONE";
+    public const string GPMP_SEARCH_QUICK_MATCH = "GPMP_SEARCH_QUICK_MATCH";
+    public const string GPMP_START_WITH_INVITE = "GPMP_SEARCH_QUICK_MATCH";
+    public const string GPMP_CANCEL_MATCH_MAKING = "GPMP_CANCEL_MATCH_MAKING";
+    public const string GPMP_LEAVE_GAME = "GPMP_LEAVE_GAME";
+    public const string GPMP_TOGGLE_WAITING_LOBBY = "GPMP_TOGGLE_WAITING_LOBBY";
+    public const string GPMP_TOGGLE_MENU_LOBBY = "GPMP_TOGGLE_MENU_LOBBY";
+    public const string GPMP_REPORT_ROOM_SETUP_PROGRESS = "GPMP_REPORT_ROOM_SETUP_PROGRESS";
 }

@@ -11,12 +11,11 @@ public class GPMPGameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        EventManager.StartListening(GPMPEvents.GPMP_MATCH_MAKING_DONE, OnMatchMakingDone);
     }
 
     private void OnMatchMakingDone(object arg0) {
-        myID = GPMPController.GetInstance().GetMyParticipantId();
-        otherPlayerIDs = GPMPController.GetInstance().GetAllPlayers();
+        //myID = GPMPLobbyController.GetInstance().GetMyParticipantId();
+        //otherPlayerIDs = GPMPLobbyController.GetInstance().GetAllPlayers();
     }
 
     // Update is called once per frame
