@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\GPGSConstant.cs" />
+    <Compile Include="Assets\GPMPPlayerStatusView.cs" />
     <Compile Include="Assets\GooglePlayGames\BasicApi\Achievement.cs" />
     <Compile Include="Assets\GooglePlayGames\BasicApi\CommonStatusCodes.cs" />
     <Compile Include="Assets\GooglePlayGames\BasicApi\CommonTypes.cs" />
@@ -247,15 +248,19 @@
     <Compile Include="Assets\Scripts\EventManager\EventManager.cs" />
     <Compile Include="Assets\Scripts\EventManager\EventTypes.cs" />
     <Compile Include="Assets\Scripts\EventManager\GameEvent.cs" />
+    <Compile Include="Assets\Scripts\GPMP\GPMPController.cs" />
     <Compile Include="Assets\Scripts\GPMP\GPMPEvents.cs" />
     <Compile Include="Assets\Scripts\GPMP\Game\Controller\GPMPGameController.cs" />
     <Compile Include="Assets\Scripts\GPMP\Game\Model\GPMPPlayer.cs" />
     <Compile Include="Assets\Scripts\GPMP\Game\View\GPMPGameView.cs" />
+    <Compile Include="Assets\Scripts\GPMP\Game\View\GPMPOpponentView.cs" />
+    <Compile Include="Assets\Scripts\GPMP\Game\View\GPMPPlayerView.cs" />
     <Compile Include="Assets\Scripts\GPMP\Lobby\Controller\GPMPLobbyController.cs" />
     <Compile Include="Assets\Scripts\GPMP\Lobby\Model\GPMPMatchModel.cs" />
     <Compile Include="Assets\Scripts\GPMP\Lobby\View\GPMPLobbyView.cs" />
-    <Compile Include="Assets\Scripts\GPMP\Lobby\View\GPMPWaitingView.cs" />
     <Compile Include="Assets\Scripts\GPMP\Util\DebugMP.cs" />
+    <Compile Include="Assets\Scripts\GPMP\WaitingRoom\Controller\GPMPWaitingRoomController.cs" />
+    <Compile Include="Assets\Scripts\GPMP\WaitingRoom\View\GPMPWaitingView.cs" />
     <Compile Include="Assets\Scripts\GooglePlay\GooglePlayHelper.cs" />
     <Compile Include="Assets\Scripts\Level\BackgroundTileManager.cs" />
     <Compile Include="Assets\Scripts\Level\DayNightCycle.cs" />
