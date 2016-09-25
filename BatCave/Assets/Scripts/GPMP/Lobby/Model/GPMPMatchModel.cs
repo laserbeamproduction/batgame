@@ -7,4 +7,6 @@ public class GPMPMatchModel : MonoBehaviour {
     public Participant player;
     public Participant opponent;
     public bool iAmTheHost;
+    public bool playerIsReady;
+    public bool opponentIsReady;
 }

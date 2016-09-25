@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class GPMPPlayerStatusView : MonoBehaviour {
 
+    public GameObject waitingForMatchStartPanel;
+
     public Text playerStatusTextField;
     public Text opponentStatusTextField;
 
@@ -18,6 +20,7 @@ public class GPMPPlayerStatusView : MonoBehaviour {
         EventManager.StartListening(GPMPEvents.Types.GPMP_OPPONENT_READY.ToString(), OnOpponentReady);
         EventManager.StartListening(GPMPEvents.Types.GPMP_OPPONENT_LEFT.ToString(), OnOpponentLeft);
         EventManager.StartListening(GPMPEvents.Types.GPMP_MATCH_INFO_READY.ToString(), OnMatchInfoReady);
+        EventManager.StartListening(GPMPEvents.Types.GPMP_START_GAME.ToString(), OnMatchStarted);
     }
 
     private void OnMatchInfoReady(object model) {
@@ -35,6 +38,12 @@ public class GPMPPlayerStatusView : MonoBehaviour {
         EventManager.StopListening(GPMPEvents.Types.GPMP_OPPONENT_READY.ToString(), OnOpponentReady);
         EventManager.StopListening(GPMPEvents.Types.GPMP_OPPONENT_LEFT.ToString(), OnOpponentLeft);
         EventManager.StopListening(GPMPEvents.Types.GPMP_MATCH_INFO_READY.ToString(), OnMatchInfoReady);
+        EventManager.StopListening(GPMPEvents.Types.GPMP_START_GAME.ToString(), OnMatchStarted);
+    }
+
+    private void OnMatchStarted(object model) {
+        matchModel = (GPMPMatchModel)model;
+        waitingForMatchStartPanel.SetActive(false);
     }
 
     private void OnOpponentLeft(object arg0) {

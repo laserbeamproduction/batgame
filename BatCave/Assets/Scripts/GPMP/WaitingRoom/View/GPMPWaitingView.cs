@@ -19,6 +19,6 @@ public class GPMPWaitingView : MonoBehaviour {
     }
 
     void OnProgressStatusUpdate(object percentage) {
-        statusTextField.text = (string)percentage;
+        statusTextField.text = ((float)percentage).ToString();
     }
 }

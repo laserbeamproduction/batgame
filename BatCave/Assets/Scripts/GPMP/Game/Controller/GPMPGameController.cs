@@ -71,13 +71,17 @@ public class GPMPGameController : MonoBehaviour {
     private void OnPlayerReady(object arg0) {
         // Let the other player know you are ready
         SendMessage(GPMPEvents.Types.GPMP_OPPONENT_READY, new List<byte>());
-        
+        matchModel.playerIsReady = true;
+
         // If our opponent is also ready dispatch start game
+        if (matchModel.opponentIsReady)
+            EventManager.TriggerEvent(GPMPEvents.Types.GPMP_START_GAME.ToString(), matchModel);
     }
 
     private void OnOpponentReady(object arg0) {
         // If we are also ready dispatch start game
-
+        if (matchModel.playerIsReady)
+            EventManager.TriggerEvent(GPMPEvents.Types.GPMP_START_GAME.ToString(), matchModel);
     }
 
     private void SetParticipantsInfo() {
