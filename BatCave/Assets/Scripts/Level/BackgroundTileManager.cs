@@ -11,7 +11,15 @@ public class BackgroundTileManager : MonoBehaviour {
     private float yBounds = -11f;
     public int treeTime;
     private int currentTreeTime;
+
     private bool isTransition = false;
+    private bool isTransitionOut = false;
+    private bool isTransitionIn = false;
+
+    public float yOutOffSet = 0f;
+    public float yInOffSet = -10f;
+    private bool outOfIntro = true;
+
 
     // Use this for initialization
     void Start () {
@@ -21,18 +29,22 @@ public class BackgroundTileManager : MonoBehaviour {
 
 
     private void StartTransition(object value) {
-        sprites = null;
+        //Change Sprites
+        sprites = null; //reset just incase
         EnvironmentModel newSprites = value as EnvironmentModel;
         sprites = woodsSprites;
         isTransition = true;
+        isTransitionOut = true;
     }
 
     private void EndTransition(object value) {
-        sprites = null;
+        sprites = null; //reset just incase
         EnvironmentModel newSprites = value as EnvironmentModel;
         sprites = newSprites.backgroundTiles as Sprite[];
         transitionOut.GetComponent<SpriteRenderer>().sprite = newSprites.transitionOut;
         transitionIn.GetComponent<SpriteRenderer>().sprite = newSprites.transitionIn;
+
+        isTransitionIn = true;
     }
 
     void FixedUpdate () {
@@ -72,7 +84,19 @@ public class BackgroundTileManager : MonoBehaviour {
         SetRandomSprite(tile);
 
         if (isTransition) {
+            if (isTransitionOut) {
+                transitionOut.transform.position = new Vector3(0, (yPos + yOutOffSet), -2);
+                transitionOut.GetComponent<SimpleMoveScript>().enabled = true;
+                isTransitionOut = false;
+            }
             currentTreeTime++;
+        }
+
+        if (isTransitionIn)
+        {
+            transitionIn.transform.position = new Vector3(0, (yPos + yInOffSet), -2);
+            transitionIn.GetComponent<SimpleMoveScript>().enabled = true;
+            isTransitionIn = false;
         }
     }
 }

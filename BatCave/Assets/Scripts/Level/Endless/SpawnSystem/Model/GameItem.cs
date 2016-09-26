@@ -14,7 +14,8 @@ public class GameItem : MonoBehaviour {
 
     public bool changeSpriteWithEnviroment;
     public Sprite woods;
-    public Sprite purpleCave; 
+    public Sprite purpleCave;
+    public Sprite iceCave;
 
     private bool isAvailable = true;
     private SpriteRenderer spriteRenderer;
@@ -23,7 +24,7 @@ public class GameItem : MonoBehaviour {
     void Start() {
         spriteRenderer = GetComponent<SpriteRenderer>();
         EventManager.StartListening(EventTypes.TRANSITION_START, OnTransitionStart);
-        //EventManager.StartListening(EventTypes.TRANSITION_END, OnTransitionEnd);
+        EventManager.StartListening(EventTypes.TRANSITION_END, OnTransitionEnd);
     }
 
     void Update() {
@@ -37,13 +38,16 @@ public class GameItem : MonoBehaviour {
         if (!changeSpriteWithEnviroment)
             return;
         Sprite sprite;
-        string enviroment = (string)type;
+        string enviroment = type.ToString();
         switch (enviroment) {
             case EnvironmentTypes.WOODS:
                 sprite = woods;
                 break;
             case EnvironmentTypes.PURPLE_CAVE:
                 sprite = purpleCave;
+                break;
+            case EnvironmentTypes.ICE_CAVE:
+                sprite = iceCave;
                 break;
             default:
                 Debug.LogError("Enviroment type " + enviroment + " not found!");

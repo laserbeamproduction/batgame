@@ -1,4 +1,5 @@
 ﻿public class EnvironmentTypes {
-    public const string PURPLE_CAVE = "purpleCave";
-    public const string WOODS = "woods";
+    public const string PURPLE_CAVE = "PurpleCave (EnvironmentModel)";
+    public const string WOODS = "woods (EnvironmentModel)";
+    public const string ICE_CAVE = "IceCave (EnvironmentModel)";
 }
