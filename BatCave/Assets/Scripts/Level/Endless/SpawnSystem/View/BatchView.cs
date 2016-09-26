@@ -50,26 +50,30 @@ public class BatchView : MonoBehaviour {
     }
 
     void OnEnviromentChanged(object type) {
-        EventManager.TriggerEvent(SpawnSystemEvents.TOGGLE_SPAWNING, true);
         currentStage++;
+
+        Debug.Log("Current stage: " + currentStage);
 
         // select only available pickups and obstacles
         List<PickupModel> pickupList = new List<PickupModel>();
         foreach (PickupModel pm in pickups) {
-            if (pm.GetStageLevel() >= currentStage) {
+            if (currentStage >= pm.GetStageLevel()) {
                 pickupList.Add(pm);
+                Debug.Log("Adding pickup: " + pm.gameObject.name);
             }
         }
 
         List<ObstacleModel> obstacleList = new List<ObstacleModel>();
         foreach (ObstacleModel om in obstacles) {
-            if (om.GetStageLevel() >= currentStage) {
+            if (currentStage >= om.GetStageLevel()) {
                 obstacleList.Add(om);
             }
         }
 
         pickupsForStage = pickupList.ToArray();
         obstaclesForStage = obstacleList.ToArray();
+
+        EventManager.TriggerEvent(SpawnSystemEvents.TOGGLE_SPAWNING, true);
     }
 
     void OnGameResumed(object arg0) {

@@ -13,6 +13,7 @@ public class PickupController : MonoBehaviour {
     }
 
     void OnBatchRecieved(object bm) {
+        Debug.Log("Start placing pickups");
         BatchModel batchModel = (BatchModel)bm;
 
         // Get the amount of resource points available for spawning obstacles in this batch
