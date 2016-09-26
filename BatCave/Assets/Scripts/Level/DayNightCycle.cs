@@ -15,8 +15,8 @@ public class DayNightCycle : MonoBehaviour {
     private bool speedBoosterFadeOut = false;
 
     void Start() {
-        EventManager.StartListening(EventTypes.TRANSITION_START, OnTransitionStart);
-        EventManager.StartListening(EventTypes.TRANSITION_END, OnTransitionEnd);
+        EventManager.StartListening(EventTypes.FADE_LIGHT_IN, OnTransitionStart);
+        EventManager.StartListening(EventTypes.FADE_LIGHT_OUT, OnTransitionEnd);
     }
 
     void OnTransitionEnd(object arg0) {
@@ -28,8 +28,8 @@ public class DayNightCycle : MonoBehaviour {
     }
 
     void OnDestroy() {
-        EventManager.StopListening(EventTypes.TRANSITION_START, OnTransitionStart);
-        EventManager.StopListening(EventTypes.TRANSITION_END, OnTransitionEnd);
+        EventManager.StopListening(EventTypes.FADE_LIGHT_IN, OnTransitionStart);
+        EventManager.StopListening(EventTypes.FADE_LIGHT_OUT, OnTransitionEnd);
     }
 
     public void setDayTime() {
@@ -41,18 +41,24 @@ public class DayNightCycle : MonoBehaviour {
     }
 
     void Update() {
-        if (isFadingOut) {
+        if (isFadingOut && !speedBoosterActive) {
             DayTimeLight.intensity = Mathf.Lerp(DayTimeLight.intensity, 0f, fadeOutSpeed * Time.deltaTime);
             playerLight.intensity = Mathf.Lerp(playerLight.intensity, 8f, fadeOutSpeed * Time.deltaTime);
 
-            if (DayTimeLight.intensity <= 0f && playerLight.intensity == 8f) {
+            if (DayTimeLight.intensity <= 0.50f && playerLight.intensity >= 5f) {
+                playerLight.intensity = 8f;
+                DayTimeLight.intensity = 0f;
                 isFadingOut = false;
             }
-        } else if (isFadingIn) {
+        }
+
+        if (isFadingIn) {
             DayTimeLight.intensity = Mathf.Lerp(DayTimeLight.intensity, 8f, fadeOutSpeed * Time.deltaTime);
             playerLight.intensity = Mathf.Lerp(playerLight.intensity, 0f, fadeOutSpeed * Time.deltaTime);
 
-            if (DayTimeLight.intensity >= 7f && playerLight.intensity == 0f) {
+            if (DayTimeLight.intensity >= 3.5f && playerLight.intensity >= 0.50f) {
+                playerLight.intensity = 0f;
+                DayTimeLight.intensity = 4f;
                 isFadingIn = false;
             }
         }

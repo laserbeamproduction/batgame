@@ -123,7 +123,7 @@ public class BatchView : MonoBehaviour {
                 EventManager.TriggerEvent(SpawnSystemEvents.TOGGLE_SPAWNING, false);
             }
 
-            if (score == 10) {
+            if (score == 100) {
                 EventManager.TriggerEvent(EventTypes.CHANGE_ENVIRONMENT);
             }
         }
