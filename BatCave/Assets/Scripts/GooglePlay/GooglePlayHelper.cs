@@ -3,7 +3,7 @@ using GooglePlayGames.BasicApi;
 using GooglePlayGames.BasicApi.SavedGame;
 using System;
 using UnityEngine;
-
+using GooglePlayGames.BasicApi.Multiplayer;
 
 /// <summary>
 /// This helper class functions as a layer between the Google Play 
@@ -41,6 +41,7 @@ public class GooglePlayHelper {
         // Enables saving game progress.
         config = new PlayGamesClientConfiguration.Builder()
             .EnableSavedGames()
+            .WithInvitationDelegate(GPMPController.GetInstance().OnInvitationReceived)
             .Build();
         PlayGamesPlatform.InitializeInstance(config);
 
@@ -51,7 +52,7 @@ public class GooglePlayHelper {
 
         isInitialized = true;
     }
-
+    
     /// <summary>
     /// Starts Google Authentication flow for authenticating player
     /// </summary>
