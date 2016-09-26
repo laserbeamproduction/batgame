@@ -219,12 +219,11 @@ public class PlayerControls : MonoBehaviour {
                 fp = touch.position;
                 lp = touch.position;
             }
+
             if (touch.phase == TouchPhase.Moved)
             {
                 lp = touch.position;
-            }
-            if (touch.phase == TouchPhase.Moved)
-            {
+
                 if ((fp.x - lp.x) > 10 && !playerLeft && !touchStarted) // left swipe
                 {
                     touchStarted = true;
@@ -235,6 +234,10 @@ public class PlayerControls : MonoBehaviour {
                     touchStarted = true;
                     xPosition += 1;
                 }
+            }
+
+            if (touch.phase == TouchPhase.Stationary) {
+                //touchStarted = false;
             }
 
             if (touch.phase == TouchPhase.Ended) {
@@ -256,12 +259,10 @@ public class PlayerControls : MonoBehaviour {
     public void SetShield(bool shieldActive) {
         if (shieldActive) {
             canDie = false;
-            //gameObject.GetComponent<BoxCollider2D>().enabled = false;
         }
 
         if (!shieldActive) {
             canDie = true;
-            //gameObject.GetComponent<BoxCollider2D>().enabled = true;
         }
     }
 }
