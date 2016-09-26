@@ -13,6 +13,10 @@ public class TransitionManager : MonoBehaviour {
         EventManager.StartListening(EventTypes.CHANGE_ENVIRONMENT, ChangeEnvironment);
 	}
 
+    void OnDestroy() {
+        EventManager.StopListening(EventTypes.CHANGE_ENVIRONMENT, ChangeEnvironment);
+    }
+
     private void ChangeEnvironment(object value)
     {
         // move to the next stage
@@ -23,7 +27,7 @@ public class TransitionManager : MonoBehaviour {
         if (currentEnviroment == unlockTensionStage) {
             EventManager.TriggerEvent(SpawnSystemEvents.UNLOCK_TENSION_MOMENTS);
             EventManager.TriggerEvent(SpawnSystemEvents.START_TENSION_MOMENT);
-        } else if (currentEnviroment > unlockTensionStage && Random.Range(0, 100) > tensionMomentChance) {
+        } else if (currentEnviroment > unlockTensionStage && Random.Range(0, 100) < tensionMomentChance) {
             EventManager.TriggerEvent(SpawnSystemEvents.START_TENSION_MOMENT);
         } else {
             EventManager.TriggerEvent(SpawnSystemEvents.STOP_TENSION_MOMENT);
@@ -31,7 +35,7 @@ public class TransitionManager : MonoBehaviour {
 
         // if all enviroments have been played, start random enviroments
         if (currentEnviroment >= environments.Length - 1)
-            chosenStage = UnityEngine.Random.Range(0, environments.Length);
+            chosenStage = Random.Range(0, environments.Length);
 
         EventManager.TriggerEvent(EventTypes.TRANSITION_END, environments[chosenStage]);
     }
