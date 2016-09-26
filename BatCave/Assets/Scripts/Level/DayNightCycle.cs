@@ -13,10 +13,21 @@ public class DayNightCycle : MonoBehaviour {
     private bool isFadingIn = false;
     private bool speedBoosterActive = false;
     private bool speedBoosterFadeOut = false;
+    private bool lightPowerActive = false;
 
     void Start() {
         EventManager.StartListening(EventTypes.FADE_LIGHT_IN, OnTransitionStart);
         EventManager.StartListening(EventTypes.FADE_LIGHT_OUT, OnTransitionEnd);
+        EventManager.StartListening(PowerupEvents.PLAYER_LIGHT_PICKUP, OnPlayerPickedUpLight);
+        EventManager.StartListening(PowerupEvents.PLAYER_LIGHT_ENDED, OnPlayerLightPowerEnded);
+    }
+
+    private void OnPlayerLightPowerEnded(object arg0) {
+        lightPowerActive = false;
+    }
+
+    private void OnPlayerPickedUpLight(object arg0) {
+        lightPowerActive = true;
     }
 
     void OnTransitionEnd(object arg0) {
@@ -41,7 +52,7 @@ public class DayNightCycle : MonoBehaviour {
     }
 
     void Update() {
-        if (isFadingOut && !speedBoosterActive) {
+        if (isFadingOut && !speedBoosterActive && !lightPowerActive) {
             DayTimeLight.intensity = Mathf.Lerp(DayTimeLight.intensity, 0f, fadeOutSpeed * Time.deltaTime);
             playerLight.intensity = Mathf.Lerp(playerLight.intensity, 8f, fadeOutSpeed * Time.deltaTime);
 

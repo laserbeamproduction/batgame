@@ -29,8 +29,8 @@ public class GameItem : MonoBehaviour {
 
     void Update() {
         if (isAvailable && nextSprite != null) {
-            nextSprite = null;
             spriteRenderer.sprite = nextSprite;
+            nextSprite = null;
         }
     }
 

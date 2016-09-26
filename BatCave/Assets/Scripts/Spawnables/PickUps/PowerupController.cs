@@ -71,8 +71,9 @@ public class PowerupController : MonoBehaviour {
         dayNightCycle.IncreasePlayerLightRange();
     }
 
-    private void OnPlayerLightPickedUp(object arg0) {
+    private void OnPlayerLightPickedUp(object lightTime) {
         lightActive = true;
+        lightDuration = (float)lightTime;
         dayNightCycle.setDayTime();
     }
 
