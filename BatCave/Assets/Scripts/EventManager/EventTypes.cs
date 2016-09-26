@@ -24,6 +24,9 @@ public class EventTypes {
     public const string DISABLE_PLAYER_LIGHT = "disablePlayerLight";
     public const string PLAYER_IN_POSITION = "playerInPosition";
 
+    public const string FADE_LIGHT_IN = "fadeLightIn";
+    public const string FADE_LIGHT_OUT = "fadeLightOut";
+
     //ENVIROMENTAL CHANGES
     public const string TRANSITION_START = "transitionStart";
     public const string TRANSITION_END = "transitionEnd";

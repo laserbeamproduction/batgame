@@ -284,6 +284,7 @@
     <Compile Include="Assets\Scripts\Level\EnvironmentModel.cs" />
     <Compile Include="Assets\Scripts\Level\FloorSpriteSelector.cs" />
     <Compile Include="Assets\Scripts\Level\GameController.cs" />
+    <Compile Include="Assets\Scripts\Level\LightDarkControler.cs" />
     <Compile Include="Assets\Scripts\Level\SkillSlider.cs" />
     <Compile Include="Assets\Scripts\Level\SkillSliderFeedback.cs" />
     <Compile Include="Assets\Scripts\Level\TransitionManager.cs" />

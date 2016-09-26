@@ -16,7 +16,7 @@ public class TransitionManager : MonoBehaviour {
         int chosenStage = currentEnviroment;
 
         // if all enviroments have been played, start random enviroments
-        if (currentEnviroment >= environments.Length - 1)
+        if (currentEnviroment >= environments.Length)
             chosenStage = UnityEngine.Random.Range(0, environments.Length);
 
         EventManager.TriggerEvent(EventTypes.TRANSITION_END, environments[chosenStage]);
