@@ -47,10 +47,10 @@ public class BatchView : MonoBehaviour {
         EventManager.StartListening(EventTypes.CHANGE_ENVIRONMENT, OnEnviromentChanged);
         if (!isNetwork) 
             EventManager.StartListening(SpawnSystemEvents.TOGGLE_SPAWNING, OnSpawningToggled);
-        
     }
 
     void OnEnviromentChanged(object type) {
+        EventManager.TriggerEvent(SpawnSystemEvents.TOGGLE_SPAWNING, true);
         currentStage++;
 
         // select only available pickups and obstacles
@@ -70,8 +70,6 @@ public class BatchView : MonoBehaviour {
 
         pickupsForStage = pickupList.ToArray();
         obstaclesForStage = obstacleList.ToArray();
-
-        EventManager.TriggerEvent(SpawnSystemEvents.TOGGLE_SPAWNING, true);
     }
 
     void OnGameResumed(object arg0) {
