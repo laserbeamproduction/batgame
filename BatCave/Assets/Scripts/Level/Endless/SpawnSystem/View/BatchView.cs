@@ -38,7 +38,7 @@ public class BatchView : MonoBehaviour {
     public float endYoffsetError;
     public float currentYoffsetError;
 
-    private int currentStage = 0;
+    private int currentStage = -1;
 
     void Start() {
         EventManager.StartListening(EventTypes.START_COUNTDOWN, OnServerStarted);
