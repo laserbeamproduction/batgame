@@ -84,13 +84,13 @@ public class GameItem : MonoBehaviour {
     }
 
     void OnCollisionEnter2D(Collision2D col) {
-        if (col.gameObject.name == "CleanUp") {
+        if (col.gameObject.tag == "CleanUp") {
             SetAvailable(true);
         }
     }
 
     void OnTriggerEnter2D(Collider2D col) {
-        if (col.gameObject.name == "CleanUp") {
+        if (col.gameObject.tag == "CleanUp") {
             SetAvailable(true);
         }
     }

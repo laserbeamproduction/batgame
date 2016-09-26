@@ -133,7 +133,8 @@ public class BatchView : MonoBehaviour {
     
     private void OnSpawningToggled(object arg0) {
         bool enabled = (bool)arg0;
-        cleanUp.SetActive(enabled);
+        if (!cleanUp.activeInHierarchy)
+            cleanUp.SetActive(true);
         if (enabled)
             StartCoroutine("CreateNewBatch");
         else
