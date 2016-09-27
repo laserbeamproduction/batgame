@@ -1,4 +1,2 @@
-﻿using UnityEngine;
-
-public class ObstacleModel : GameItem {
+﻿public class ObstacleModel : GameItem {
 }

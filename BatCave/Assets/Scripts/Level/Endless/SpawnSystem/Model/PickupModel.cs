@@ -1,4 +1,2 @@
-﻿using UnityEngine;
-
-public class PickupModel : GameItem {
+﻿public class PickupModel : GameItem {
 }

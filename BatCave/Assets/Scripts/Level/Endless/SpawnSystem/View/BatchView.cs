@@ -41,13 +41,16 @@ public class BatchView : MonoBehaviour {
     private int currentStage = -1;
 
     void Start() {
-        EventManager.StartListening(EventTypes.START_COUNTDOWN, OnServerStarted);
         EventManager.StartListening(EventTypes.GAME_PAUSED, OnGamePaused);
         EventManager.StartListening(EventTypes.GAME_RESUME, OnGameResumed);
         EventManager.StartListening(EventTypes.CHANGE_ENVIRONMENT, OnEnviromentChanged);
-        if (!isNetwork) 
-            EventManager.StartListening(SpawnSystemEvents.TOGGLE_SPAWNING, OnSpawningToggled);
+        EventManager.StartListening(SpawnSystemEvents.TOGGLE_SPAWNING, OnSpawningToggled);
+
+        // GPMP
+        EventManager.StartListening(GPMPEvents.Types.GPMP_START_GAME.ToString(), OnGameStartReady);
     }
+
+
 
     void OnEnviromentChanged(object type) {
         currentStage++;
@@ -86,10 +89,12 @@ public class BatchView : MonoBehaviour {
 
     void OnDestroy() {
         EventManager.StopListening(SpawnSystemEvents.TOGGLE_SPAWNING, OnSpawningToggled);
-        EventManager.StopListening(EventTypes.START_COUNTDOWN, OnServerStarted);
         EventManager.StopListening(EventTypes.GAME_PAUSED, OnGamePaused);
         EventManager.StopListening(EventTypes.GAME_RESUME, OnGameResumed);
         EventManager.StopListening(EventTypes.CHANGE_ENVIRONMENT, OnEnviromentChanged);
+
+        // GPMP
+        EventManager.StopListening(GPMPEvents.Types.GPMP_START_GAME.ToString(), OnGameStartReady);
     }
 
     float UpdateCurrentValueByScore(float currentDifficultyStep, float totalDifficultySteps , float initValue, float endValue) {
@@ -104,32 +109,33 @@ public class BatchView : MonoBehaviour {
     }
 
     void FixedUpdate() {
+        if (isNetwork)
+            return;
+
         // tweak spawn stats depending on current score
-        if (!isNetwork) {
-            float score = scoreCalculator.playerScore;
-            if (score <= highestDifficultyScore && score != 0) {
+        float score = scoreCalculator.playerScore;
+        if (score <= highestDifficultyScore && score != 0) {
 
-                // check if difficulty needs to go up
-                if (score % increaseDifficultyStep == 0) {
-                    // increase difficulty
-                    float currentStep = score / increaseDifficultyStep;
-                    float totalDifficultySteps = highestDifficultyScore / increaseDifficultyStep;
+            // check if difficulty needs to go up
+            if (score % increaseDifficultyStep == 0) {
+                // increase difficulty
+                float currentStep = score / increaseDifficultyStep;
+                float totalDifficultySteps = highestDifficultyScore / increaseDifficultyStep;
 
-                    currentSpawnDelay = UpdateCurrentValueByScore(currentStep, totalDifficultySteps, initialSpawnDelay, endSpawnDelay);
-                    currentTotalObstacleResources = (int)UpdateCurrentValueByScore(currentStep, totalDifficultySteps, initialTotalObstacleResources, endTotalObstacleResources);
-                    currentTotalPickupResources = (int)UpdateCurrentValueByScore(currentStep, totalDifficultySteps, initialTotalPickupResouces, endTotalPickupResouces);
-                    currentYoffsetError = UpdateCurrentValueByScore(currentStep, totalDifficultySteps, initialYoffsetError, endYoffsetError);
-                }
+                currentSpawnDelay = UpdateCurrentValueByScore(currentStep, totalDifficultySteps, initialSpawnDelay, endSpawnDelay);
+                currentTotalObstacleResources = (int)UpdateCurrentValueByScore(currentStep, totalDifficultySteps, initialTotalObstacleResources, endTotalObstacleResources);
+                currentTotalPickupResources = (int)UpdateCurrentValueByScore(currentStep, totalDifficultySteps, initialTotalPickupResouces, endTotalPickupResouces);
+                currentYoffsetError = UpdateCurrentValueByScore(currentStep, totalDifficultySteps, initialYoffsetError, endYoffsetError);
             }
+        }
 
-            if (score % stageDurationInScore == 0 && score != 0 ) {
-                EventManager.TriggerEvent(EventTypes.TRANSITION_START);
-                EventManager.TriggerEvent(SpawnSystemEvents.TOGGLE_SPAWNING, false);
-            }
+        if (score % stageDurationInScore == 0 && score != 0 ) {
+            EventManager.TriggerEvent(EventTypes.TRANSITION_START);
+            EventManager.TriggerEvent(SpawnSystemEvents.TOGGLE_SPAWNING, false);
+        }
 
-            if (score == 100) {
-                EventManager.TriggerEvent(EventTypes.CHANGE_ENVIRONMENT);
-            }
+        if (score == 100) {
+            EventManager.TriggerEvent(EventTypes.CHANGE_ENVIRONMENT);
         }
     }
     
@@ -145,8 +151,15 @@ public class BatchView : MonoBehaviour {
 
     IEnumerator CreateNewBatch() {
         while (true) {
+            Debug.Log("StartSpawning");
+
             // Create new batch model
-            BatchModel batchModel = new BatchModel(spawnPoints, pickups, obstacles, currentTotalObstacleResources, currentTotalPickupResources, currentYoffsetError);
+            BatchModel batchModel;
+            batchModel = new BatchModel(spawnPoints, pickupsForStage, obstaclesForStage, currentTotalObstacleResources, currentTotalPickupResources, currentYoffsetError);
+
+            if (isNetwork) {
+                batchModel = new BatchModel(spawnPoints, pickups, obstacles, currentTotalObstacleResources, currentTotalPickupResources, currentYoffsetError);
+            }
 
             EventManager.TriggerEvent(SpawnSystemEvents.NEW_BATCH_CREATED, batchModel);
             
@@ -154,23 +167,11 @@ public class BatchView : MonoBehaviour {
         }
     }
 
-    private void OnServerStarted(object arg0) {
-        if (!Network.isClient && Network.isServer) {
-            EventManager.StartListening(SpawnSystemEvents.TOGGLE_SPAWNING, OnSpawningToggled);
-            
-            List<PickupModel> netPickups = new List<PickupModel>();
-            List<ObstacleModel> netObstacles = new List<ObstacleModel>();
-
-            for (int i = 0; i < obstacles.Length; i++) {
-                netObstacles.Add(Network.Instantiate(obstacles[i], new Vector3(-30f, 0f, 0f), Quaternion.identity, 0) as ObstacleModel);
-            }
-
-            for (int i = 0; i < pickups.Length; i++) {
-                netPickups.Add(Network.Instantiate(pickups[i], new Vector3(-30f, 0f, 0f), Quaternion.identity, 0) as PickupModel);
-            }
-
-            obstacles = netObstacles.ToArray();
-            pickups = netPickups.ToArray();
-        }
+    // GPMP
+    private void OnGameStartReady(object matchModel) {
+        GPMPMatchModel model = (GPMPMatchModel)matchModel;
+        DebugMP.Log("Game start revieved by batch view. I am host: " + model.iAmTheHost);
+        if (model.iAmTheHost)
+            EventManager.TriggerEvent(SpawnSystemEvents.TOGGLE_SPAWNING, true);
     }
 }
