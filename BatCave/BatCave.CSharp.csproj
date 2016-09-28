@@ -336,6 +336,8 @@
     <Compile Include="Assets\Scripts\Spawnables\PickUps\PowerupEvents.cs" />
     <Compile Include="Assets\Scripts\SplashScreen\SplashScreen.cs" />
     <Compile Include="Assets\Scripts\SpriteOutline.cs" />
+    <Compile Include="Assets\Scripts\Store\StoreItemModel.cs" />
+    <Compile Include="Assets\Scripts\Store\StoreUI.cs" />
     <Compile Include="Assets\Scripts\Util\AchievementChecker.cs" />
     <Compile Include="Assets\Scripts\Util\DummyBatController.cs" />
     <Compile Include="Assets\Scripts\Util\ScreenShaker.cs" />
