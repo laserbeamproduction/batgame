@@ -27,6 +27,11 @@ public class EventTypes {
     public const string FADE_LIGHT_IN = "fadeLightIn";
     public const string FADE_LIGHT_OUT = "fadeLightOut";
 
+    //COMBO SYSTEM
+    public const string GOOD_ECHO = "goodEcho";
+    public const string PERFECT_ECHO = "perfectEcho";
+    public const string SPECIAL_USED = "specialUsed";
+
     //ENVIROMENTAL CHANGES
     public const string TRANSITION_START = "transitionStart";
     public const string TRANSITION_END = "transitionEnd";

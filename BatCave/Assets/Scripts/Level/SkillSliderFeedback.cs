@@ -29,11 +29,13 @@ public class SkillSliderFeedback : MonoBehaviour {
                 textComponent.text = "Good!";
                 textComponent.color = goodColor;
                 animator.Play("FeedbackTextAnimation");
+                EventManager.TriggerEvent(EventTypes.GOOD_ECHO);
                 break;
             case Types.EXCELLENT:
                 textComponent.text = "Excellent!";
                 textComponent.color = excellentColor;
                 animator.Play("FeedbackTextAnimation");
+                EventManager.TriggerEvent(EventTypes.PERFECT_ECHO);
                 break;
         }
     }
