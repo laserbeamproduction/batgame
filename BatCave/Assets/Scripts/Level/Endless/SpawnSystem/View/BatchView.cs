@@ -25,6 +25,7 @@ public class BatchView : MonoBehaviour {
     public float initialSpawnDelay;
     public float endSpawnDelay;
     public float currentSpawnDelay;
+    public float spawnDelay;
 
     public int initialTotalObstacleResources;
     public int endTotalObstacleResources;
@@ -37,6 +38,9 @@ public class BatchView : MonoBehaviour {
     public float initialYoffsetError;
     public float endYoffsetError;
     public float currentYoffsetError;
+
+    public int afterWhatStageBooster;
+    public GameObject SpeedBooster;
 
     private int currentStage = -1;
 
@@ -76,7 +80,13 @@ public class BatchView : MonoBehaviour {
         pickupsForStage = pickupList.ToArray();
         obstaclesForStage = obstacleList.ToArray();
 
+        StartCoroutine(StartSpawnDelay()); //start spawning
+    }
+
+    IEnumerator StartSpawnDelay() {
+        yield return new WaitForSeconds(spawnDelay);
         EventManager.TriggerEvent(SpawnSystemEvents.TOGGLE_SPAWNING, true);
+        StopCoroutine(StartSpawnDelay());
     }
 
     void OnGameResumed(object arg0) {
@@ -132,6 +142,11 @@ public class BatchView : MonoBehaviour {
         if (score % stageDurationInScore == 0 && score != 0 ) {
             EventManager.TriggerEvent(EventTypes.TRANSITION_START);
             EventManager.TriggerEvent(SpawnSystemEvents.TOGGLE_SPAWNING, false);
+        }
+
+        if (score == (stageDurationInScore*afterWhatStageBooster)) {
+            SpeedBooster.transform.position = new Vector3(0, 35, 0); //hacky fix to get booster to spawn at the correct time
+            SpeedBooster.GetComponent<GameItem>().SetAvailable(false);
         }
 
         if (score == 100) {
