@@ -19,7 +19,6 @@ public class GPMPGameController : MonoBehaviour {
         EventManager.StartListening(GPMPEvents.Types.GPMP_OPPONENT_READY.ToString(), OnOpponentReady);
         EventManager.StartListening(GPMPEvents.Types.GPMP_GAME_ITEM_SPAWNED.ToString(), OnGameItemSpawned);
         EventManager.StartListening(GPMPEvents.Types.GPMP_READY_ACKNOWLEDGE.ToString(), OnOpponentAskedForAcknowledgement);
-        EventManager.StartListening(GPMPEvents.Types.GPMP_UPDATE_MY_POSITION.ToString(), OnMyPositionUpdated);
         EventManager.StartListening(GPMPEvents.Types.GPMP_PLAYER_DIED.ToString(), OnPlayerDied);
         EventManager.StartListening(GPMPEvents.Types.GPMP_OPPONENT_DIED.ToString(), OnOpponentDied);
     }
