@@ -139,6 +139,12 @@ public class PlayerControls : MonoBehaviour {
         EventManager.TriggerEvent(EventTypes.ECHO_USED);
     }
 
+    private void UseSpecial() {
+        if (playerResources.echoComboAmount == playerResources.maxEchoComboAmount) {
+            EventManager.TriggerEvent(EventTypes.SPECIAL_USED);
+        }
+    }
+
     void OnSkillValueRecieved(object arg0) {
         foreach (GameObject echo in playerEchos)
         {
