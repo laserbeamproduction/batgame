@@ -9,6 +9,8 @@ public class GPMPPlayerView : MonoBehaviour {
     public float speed;
     public Vector3 playerOneSpawnpoint;
     public Vector3 playerTwoSpawnpoint;
+    public GameObject[] playerEchos;
+    public SkillSlider skillSlider;
 
     private Rigidbody2D rigidbody;
     private bool playerLeft;
@@ -27,11 +29,15 @@ public class GPMPPlayerView : MonoBehaviour {
         rigidbody = GetComponent<Rigidbody2D>();
         EventManager.StartListening(GPMPEvents.Types.GPMP_MATCH_INFO_READY.ToString(), OnMatchInfoReady);
         EventManager.StartListening(GPMPEvents.Types.GPMP_START_GAME.ToString(), OnMatchStarted);
+        EventManager.StartListening(EventTypes.SKILL_VALUE, OnSkillValueRecieved);
+
     }
 
     void OnDestroy() {
         EventManager.StopListening(GPMPEvents.Types.GPMP_MATCH_INFO_READY.ToString(), OnMatchInfoReady);
-        EventManager.StartListening(GPMPEvents.Types.GPMP_START_GAME.ToString(), OnMatchStarted);
+        EventManager.StopListening(GPMPEvents.Types.GPMP_START_GAME.ToString(), OnMatchStarted);
+        EventManager.StopListening(EventTypes.SKILL_VALUE, OnSkillValueRecieved);
+
     }
 
     private void OnMatchInfoReady(object model) {
@@ -79,6 +85,36 @@ public class GPMPPlayerView : MonoBehaviour {
         }
     }
 
+    void OnCollisionEnter2D(Collision2D col) {
+        if (col.gameObject.tag == "Obstacle") {
+            GameItem item = col.gameObject.GetComponent<GameItem>();
+            for (int i = 0; i < item.laneWeight; i++) {
+                //DebugMP.Log("My pos x: " + transform.position.x + "\t" + "obstacle pos x: " + col.transform.position.x + (i * 1));
+                if (transform.position.x < col.transform.position.x + (i * 1) + 0.5 && transform.position.x > col.transform.position.x + (i * 1) - 0.5) {
+                    GetComponent<ParticleSystem>().Play();
+                    GetComponent<SpriteRenderer>().enabled = false;
+                    EventManager.TriggerEvent(GPMPEvents.Types.GPMP_PLAYER_DIED.ToString());
+                    break;
+                }
+            }
+        }
+    }
+
+    public void SpawnEcho() {
+        EventManager.TriggerEvent(EventTypes.ECHO_USED);
+    }
+
+    void OnSkillValueRecieved(object arg0) {
+        foreach (GameObject echo in playerEchos) {
+            if (!echo.activeInHierarchy) {
+                echo.SetActive(true);
+                echo.transform.position = new Vector3(transform.position.x, transform.position.y, -2);
+                echo.GetComponent<MoveEcho>().EchoSize(skillSlider.GetLastSkillValue());
+                return;
+            }
+        }
+    }
+
     void CheckForSwipe() {
         foreach (Touch touch in Input.touches) {
             if (touch.phase == TouchPhase.Began) {
@@ -106,9 +142,9 @@ public class GPMPPlayerView : MonoBehaviour {
                 } else if ((fp.x - lp.x) < -10) {
                     touchStarted = false;
                 } else if ((fp.x - lp.x) > -3 && fp.y < (Screen.height - Screen.height / 4)) {
-                    //SpawnEcho();
+                    SpawnEcho();
                 } else if ((fp.x - lp.x) < 3 && fp.y < (Screen.height - Screen.height / 4)) {
-                    //SpawnEcho();
+                    SpawnEcho();
                 }
             }
         }

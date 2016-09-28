@@ -31,6 +31,8 @@ public class SimpleMoveScript : MonoBehaviour {
 
         // GPMP
         EventManager.StartListening(GPMPEvents.Types.GPMP_START_GAME.ToString(), OnGameStartReady);
+        EventManager.StartListening(GPMPEvents.Types.GPMP_PLAYER_DIED.ToString(), OnGamePaused);
+        EventManager.StartListening(GPMPEvents.Types.GPMP_OPPONENT_DIED.ToString(), OnGamePaused);
 
         StartCoroutine(StartTimer());
     }
@@ -47,7 +49,7 @@ public class SimpleMoveScript : MonoBehaviour {
         isIntro = false;
     }
 
-    void Update() {
+    void FixedUpdate() {
         if (!isPaused && !isIntro) {
             if (SpeedBoostActive)
                 transform.Translate(BoostSpeed.x, BoostSpeed.y, 0);
@@ -66,7 +68,9 @@ public class SimpleMoveScript : MonoBehaviour {
         EventManager.StopListening(PowerupEvents.PLAYER_SPEED_ENDED, DeactivateSpeedBoost);
 
         // GPMP
-        EventManager.StartListening(GPMPEvents.Types.GPMP_START_GAME.ToString(), OnGameStartReady);
+        EventManager.StopListening(GPMPEvents.Types.GPMP_START_GAME.ToString(), OnGameStartReady);
+        EventManager.StopListening(GPMPEvents.Types.GPMP_PLAYER_DIED.ToString(), OnGamePaused);
+        EventManager.StopListening(GPMPEvents.Types.GPMP_OPPONENT_DIED.ToString(), OnGamePaused);
     }
 
     // GPMP

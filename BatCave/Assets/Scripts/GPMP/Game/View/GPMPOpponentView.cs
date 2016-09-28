@@ -16,6 +16,8 @@ public class GPMPOpponentView : MonoBehaviour {
         rigidbody = GetComponent<Rigidbody2D>();
         EventManager.StartListening(GPMPEvents.Types.GPMP_UPDATE_OPPONENT_POSITION.ToString(), OnPositionUpdated);
         EventManager.StartListening(GPMPEvents.Types.GPMP_MATCH_INFO_READY.ToString(), OnMatchInfoReady);
+        EventManager.StartListening(GPMPEvents.Types.GPMP_OPPONENT_DIED.ToString(), OnOpponentDied);
+
     }
 
     private void OnMatchInfoReady(object model) {
@@ -30,6 +32,12 @@ public class GPMPOpponentView : MonoBehaviour {
     void OnDestroy() {
         EventManager.StopListening(GPMPEvents.Types.GPMP_UPDATE_OPPONENT_POSITION.ToString(), OnPositionUpdated);
         EventManager.StopListening(GPMPEvents.Types.GPMP_MATCH_INFO_READY.ToString(), OnMatchInfoReady);
+        EventManager.StopListening(GPMPEvents.Types.GPMP_OPPONENT_DIED.ToString(), OnOpponentDied);
+    }
+
+    private void OnOpponentDied(object arg0) {
+        GetComponent<ParticleSystem>().Play();
+        GetComponent<SpriteRenderer>().enabled = false;
     }
 
     void OnPositionUpdated(object data) {

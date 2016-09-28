@@ -20,11 +20,13 @@ public class SaveLoadController {
         OptionsSave os = new OptionsSave();
         PlayerSave ps = new PlayerSave();
         EndlessSessionSave ess = new EndlessSessionSave();
+        MultiplayerSessionSave mss = new MultiplayerSessionSave();
 
         // add to list
         saveObjects.Add(os);
         saveObjects.Add(ps);
         saveObjects.Add(ess);
+        saveObjects.Add(mss);
     }
 
     public static SaveLoadController GetInstance() {
@@ -43,6 +45,10 @@ public class SaveLoadController {
 
     public EndlessSessionSave GetEndlessSession() {
         return (EndlessSessionSave)GetSaveObject(typeof(EndlessSessionSave));
+    }
+
+    public MultiplayerSessionSave GetMultiplayerSession() {
+        return (MultiplayerSessionSave)GetSaveObject(typeof(MultiplayerSessionSave));
     }
 
     /// <summary>
