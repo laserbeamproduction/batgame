@@ -7,6 +7,7 @@ public class PlayerSave : SaveObject {
     private float highscore;
     private int totalCoins;
     private int totalGamesPLayed;
+    private int totalMultiplayerMatchesWon;
 
     public PlayerSave() {
     }
@@ -33,5 +34,13 @@ public class PlayerSave : SaveObject {
 
     public void AddTotalCoins(int amount) {
         this.totalCoins += amount;
+    }
+
+    public int GetTotalMultiplayerMatchesWon() {
+        return this.totalMultiplayerMatchesWon;
+    }
+
+    public void AddTotalMultiplayerMatchesWon(int amount) {
+        this.totalMultiplayerMatchesWon += amount;
     }
 }
