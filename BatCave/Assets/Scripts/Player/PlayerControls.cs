@@ -208,7 +208,7 @@ public class PlayerControls : MonoBehaviour {
             }
 
             if (Input.GetKeyUp(KeyCode.P)) {
-                animator.SetBool("isBoosting", true);
+                UseSpecial();
             }
 
             if (Input.GetKeyUp(KeyCode.O)) {
@@ -239,6 +239,10 @@ public class PlayerControls : MonoBehaviour {
                 {
                     touchStarted = true;
                     xPosition += 1;
+                }
+
+                if ((fp.y - lp.y) > 80) {
+                    UseSpecial();
                 }
             }
 

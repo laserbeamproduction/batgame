@@ -12,11 +12,18 @@ public class PlayerResources : MonoBehaviour {
     //Special resource
     public float maxEchoComboAmount;
     public float echoComboAmount;
-    public int perfectEchoReward;
-    public int goodEchoReward;
+    public float perfectEchoReward;
+    public float goodEchoReward;
+    public float minusSpecialResources;
 
     private void Start() {
-        EventManager.StartListening(EventTypes.SPECIAL_USED, RemoveSpecialResource);
+        EventManager.StartListening(EventTypes.SPECIAL_USED, SpecialUsed);
+        EventManager.StartListening(EventTypes.PLAYER_TAKES_DAMAGE, PlayerHit);
+    }
+
+    private void OnDestroy() {
+        EventManager.StopListening(EventTypes.SPECIAL_USED, SpecialUsed);
+        EventManager.StopListening(EventTypes.PLAYER_TAKES_DAMAGE, PlayerHit);
     }
 
 	// Update is called once per frame
@@ -58,7 +65,12 @@ public class PlayerResources : MonoBehaviour {
         echoComboAmount += perfectEchoReward;
     }
 
-    private void RemoveSpecialResource(object value) {
+    private void SpecialUsed(object value) {
         echoComboAmount -= maxEchoComboAmount;
+    }
+
+    private void PlayerHit(object value)
+    {
+        echoComboAmount -= minusSpecialResources;
     }
 }
