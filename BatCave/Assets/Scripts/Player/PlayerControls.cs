@@ -14,6 +14,7 @@ public class PlayerControls : MonoBehaviour {
     public Light playerLight;
     public float lightFadeSpeed;
     public float playerScaleUpSpeed;
+    public bool echoEnabled;
     private Rigidbody2D rigidbody;
     private Animator animator;
 
@@ -136,7 +137,9 @@ public class PlayerControls : MonoBehaviour {
     }
 
     public void SpawnEcho() {
-        EventManager.TriggerEvent(EventTypes.ECHO_USED);
+        if (echoEnabled) {
+            EventManager.TriggerEvent(EventTypes.ECHO_USED);
+        }
     }
 
     private void UseSpecial() {

@@ -78,7 +78,7 @@ public class GameController : MonoBehaviour {
         //EventManager.TriggerEvent(SpawnSystemEvents.TOGGLE_SPAWNING, true);
 
         // Reactivate UI
-        skillSlider.SetActive(true);
+        //skillSlider.SetActive(true);
         pauseButton.SetActive(true);
         scorePanel.SetActive(true);
     }

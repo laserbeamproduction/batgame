@@ -24,6 +24,10 @@ public class EventTypes {
     public const string DISABLE_PLAYER_LIGHT = "disablePlayerLight";
     public const string PLAYER_IN_POSITION = "playerInPosition";
 
+    //HIDE/SHOW & DISABLE/ENABLE Echo + UI Elements
+    public const string HIDE_AND_DISABLE = "hideAndDisable";
+    public const string SHOW_AND_ENABLE = "showAndEnable";
+
     public const string FADE_LIGHT_IN = "fadeLightIn";
     public const string FADE_LIGHT_OUT = "fadeLightOut";
 
