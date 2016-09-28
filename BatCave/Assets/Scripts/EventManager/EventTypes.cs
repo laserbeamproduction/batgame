@@ -52,4 +52,9 @@ public class EventTypes {
     public const string PLAY_ONLINE_PRESSED = "playOnlinePressed";
     public const string HIDE_LOBBY = "hideLobby";
     public const string RESTART_SEARCH = "restartSearch";
+
+    //STORE
+    public const string PURCHASE_STARTED = "purchaseStarted";
+    public const string PURCHASE_CONFIRMED = "purchaseConfirmed";
+    public const string PURCHASE_CANCELED = "purchaseCanceled";
 }
