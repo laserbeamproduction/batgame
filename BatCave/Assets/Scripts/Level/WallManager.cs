@@ -5,6 +5,8 @@ public class WallManager : MonoBehaviour {
     public SpriteRenderer[] bottomWalls;
     public SpriteRenderer[] topWalls;
     public Sprite[] woodsSprites;
+    public Sprite woodBackground;
+    public GameObject background;
 
     //Current wall sprites
     public Sprite[] sprites;
@@ -21,6 +23,7 @@ public class WallManager : MonoBehaviour {
     {
         sprites = null;
         EnvironmentModel newSprites = value as EnvironmentModel;
+        background.GetComponent<SpriteRenderer>().sprite = woodBackground;
         sprites = woodsSprites;
         isTransition = true;
     }
@@ -28,6 +31,7 @@ public class WallManager : MonoBehaviour {
     private void EndTransition(object value)
     {
         EnvironmentModel newSprites = value as EnvironmentModel;
+        background.GetComponent<SpriteRenderer>().sprite = newSprites.backGround as Sprite;
         sprites = newSprites.wallSprites as Sprite[];
     }
 
