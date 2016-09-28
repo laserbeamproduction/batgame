@@ -74,8 +74,7 @@ public class MenuButtons : MonoBehaviour {
     }
 
     public void Multiplayer() {
-        PlayerPrefs.SetString("FailedToFindPlayer", "false");
-        LoadingController.LoadScene(LoadingController.Scenes.MULTIPLAYER);
+        LoadingController.LoadScene(LoadingController.Scenes.GPMP_LOBBY);
     }
 
     public void Leaderboards()
