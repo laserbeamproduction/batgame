@@ -5,4 +5,5 @@ public class EnvironmentModel : MonoBehaviour {
     public Sprite[] backgroundTiles;
     public Sprite transitionOut;
     public Sprite transitionIn;
+    public Sprite backGround;
 }

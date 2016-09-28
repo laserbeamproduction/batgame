@@ -24,8 +24,17 @@ public class EventTypes {
     public const string DISABLE_PLAYER_LIGHT = "disablePlayerLight";
     public const string PLAYER_IN_POSITION = "playerInPosition";
 
+    //HIDE/SHOW & DISABLE/ENABLE Echo + UI Elements
+    public const string HIDE_AND_DISABLE = "hideAndDisable";
+    public const string SHOW_AND_ENABLE = "showAndEnable";
+
     public const string FADE_LIGHT_IN = "fadeLightIn";
     public const string FADE_LIGHT_OUT = "fadeLightOut";
+
+    //COMBO SYSTEM
+    public const string GOOD_ECHO = "goodEcho";
+    public const string PERFECT_ECHO = "perfectEcho";
+    public const string SPECIAL_USED = "specialUsed";
 
     //ENVIROMENTAL CHANGES
     public const string TRANSITION_START = "transitionStart";

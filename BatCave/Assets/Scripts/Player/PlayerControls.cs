@@ -14,6 +14,7 @@ public class PlayerControls : MonoBehaviour {
     public Light playerLight;
     public float lightFadeSpeed;
     public float playerScaleUpSpeed;
+    public bool echoEnabled;
     private Rigidbody2D rigidbody;
     private Animator animator;
 
@@ -136,7 +137,15 @@ public class PlayerControls : MonoBehaviour {
     }
 
     public void SpawnEcho() {
-        EventManager.TriggerEvent(EventTypes.ECHO_USED);
+        if (echoEnabled) {
+            EventManager.TriggerEvent(EventTypes.ECHO_USED);
+        }
+    }
+
+    private void UseSpecial() {
+        if (playerResources.echoComboAmount == playerResources.maxEchoComboAmount) {
+            EventManager.TriggerEvent(EventTypes.SPECIAL_USED);
+        }
     }
 
     void OnSkillValueRecieved(object arg0) {
@@ -202,7 +211,7 @@ public class PlayerControls : MonoBehaviour {
             }
 
             if (Input.GetKeyUp(KeyCode.P)) {
-                animator.SetBool("isBoosting", true);
+                UseSpecial();
             }
 
             if (Input.GetKeyUp(KeyCode.O)) {
@@ -233,6 +242,10 @@ public class PlayerControls : MonoBehaviour {
                 {
                     touchStarted = true;
                     xPosition += 1;
+                }
+
+                if ((fp.y - lp.y) > 80) {
+                    UseSpecial();
                 }
             }
 
