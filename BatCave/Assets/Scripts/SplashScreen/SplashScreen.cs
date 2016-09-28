@@ -20,7 +20,7 @@ public class SplashScreen : MonoBehaviour {
         timer += Time.deltaTime;
         if (timer >= duration && !readyForContinue) {
             readyForContinue = true;
-            LoadingController.LoadScene(LoadingController.Scenes.GPMP_LOBBY);
+            LoadingController.LoadScene(LoadingController.Scenes.MAIN_MENU);
         }
 	}
 }

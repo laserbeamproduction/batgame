@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class BatchView : MonoBehaviour {
 
     public bool isNetwork;
+    private float networkScore;
 
     public SpawnPointModel[] spawnPoints;
 
@@ -119,11 +120,14 @@ public class BatchView : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        if (isNetwork)
-            return;
+        float score;
+        if (isNetwork) {
+            networkScore++;
+            score = networkScore;
+        } else {
+            score = scoreCalculator.playerScore;
+        }
 
-        // tweak spawn stats depending on current score
-        float score = scoreCalculator.playerScore;
         if (score <= highestDifficultyScore && score != 0) {
 
             // check if difficulty needs to go up
@@ -139,17 +143,17 @@ public class BatchView : MonoBehaviour {
             }
         }
 
-        if (score % stageDurationInScore == 0 && score != 0 ) {
+        if (score % stageDurationInScore == 0 && score != 0 && !isNetwork) {
             EventManager.TriggerEvent(EventTypes.TRANSITION_START);
             EventManager.TriggerEvent(SpawnSystemEvents.TOGGLE_SPAWNING, false);
         }
-
-        if (score == (stageDurationInScore*afterWhatStageBooster)) {
+        
+        if (score == (stageDurationInScore*afterWhatStageBooster) && !isNetwork) {
             SpeedBooster.transform.position = new Vector3(0, 35, 0); //hacky fix to get booster to spawn at the correct time
             SpeedBooster.GetComponent<GameItem>().SetAvailable(false);
         }
 
-        if (score == 100) {
+        if (score == 100 && !isNetwork) {
             EventManager.TriggerEvent(EventTypes.CHANGE_ENVIRONMENT);
         }
     }

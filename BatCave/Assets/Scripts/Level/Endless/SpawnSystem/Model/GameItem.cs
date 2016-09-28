@@ -109,7 +109,7 @@ public class GameItem : MonoBehaviour {
 
     // GPMP
     public List<byte> ToBytes() {
-        DebugMP.Log("Transforming obstacle to bytes");
+        //DebugMP.Log("Transforming obstacle to bytes");
         List<byte> bytes = new List<byte>();
         Vector3 pos = gameObject.transform.position;
         bytes.AddRange(BitConverter.GetBytes(networkID));
@@ -121,13 +121,16 @@ public class GameItem : MonoBehaviour {
 
     // GPMP
     private void OnGameItemRecieved(object b) {
-        DebugMP.Log("Recieved obstacle from host");
-        byte[] bytes = ((List<byte>)b).ToArray();
+        //DebugMP.Log("Recieved obstacle from host type: " + b.GetType());
+        //List<byte> arrayList = (List<byte>)b;
+        byte[] bytes = (byte[])b;
+
         uint ID = BitConverter.ToUInt32(bytes, 5);
 
-        DebugMP.Log("recieved ID: " + ID + "\t" + "my ID: " + networkID);
+        //DebugMP.Log("recieved ID: " + ID + "\t" + "my ID: " + networkID);
         if (ID == networkID) {
-            DebugMP.Log("Match found. setting position now");
+            //DebugMP.Log("Match found. setting position now");
+            
             gameObject.transform.position = new Vector3(BitConverter.ToSingle(bytes, 9), BitConverter.ToSingle(bytes, 13), BitConverter.ToSingle(bytes, 17));
         }
     }

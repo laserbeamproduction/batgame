@@ -19,6 +19,9 @@ public class GPMPGameController : MonoBehaviour {
         EventManager.StartListening(GPMPEvents.Types.GPMP_OPPONENT_READY.ToString(), OnOpponentReady);
         EventManager.StartListening(GPMPEvents.Types.GPMP_GAME_ITEM_SPAWNED.ToString(), OnGameItemSpawned);
         EventManager.StartListening(GPMPEvents.Types.GPMP_READY_ACKNOWLEDGE.ToString(), OnOpponentAskedForAcknowledgement);
+        EventManager.StartListening(GPMPEvents.Types.GPMP_UPDATE_MY_POSITION.ToString(), OnMyPositionUpdated);
+        EventManager.StartListening(GPMPEvents.Types.GPMP_PLAYER_DIED.ToString(), OnPlayerDied);
+        EventManager.StartListening(GPMPEvents.Types.GPMP_OPPONENT_DIED.ToString(), OnOpponentDied);
     }
 
     void OnDestroy() {
@@ -28,6 +31,8 @@ public class GPMPGameController : MonoBehaviour {
         EventManager.StopListening(GPMPEvents.Types.GPMP_OPPONENT_READY.ToString(), OnOpponentReady);
         EventManager.StopListening(GPMPEvents.Types.GPMP_GAME_ITEM_SPAWNED.ToString(), OnGameItemSpawned);
         EventManager.StopListening(GPMPEvents.Types.GPMP_READY_ACKNOWLEDGE.ToString(), OnOpponentAskedForAcknowledgement);
+        EventManager.StopListening(GPMPEvents.Types.GPMP_PLAYER_DIED.ToString(), OnPlayerDied);
+        EventManager.StopListening(GPMPEvents.Types.GPMP_OPPONENT_DIED.ToString(), OnOpponentDied);
     }
 
     IEnumerator ExecuteAfterTime(float time) {
@@ -104,6 +109,7 @@ public class GPMPGameController : MonoBehaviour {
     }
 
     private void SetParticipantsInfo() {
+        // set match model for the current session
         matchModel.player = PlayGamesPlatform.Instance.RealTime.GetSelf();
         matchModel.iAmTheHost = PlayGamesPlatform.Instance.RealTime.GetConnectedParticipants()[0].ParticipantId == matchModel.player.ParticipantId;
         List<Participant> players = PlayGamesPlatform.Instance.RealTime.GetConnectedParticipants();
@@ -113,7 +119,11 @@ public class GPMPGameController : MonoBehaviour {
         }
         EventManager.TriggerEvent(GPMPEvents.Types.GPMP_MATCH_INFO_READY.ToString(), matchModel);
         EventManager.TriggerEvent(GPMPEvents.Types.GPMP_PLAYER_READY.ToString());
-        DebugMP.Log("Math info ready");
+
+        // store session info in the save load controller
+        SaveLoadController.GetInstance().GetMultiplayerSession().SetPlayers(matchModel.player, matchModel.opponent);
+
+        DebugMP.Log("Match info ready");
     }
 
     private void OnGameItemSpawned(object b) {
@@ -126,5 +136,26 @@ public class GPMPGameController : MonoBehaviour {
         if (matchModel.playerIsReady) {
             SendMessage(GPMPEvents.Types.GPMP_OPPONENT_READY, new List<byte>());
         }
+    }
+
+    private void OnOpponentDied(object arg0) {
+        DebugMP.Log("You won!");
+        SaveLoadController.GetInstance().GetMultiplayerSession().SetPlayerWon();
+        StartCoroutine("TriggerGameOverScreen");
+    }
+
+    private void OnPlayerDied(object arg0) {
+        DebugMP.Log("Opponent won.");
+        SaveLoadController.GetInstance().GetMultiplayerSession().SetOpponentWon();
+        StartCoroutine("TriggerGameOverScreen");
+
+        // send message to opponent saying you died
+        SendMessage(GPMPEvents.Types.GPMP_OPPONENT_DIED, new List<byte>());
+    }
+
+    IEnumerator TriggerGameOverScreen() {
+        yield return new WaitForSeconds(2);
+        DebugMP.Log("Game over");
+        LoadingController.LoadScene(LoadingController.Scenes.GPMP_GAME_OVER);
     }
 }

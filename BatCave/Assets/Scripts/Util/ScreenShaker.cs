@@ -11,10 +11,16 @@ public class ScreenShaker : MonoBehaviour {
 
     void Start() {
         EventManager.StartListening(EventTypes.PLAYER_TAKES_DAMAGE, OnPlayerTakesDamage);
+
+        // GPMP
+        EventManager.StartListening(GPMPEvents.Types.GPMP_PLAYER_DIED.ToString(), OnPlayerTakesDamage);
     }
 
     void OnDestroy() {
         EventManager.StopListening(EventTypes.PLAYER_TAKES_DAMAGE, OnPlayerTakesDamage);
+
+        // GPMP
+        EventManager.StopListening(GPMPEvents.Types.GPMP_PLAYER_DIED.ToString(), OnPlayerTakesDamage);
     }
 
     void OnPlayerTakesDamage(object arg0) {

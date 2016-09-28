@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi.Multiplayer;
-using System.Collections.Generic;
 
 public class GPMPController : MonoBehaviour, RealTimeMultiplayerListener {
 
@@ -83,7 +82,12 @@ public class GPMPController : MonoBehaviour, RealTimeMultiplayerListener {
         if (success) {
             DebugMP.Log("Room connected. Start loading game scene");
             EventManager.TriggerEvent(GPMPEvents.Types.GPMP_MATCH_MAKING_DONE.ToString());
-            LoadingController.LoadScene(LoadingController.Scenes.GPMP_GAME);
+
+            // Reset save model
+            SaveLoadController.GetInstance().GetMultiplayerSession().Reset();
+
+            // Start versusn screen
+            LoadingController.LoadScene(LoadingController.Scenes.GPMP_VERSUS_SCREEN);
         } else {
             DebugMP.Log("On Room Connected status: " + success);
             PlayGamesPlatform.Instance.RealTime.LeaveRoom();
