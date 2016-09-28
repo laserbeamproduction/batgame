@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class SimpleMoveScript : MonoBehaviour {
     public float startSpeed;
@@ -27,6 +28,9 @@ public class SimpleMoveScript : MonoBehaviour {
         EventManager.StartListening(EventTypes.PLAYER_IN_POSITION, OnIntroCompleet);
         EventManager.StartListening(PowerupEvents.PLAYER_SPEED_PICKUP, ActivateSpeedBoost);
         EventManager.StartListening(PowerupEvents.PLAYER_SPEED_ENDED, DeactivateSpeedBoost);
+
+        // GPMP
+        EventManager.StartListening(GPMPEvents.Types.GPMP_START_GAME.ToString(), OnGameStartReady);
 
         StartCoroutine(StartTimer());
     }
@@ -60,6 +64,15 @@ public class SimpleMoveScript : MonoBehaviour {
         EventManager.StopListening(EventTypes.PLAYER_IN_POSITION, OnIntroCompleet);
         EventManager.StopListening(PowerupEvents.PLAYER_SPEED_PICKUP, ActivateSpeedBoost);
         EventManager.StopListening(PowerupEvents.PLAYER_SPEED_ENDED, DeactivateSpeedBoost);
+
+        // GPMP
+        EventManager.StartListening(GPMPEvents.Types.GPMP_START_GAME.ToString(), OnGameStartReady);
+    }
+
+    // GPMP
+    private void OnGameStartReady(object arg0) {
+        isPaused = false;
+        isIntro = false;
     }
 
     IEnumerator StartTimer() {

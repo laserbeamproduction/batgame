@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using GooglePlayGames;
+using System;
 
 public class GPMPPlayerView : MonoBehaviour {
 
@@ -18,29 +19,35 @@ public class GPMPPlayerView : MonoBehaviour {
     private bool touchStarted;
     private float lastNetworkCall;
     private GPMPMatchModel matchModel;
+    private bool paused = true;
 
     
     void Start () {
         // Player me should listen to the player and update its position to the other player
         rigidbody = GetComponent<Rigidbody2D>();
         EventManager.StartListening(GPMPEvents.Types.GPMP_MATCH_INFO_READY.ToString(), OnMatchInfoReady);
+        EventManager.StartListening(GPMPEvents.Types.GPMP_START_GAME.ToString(), OnMatchStarted);
     }
 
     void OnDestroy() {
         EventManager.StopListening(GPMPEvents.Types.GPMP_MATCH_INFO_READY.ToString(), OnMatchInfoReady);
+        EventManager.StartListening(GPMPEvents.Types.GPMP_START_GAME.ToString(), OnMatchStarted);
     }
 
     private void OnMatchInfoReady(object model) {
         matchModel = (GPMPMatchModel)model;
         if (matchModel.iAmTheHost) {
-            rigidbody.position = playerTwoSpawnpoint;
-        } else {
             rigidbody.position = playerOneSpawnpoint;
+        } else {
+            rigidbody.position = playerTwoSpawnpoint;
         }
         xPosition = rigidbody.position.x;
     }
     
     void Update() {
+        if (paused)
+            return;
+
         CheckPlayerPosition();
         //Swipe Controls
         Vector3 pos = rigidbody.position;
@@ -55,6 +62,10 @@ public class GPMPPlayerView : MonoBehaviour {
         } else {
             lastNetworkCall += Time.deltaTime;
         }
+    }
+
+    private void OnMatchStarted(object arg0) {
+        paused = false;
     }
 
     void CheckPlayerPosition() {

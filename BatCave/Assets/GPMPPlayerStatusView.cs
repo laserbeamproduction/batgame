@@ -26,11 +26,13 @@ public class GPMPPlayerStatusView : MonoBehaviour {
     private void OnMatchInfoReady(object model) {
         matchModel = (GPMPMatchModel)model;
 
-        playerStatusTextField.text = matchModel.player.DisplayName;
-        playerStatusTextField.color = disconnectedColor;
+        DebugMP.Log("Player names: " + matchModel.player.DisplayName + " VS " + matchModel.opponent.DisplayName);
 
-        opponentStatusTextField.text = matchModel.opponent.DisplayName;
-        opponentStatusTextField.color = disconnectedColor;
+        playerStatusTextField.text = "1P: " + matchModel.player.DisplayName;
+        //playerStatusTextField.color = disconnectedColor;
+
+        opponentStatusTextField.text = "2P: " + matchModel.opponent.DisplayName;
+       // opponentStatusTextField.color = disconnectedColor;
     }
 
     void OnDestroy() {
@@ -42,19 +44,18 @@ public class GPMPPlayerStatusView : MonoBehaviour {
     }
 
     private void OnMatchStarted(object model) {
-        matchModel = (GPMPMatchModel)model;
         waitingForMatchStartPanel.SetActive(false);
     }
 
     private void OnOpponentLeft(object arg0) {
-        opponentStatusTextField.color = disconnectedColor;
+       // opponentStatusTextField.color = disconnectedColor;
     }
 
     private void OnPlayerReady(object arg0) {
-        playerStatusTextField.color = connectedColor;
+       // playerStatusTextField.color = connectedColor;
     }
 
     private void OnOpponentReady(object arg0) {
-        opponentStatusTextField.color = connectedColor;
+      //  opponentStatusTextField.color = connectedColor;
     }
 }

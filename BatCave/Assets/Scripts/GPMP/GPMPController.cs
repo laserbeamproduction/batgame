@@ -114,6 +114,6 @@ public class GPMPController : MonoBehaviour, RealTimeMultiplayerListener {
 
     public void OnRealTimeMessageReceived(bool isReliable, string senderId, byte[] data) {
         EventManager.TriggerEvent(GPMPEvents.Types.GPMP_MESSAGE_RECIEVED.ToString(), data);
-        DebugMP.Log("We have received some gameplay messages from participant ID:" + senderId);
+       // DebugMP.Log("We have received some gameplay messages from participant ID:" + senderId);
     }
 }

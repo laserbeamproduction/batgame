@@ -5,13 +5,19 @@ public class SpawnController : MonoBehaviour {
 
     private bool tensionActive;
 
-	void Start () {
+    // GPMP
+    private bool iAmTheHost;
+
+    void Start () {
         EventManager.StartListening(SpawnSystemEvents.NEW_BATCH_CREATED, OnBatchNewBatchCreated);
         EventManager.StartListening(SpawnSystemEvents.OBSTACLES_ASSIGNED, OnBatchAssignedObstacles);
         EventManager.StartListening(SpawnSystemEvents.PICKUPS_ASSIGNED, OnBatchAssignedPickups);
         EventManager.StartListening(SpawnSystemEvents.BATCH_READY_FOR_SPAWN, OnBatchDispatched);
         EventManager.StartListening(SpawnSystemEvents.START_TENSION_MOMENT, OnTensionStarted);
         EventManager.StartListening(SpawnSystemEvents.STOP_TENSION_MOMENT, OnTensionStopped);
+
+        // GPMP
+        EventManager.StartListening(GPMPEvents.Types.GPMP_MATCH_INFO_READY.ToString(), OnMatchInfoReady);
     }
 
     void OnDestroy () {
@@ -21,6 +27,9 @@ public class SpawnController : MonoBehaviour {
         EventManager.StopListening(SpawnSystemEvents.BATCH_READY_FOR_SPAWN, OnBatchDispatched);
         EventManager.StopListening(SpawnSystemEvents.START_TENSION_MOMENT, OnTensionStarted);
         EventManager.StopListening(SpawnSystemEvents.STOP_TENSION_MOMENT, OnTensionStopped);
+
+        // GPMP
+        EventManager.StopListening(GPMPEvents.Types.GPMP_MATCH_INFO_READY.ToString(), OnMatchInfoReady);
     }
 
     void OnBatchNewBatchCreated(object bm) {
@@ -60,6 +69,12 @@ public class SpawnController : MonoBehaviour {
                         spawnPoint.gameObject.transform.position.y + yOffset,
                         spawnPoint.gameObject.transform.position.z
                         );
+
+                    // GPMP
+                    // Send the object to the opponent if we are the host
+                    if (iAmTheHost) {
+                        EventManager.TriggerEvent(GPMPEvents.Types.GPMP_GAME_ITEM_SPAWNED.ToString(), spawnPoint.GetItem().ToBytes());
+                    }
                 } 
             }
         }
@@ -71,5 +86,11 @@ public class SpawnController : MonoBehaviour {
     void OnBatchDispatched(object bm) {
         BatchModel batchModel = (BatchModel)bm;
         batchModel.ResetSpawnPoints();
+    }
+
+    // GPMP
+    private void OnMatchInfoReady(object matchModel) {
+        GPMPMatchModel model = (GPMPMatchModel)matchModel;
+        iAmTheHost = model.iAmTheHost;
     }
 }
