@@ -13,10 +13,10 @@ public class GPMPGameOverView : MonoBehaviour {
 
         // Player won
         if (mss.GetWinningPlayer() == mss.GetPlayer()) {
-            statusText.text = "You won against " + mss.GetOpponent().DisplayName + "!";
+            statusText.text = "You won against " + mss.GetOpponent().GetDisplayName() + "!";
         } else {
             // player lost
-            statusText.text = "You lost against " + mss.GetOpponent().DisplayName;
+            statusText.text = "You lost against " + mss.GetOpponent().GetDisplayName();
         }
 
         StartCoroutine("TriggerGameOverScreen");

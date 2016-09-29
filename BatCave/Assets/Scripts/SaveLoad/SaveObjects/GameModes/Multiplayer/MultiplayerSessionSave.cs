@@ -7,9 +7,9 @@ using System;
 [Serializable]
 public class MultiplayerSessionSave : SaveObject {
 
-    private Participant player;
-    private Participant opponent;
-    private Participant winningPlayer;
+    private PlayerSessionSave player;
+    private PlayerSessionSave opponent;
+    private PlayerSessionSave winningPlayer;
 
     public MultiplayerSessionSave() {
 
@@ -29,24 +29,24 @@ public class MultiplayerSessionSave : SaveObject {
         this.winningPlayer = this.opponent;
     }
 
-    public Participant GetPlayer() {
+    public PlayerSessionSave GetPlayer() {
         return this.player;
     }
 
-    public Participant GetOpponent() {
+    public PlayerSessionSave GetOpponent() {
         return this.opponent;
     }
 
     public void SetPlayers(Participant player, Participant opponent) {
-        this.player = player;
-        this.opponent = opponent;
+        this.player = new PlayerSessionSave(player.ParticipantId, player.DisplayName);
+        this.opponent = new PlayerSessionSave(opponent.ParticipantId, opponent.DisplayName);
     }
 
-    public Participant GetWinningPlayer() {
+    public PlayerSessionSave GetWinningPlayer() {
         return this.winningPlayer;
     }
 
-    public void SetWinningPlayer(Participant p) {
+    public void SetWinningPlayer(PlayerSessionSave p) {
         this.winningPlayer = p;
     }
     
