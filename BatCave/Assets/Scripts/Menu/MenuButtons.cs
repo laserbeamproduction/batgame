@@ -55,7 +55,7 @@ public class MenuButtons : MonoBehaviour {
 
     public void OpenShop()
     {
-
+        LoadingController.LoadScene(LoadingController.Scenes.STORE);
     }
 
     public void ExitGame()

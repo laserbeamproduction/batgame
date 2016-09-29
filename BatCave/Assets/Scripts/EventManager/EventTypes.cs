@@ -57,4 +57,5 @@ public class EventTypes {
     public const string PURCHASE_STARTED = "purchaseStarted";
     public const string PURCHASE_CONFIRMED = "purchaseConfirmed";
     public const string PURCHASE_CANCELED = "purchaseCanceled";
+    public const string NEW_SKIN_ACTIVE = "newSkinActive";
 }

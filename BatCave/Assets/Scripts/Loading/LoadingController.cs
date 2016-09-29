@@ -31,7 +31,8 @@ public class LoadingController : MonoBehaviour {
         GPMP_GAME = 9,
         GPMP_WAITING_ROOM = 10,
         GPMP_VERSUS_SCREEN = 11,
-        GPMP_GAME_OVER = 12
+        GPMP_GAME_OVER = 12,
+        STORE = 13
     }
 
     private static Scenes sceneToBeLoaded;
