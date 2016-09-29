@@ -22,6 +22,8 @@ public class InsertButtonData : MonoBehaviour {
     private void Start() {
         EventManager.StartListening(EventTypes.PURCHASE_CONFIRMED, ItemPurchased);
         EventManager.StartListening(EventTypes.NEW_SKIN_ACTIVE, NewSkinActive);
+        buttonReady = false;
+        newSkinActive = true;
     }
 
     private void ItemPurchased(object arg0) {
@@ -36,11 +38,13 @@ public class InsertButtonData : MonoBehaviour {
     private void FixedUpdate() {
         if (!buttonReady) {
             unlockedItems = SaveLoadController.GetInstance().GetPlayer().GetUnlockedItems();
+
             itemTitle.text = storeItem.skinName;
             itemPrice.text = storeItem.goldPrice.ToString();
             storeButton.GetComponent<Image>().sprite = storeItem.skinSprite;
 
-            foreach (int item in unlockedItems) {
+            foreach (int item in unlockedItems)
+            {
                 if (item == storeItem.itemID)
                 {
                     itemUnlocked = true;

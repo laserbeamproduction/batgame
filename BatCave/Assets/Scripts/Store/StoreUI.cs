@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class StoreUI : MonoBehaviour {
     public GameObject confirmPopUp;
@@ -24,14 +25,14 @@ public class StoreUI : MonoBehaviour {
 
         //Show amount of coins from savegame
         coinAmountFromSave = SaveLoadController.GetInstance().GetPlayer().GetTotalCoins();
-        currentCoinAmount = coinAmountFromSave;
+        currentCoinAmount = coinAmountFromSave + 100;
         coins.text = "Coins: " + currentCoinAmount.ToString();
     }
 
     private void PurchaseStarted(GameObject item) {
         //Check price and current amount
         StoreItemModel itemToPurchase = item.GetComponent<StoreItemModel>();
-        if (itemToPurchase.goldPrice <= currentCoinAmount)
+        if (itemToPurchase.goldPrice < currentCoinAmount)
         {
             itemInCart = itemToPurchase; //save item player wants to purchase (Cart)
             confirmPopUp.SetActive(true);
@@ -61,7 +62,10 @@ public class StoreUI : MonoBehaviour {
 
     public void PurchaseItem(GameObject item) {
         //Quick hack to set a skin active
-        foreach (int id in SaveLoadController.GetInstance().GetPlayer().GetUnlockedItems()) {
+        List<int> unlockedItemList = SaveLoadController.GetInstance().GetPlayer().GetUnlockedItems();
+
+        foreach (int id in unlockedItemList)
+        {
             if (item.GetComponent<StoreItemModel>().itemID == id)
             {
                 SetSkinActive(item.GetComponent<StoreItemModel>().itemID);
@@ -80,7 +84,7 @@ public class StoreUI : MonoBehaviour {
 
     private void SetSkinActive(int id) {
         SaveLoadController.GetInstance().GetPlayer().SetActiveSkinID(id);
-        GooglePlayHelper.GetInstance().SaveGame();
         EventManager.TriggerEvent(EventTypes.NEW_SKIN_ACTIVE);
+        GooglePlayHelper.GetInstance().SaveGame();
     }
 }
