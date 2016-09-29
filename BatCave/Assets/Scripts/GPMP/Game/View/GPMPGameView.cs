@@ -4,6 +4,7 @@ using GooglePlayGames;
 using System.Collections.Generic;
 using GooglePlayGames.BasicApi.Multiplayer;
 using System;
+using System.Collections;
 
 public class GPMPGameView : MonoBehaviour {
 
@@ -19,8 +20,9 @@ public class GPMPGameView : MonoBehaviour {
 
     private void OnMatchStarted(object arg0) {
         pauseGamePanel.SetActive(false);
-    }
 
+    }
+    
     public void LeaveGame() {
         EventManager.TriggerEvent(GPMPEvents.Types.GPMP_LEAVE_GAME.ToString());
     }

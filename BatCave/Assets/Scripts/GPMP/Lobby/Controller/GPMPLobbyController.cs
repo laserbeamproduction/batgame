@@ -11,6 +11,10 @@ public class GPMPLobbyController : MonoBehaviour {
     }
 
     void TriggerErrorMessageWithDelay() {
+        // call for error message
         EventManager.TriggerEvent(GPMPEvents.Types.GPMP_SHOW_ERROR_MESSAGE.ToString(), GPMPController.errorMessage);
+
+        // reset error trigger
+        GPMPController.playerLeftOnPurpose = true;
     }
 }
