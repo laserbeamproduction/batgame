@@ -73,7 +73,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\GPGSConstant.cs" />
-    <Compile Include="Assets\GPMPPlayerStatusView.cs" />
     <Compile Include="Assets\GooglePlayGames\BasicApi\Achievement.cs" />
     <Compile Include="Assets\GooglePlayGames\BasicApi\CommonStatusCodes.cs" />
     <Compile Include="Assets\GooglePlayGames\BasicApi\CommonTypes.cs" />
@@ -259,12 +258,18 @@
     <Compile Include="Assets\Scripts\GPMP\Game\Controller\GPMPGameController.cs" />
     <Compile Include="Assets\Scripts\GPMP\Game\Model\GPMPPlayer.cs" />
     <Compile Include="Assets\Scripts\GPMP\Game\View\GPMPGameView.cs" />
+    <Compile Include="Assets\Scripts\GPMP\Game\View\GPMPMainLight.cs" />
     <Compile Include="Assets\Scripts\GPMP\Game\View\GPMPOpponentView.cs" />
+    <Compile Include="Assets\Scripts\GPMP\Game\View\GPMPPlayerStatusView.cs" />
     <Compile Include="Assets\Scripts\GPMP\Game\View\GPMPPlayerView.cs" />
+    <Compile Include="Assets\Scripts\GPMP\Game\View\GPMPTileManager.cs" />
+    <Compile Include="Assets\Scripts\GPMP\Game\View\GPMPWallManager.cs" />
+    <Compile Include="Assets\Scripts\GPMP\GameOver\View\GPMPGameOverView.cs" />
     <Compile Include="Assets\Scripts\GPMP\Lobby\Controller\GPMPLobbyController.cs" />
     <Compile Include="Assets\Scripts\GPMP\Lobby\Model\GPMPMatchModel.cs" />
     <Compile Include="Assets\Scripts\GPMP\Lobby\View\GPMPLobbyView.cs" />
     <Compile Include="Assets\Scripts\GPMP\Util\DebugMP.cs" />
+    <Compile Include="Assets\Scripts\GPMP\Versus\View\GPMPVersusScreenView.cs" />
     <Compile Include="Assets\Scripts\GPMP\WaitingRoom\Controller\GPMPWaitingRoomController.cs" />
     <Compile Include="Assets\Scripts\GPMP\WaitingRoom\View\GPMPWaitingView.cs" />
     <Compile Include="Assets\Scripts\GooglePlay\GooglePlayHelper.cs" />
@@ -317,6 +322,7 @@
     <Compile Include="Assets\Scripts\SaveLoad\SaveLoadController.cs" />
     <Compile Include="Assets\Scripts\SaveLoad\SaveObjects\GPGScsf.cs" />
     <Compile Include="Assets\Scripts\SaveLoad\SaveObjects\GameModes\Endless\EndlessSessionSave.cs" />
+    <Compile Include="Assets\Scripts\SaveLoad\SaveObjects\GameModes\Multiplayer\MultiplayerSessionSave.cs" />
     <Compile Include="Assets\Scripts\SaveLoad\SaveObjects\Options\OptionsSave.cs" />
     <Compile Include="Assets\Scripts\SaveLoad\SaveObjects\PLayer\PLayerSave.cs" />
     <Compile Include="Assets\Scripts\SaveLoad\SaveObjects\SaveObject.cs" />
@@ -336,6 +342,7 @@
     <Compile Include="Assets\Scripts\Spawnables\PickUps\PowerupEvents.cs" />
     <Compile Include="Assets\Scripts\SplashScreen\SplashScreen.cs" />
     <Compile Include="Assets\Scripts\SpriteOutline.cs" />
+    <Compile Include="Assets\Scripts\Store\InsertButtonData.cs" />
     <Compile Include="Assets\Scripts\Store\StoreItemModel.cs" />
     <Compile Include="Assets\Scripts\Store\StoreUI.cs" />
     <Compile Include="Assets\Scripts\Util\AchievementChecker.cs" />

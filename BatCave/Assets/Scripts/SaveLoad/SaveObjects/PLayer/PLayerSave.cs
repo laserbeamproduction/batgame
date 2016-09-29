@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using System.Collections.Generic;
 
 [Serializable]
 public class PlayerSave : SaveObject {
@@ -7,8 +8,26 @@ public class PlayerSave : SaveObject {
     private float highscore;
     private int totalCoins;
     private int totalGamesPLayed;
+    private List<int> unlockedItems = new List<int>();
+    private int activeSkinID;
 
     public PlayerSave() {
+    }
+
+    public void SetActiveSkinID(int skinID) {
+        this.activeSkinID = skinID;
+    }
+
+    public int GetActiveSkinID() {
+        return this.activeSkinID;
+    }
+
+    public List<int> GetUnlockedItems() {
+        return this.unlockedItems;
+    }
+
+    public void AddUnlockedItem(int unlockedItemID) {
+        this.unlockedItems.Add(unlockedItemID);
     }
 
     public float GetHighscore() {
