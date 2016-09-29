@@ -26,7 +26,7 @@ public class SaveLoadController {
         saveObjects.Add(os);
         saveObjects.Add(ps);
         saveObjects.Add(ess);
-        saveObjects.Add(mss);
+        //saveObjects.Add(mss);
     }
 
     public static SaveLoadController GetInstance() {
