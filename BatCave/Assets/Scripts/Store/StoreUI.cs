@@ -24,7 +24,7 @@ public class StoreUI : MonoBehaviour {
 
         //Show amount of coins from savegame
         coinAmountFromSave = SaveLoadController.GetInstance().GetPlayer().GetTotalCoins();
-        currentCoinAmount = coinAmountFromSave + 100;
+        currentCoinAmount = coinAmountFromSave;
         coins.text = "Coins: " + currentCoinAmount.ToString();
     }
 
