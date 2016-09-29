@@ -10,6 +10,10 @@ public class GPMPGameController : MonoBehaviour {
     byte protocolVersion = 1;
     public GPMPMatchModel matchModel;
     public float pollOpponentForReadyInterval;
+    public float pollOpponentInterval;
+    public float matchTimeOut;
+    private float matchTimeOutCounter;
+    private bool matchStarted;
 
     void Start () {
         StartCoroutine(ExecuteAfterTime(0.1f));
@@ -21,6 +25,7 @@ public class GPMPGameController : MonoBehaviour {
         EventManager.StartListening(GPMPEvents.Types.GPMP_READY_ACKNOWLEDGE.ToString(), OnOpponentAskedForAcknowledgement);
         EventManager.StartListening(GPMPEvents.Types.GPMP_PLAYER_DIED.ToString(), OnPlayerDied);
         EventManager.StartListening(GPMPEvents.Types.GPMP_OPPONENT_DIED.ToString(), OnOpponentDied);
+        EventManager.StartListening(GPMPEvents.Types.GPMP_START_GAME.ToString(), OnGameStarted);
     }
 
     void OnDestroy() {
@@ -32,6 +37,25 @@ public class GPMPGameController : MonoBehaviour {
         EventManager.StopListening(GPMPEvents.Types.GPMP_READY_ACKNOWLEDGE.ToString(), OnOpponentAskedForAcknowledgement);
         EventManager.StopListening(GPMPEvents.Types.GPMP_PLAYER_DIED.ToString(), OnPlayerDied);
         EventManager.StopListening(GPMPEvents.Types.GPMP_OPPONENT_DIED.ToString(), OnOpponentDied);
+        EventManager.StopListening(GPMPEvents.Types.GPMP_START_GAME.ToString(), OnGameStarted);
+
+        CancelInvoke("PollOpponentForActive");
+    }
+
+    void Update() {
+        if (matchStarted) {
+            //DebugMP.Log("Last acknowledgement from opponent was " + matchTimeOutCounter + " seconds ago.");
+            matchTimeOutCounter += Time.deltaTime;
+            if (matchTimeOutCounter >= matchTimeOut) {
+                GPMPController.GetInstance().OnParticipantLeft(null);
+            }
+        }
+    }
+
+    private void OnGameStarted(object arg0) {
+        // start polling opponent to check if he is still in the game
+        InvokeRepeating("PollOpponentForActive", 0, 1f);
+        matchStarted = true;
     }
 
     IEnumerator ExecuteAfterTime(float time) {
@@ -101,7 +125,7 @@ public class GPMPGameController : MonoBehaviour {
         DebugMP.Log("Opponent ready...");
 
         // If we are also ready dispatch start game
-        if (matchModel.playerIsReady) {
+        if (matchModel.playerIsReady && !matchStarted) {
             StopCoroutine("PollOpponentForReady");
             EventManager.TriggerEvent(GPMPEvents.Types.GPMP_START_GAME.ToString(), matchModel);
         }
@@ -135,6 +159,9 @@ public class GPMPGameController : MonoBehaviour {
         if (matchModel.playerIsReady) {
             SendMessage(GPMPEvents.Types.GPMP_OPPONENT_READY, new List<byte>());
         }
+        if (matchStarted) {
+            matchTimeOutCounter = 0;
+        }
     }
 
     private void OnOpponentDied(object arg0) {
@@ -158,5 +185,10 @@ public class GPMPGameController : MonoBehaviour {
         yield return new WaitForSeconds(2);
         DebugMP.Log("Game over");
         LoadingController.LoadScene(LoadingController.Scenes.GPMP_GAME_OVER);
+    }
+
+    void PollOpponentForActive() {
+        DebugMP.Log("Polling opponent for response timeout");
+        SendMessage(GPMPEvents.Types.GPMP_READY_ACKNOWLEDGE, new List<byte>());
     }
 }

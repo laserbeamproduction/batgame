@@ -38,19 +38,15 @@ public class GPMPController : MonoBehaviour, RealTimeMultiplayerListener {
     void OnPlayerLeavesTheGame(object arg0) {
         DebugMP.Log("OnPlayerLeavesTheGame");
         playerLeftOnPurpose = true;
-        if (PlayGamesPlatform.Instance.RealTime.IsRoomConnected())
-            PlayGamesPlatform.Instance.RealTime.LeaveRoom();
-        else
-            LoadingController.LoadScene(LoadingController.Scenes.GPMP_LOBBY);
+        PlayGamesPlatform.Instance.RealTime.LeaveRoom();
+        LoadingController.LoadScene(LoadingController.Scenes.GPMP_LOBBY);
     }
 
     public void OnMatchMakingCanceled(object obj) {
         DebugMP.Log("OnMatchMakingCanceled");
         playerLeftOnPurpose = true;
-        if (PlayGamesPlatform.Instance.RealTime.IsRoomConnected())
-            PlayGamesPlatform.Instance.RealTime.LeaveRoom();
-        else
-            LoadingController.LoadScene(LoadingController.Scenes.GPMP_LOBBY);
+        PlayGamesPlatform.Instance.RealTime.LeaveRoom();
+        LoadingController.LoadScene(LoadingController.Scenes.GPMP_LOBBY);
     }
 
     private void OnStartSearchForQuickMatch(object model) {
@@ -97,15 +93,13 @@ public class GPMPController : MonoBehaviour, RealTimeMultiplayerListener {
             // Start versusn screen
             LoadingController.LoadScene(LoadingController.Scenes.GPMP_VERSUS_SCREEN);
         } else {
-            errorMessage = "Failed to start an online match";
-            playerLeftOnPurpose = false;
+            PlayGamesPlatform.Instance.RealTime.LeaveRoom();
             LoadingController.LoadScene(LoadingController.Scenes.GPMP_LOBBY);
         }
     }
 
     public void OnLeftRoom() {
         DebugMP.Log("OnLeftRoom");
-        LoadingController.LoadScene(LoadingController.Scenes.GPMP_LOBBY);
     }
 
     public void OnParticipantLeft(Participant participant) {
@@ -113,6 +107,7 @@ public class GPMPController : MonoBehaviour, RealTimeMultiplayerListener {
         playerLeftOnPurpose = false;
         errorMessage = "Your opponent left the game";
         PlayGamesPlatform.Instance.RealTime.LeaveRoom();
+        LoadingController.LoadScene(LoadingController.Scenes.GPMP_LOBBY);
     }
 
     public void OnPeersConnected(string[] participantIds) {
@@ -125,6 +120,7 @@ public class GPMPController : MonoBehaviour, RealTimeMultiplayerListener {
         playerLeftOnPurpose = false;
         errorMessage = "Your opponent left the game";
         PlayGamesPlatform.Instance.RealTime.LeaveRoom();
+        LoadingController.LoadScene(LoadingController.Scenes.GPMP_LOBBY);
     }
 
     public void OnRealTimeMessageReceived(bool isReliable, string senderId, byte[] data) {

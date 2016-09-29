@@ -116,6 +116,22 @@ public class GPMPPlayerView : MonoBehaviour {
     }
 
     void CheckForSwipe() {
+        // DEBUG CODE (Editor debug)
+        if (Application.isEditor) {
+            if (Input.GetMouseButtonUp(0) || Input.GetKeyUp(KeyCode.Space)) {
+                SpawnEcho();
+            }
+            if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.LeftArrow)) {
+                playerLeft = true;
+                xPosition -= 1;
+            }
+            if (Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.RightArrow)) {
+                playerRight = true;
+                xPosition += 1;
+            }
+            return;
+        }
+
         foreach (Touch touch in Input.touches) {
             if (touch.phase == TouchPhase.Began) {
                 fp = touch.position;

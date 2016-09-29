@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using System;
+using GooglePlayGames;
 
 public class GPMPLobbyView : MonoBehaviour {
 
@@ -14,6 +15,8 @@ public class GPMPLobbyView : MonoBehaviour {
 
     void Start() {
         EventManager.StartListening(GPMPEvents.Types.GPMP_SHOW_ERROR_MESSAGE.ToString(), OnErrorMessageRecieved);
+        if (PlayGamesPlatform.Instance.RealTime.IsRoomConnected())
+            PlayGamesPlatform.Instance.RealTime.LeaveRoom();
         if (!GooglePlayHelper.GetInstance().IsPlayerAuthenticated())
             SetMessageForLogin();
     }
