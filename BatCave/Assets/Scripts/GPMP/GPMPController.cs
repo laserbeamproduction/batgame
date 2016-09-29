@@ -3,7 +3,10 @@ using GooglePlayGames;
 using GooglePlayGames.BasicApi.Multiplayer;
 
 public class GPMPController : MonoBehaviour, RealTimeMultiplayerListener {
-
+    
+    public static bool playerLeftOnPurpose = true;
+    public static string errorMessage;
+    
     void Start() {
         EventManager.StartListening(GPMPEvents.Types.GPMP_CANCEL_MATCH_MAKING.ToString(), OnMatchMakingCanceled);
         EventManager.StartListening(GPMPEvents.Types.GPMP_LEAVE_GAME.ToString(), OnPlayerLeavesTheGame); 
@@ -33,24 +36,30 @@ public class GPMPController : MonoBehaviour, RealTimeMultiplayerListener {
     }
 
     void OnPlayerLeavesTheGame(object arg0) {
-        DebugMP.Log("Player is leaving the room");
-        PlayGamesPlatform.Instance.RealTime.LeaveRoom();
+        DebugMP.Log("OnPlayerLeavesTheGame");
+        playerLeftOnPurpose = true;
+        if (PlayGamesPlatform.Instance.RealTime.IsRoomConnected())
+            PlayGamesPlatform.Instance.RealTime.LeaveRoom();
+        else
+            LoadingController.LoadScene(LoadingController.Scenes.GPMP_LOBBY);
     }
-    
+
     public void OnMatchMakingCanceled(object obj) {
-        DebugMP.Log("Player canceled match making");
-        PlayGamesPlatform.Instance.RealTime.LeaveRoom();
+        DebugMP.Log("OnMatchMakingCanceled");
+        playerLeftOnPurpose = true;
+        if (PlayGamesPlatform.Instance.RealTime.IsRoomConnected())
+            PlayGamesPlatform.Instance.RealTime.LeaveRoom();
+        else
+            LoadingController.LoadScene(LoadingController.Scenes.GPMP_LOBBY);
     }
 
     private void OnStartSearchForQuickMatch(object model) {
-        DebugMP.Log("Start searching for quick match");
         GPMPMatchModel matchModel = (GPMPMatchModel)model;
         PlayGamesPlatform.Instance.RealTime.CreateQuickGame(matchModel.minimumAmountOpponents, matchModel.maximumAmountOpponents, 0, this);
         LoadingController.LoadScene(LoadingController.Scenes.GPMP_WAITING_ROOM);
     }
 
     private void OnStartInvitingForMatch(object model) {
-        DebugMP.Log("Start inviting for match");
         GPMPMatchModel matchModel = (GPMPMatchModel)model;
         PlayGamesPlatform.Instance.RealTime.CreateWithInvitationScreen(matchModel.minimumAmountOpponents, matchModel.maximumAmountOpponents, 0, this);
         LoadingController.LoadScene(LoadingController.Scenes.GPMP_WAITING_ROOM);
@@ -61,7 +70,6 @@ public class GPMPController : MonoBehaviour, RealTimeMultiplayerListener {
          */
 
     public void OnInvitationReceived(Invitation invitation, bool shouldAutoAccept) {
-        DebugMP.Log("Invitation recieved from: " + invitation.Inviter.DisplayName);
         if (shouldAutoAccept) {
             LoadingController.LoadScene(LoadingController.Scenes.GPMP_WAITING_ROOM);
             PlayGamesPlatform.Instance.RealTime.AcceptInvitation(invitation.InvitationId, this);
@@ -74,13 +82,13 @@ public class GPMPController : MonoBehaviour, RealTimeMultiplayerListener {
          */
 
     public void OnRoomSetupProgress(float percentage) {
-        DebugMP.Log("Room setup progress: " + percentage);
+        DebugMP.Log("OnRoomSetupProgress");
         EventManager.TriggerEvent(GPMPEvents.Types.GPMP_REPORT_ROOM_SETUP_PROGRESS.ToString(), percentage);
     }
 
     public void OnRoomConnected(bool success) {
+        DebugMP.Log("OnRoomConnected " + success);
         if (success) {
-            DebugMP.Log("Room connected. Start loading game scene");
             EventManager.TriggerEvent(GPMPEvents.Types.GPMP_MATCH_MAKING_DONE.ToString());
 
             // Reset save model
@@ -89,35 +97,37 @@ public class GPMPController : MonoBehaviour, RealTimeMultiplayerListener {
             // Start versusn screen
             LoadingController.LoadScene(LoadingController.Scenes.GPMP_VERSUS_SCREEN);
         } else {
-            DebugMP.Log("On Room Connected status: " + success);
-            PlayGamesPlatform.Instance.RealTime.LeaveRoom();
+            errorMessage = "Failed to start an online match";
+            playerLeftOnPurpose = false;
             LoadingController.LoadScene(LoadingController.Scenes.GPMP_LOBBY);
         }
     }
 
     public void OnLeftRoom() {
-        DebugMP.Log("Player left the room");
+        DebugMP.Log("OnLeftRoom");
         LoadingController.LoadScene(LoadingController.Scenes.GPMP_LOBBY);
     }
 
     public void OnParticipantLeft(Participant participant) {
-        DebugMP.Log("Player " + participant.DisplayName + " has left the room");
+        DebugMP.Log("OnParticipantLeft");
+        playerLeftOnPurpose = false;
+        errorMessage = "Your opponent left the game";
+        PlayGamesPlatform.Instance.RealTime.LeaveRoom();
     }
 
     public void OnPeersConnected(string[] participantIds) {
-        foreach (string participantID in participantIds) {
-            DebugMP.Log("Player " + participantID + " has joined the room");
-        }
+        DebugMP.Log("OnPeersConnected");
+        EventManager.TriggerEvent(GPMPEvents.Types.GPMP_OPPONENT_FOUND.ToString());
     }
 
     public void OnPeersDisconnected(string[] participantIds) {
-        foreach (string participantID in participantIds) {
-            DebugMP.Log("Player " + participantID + " has left the room");
-        }
+        DebugMP.Log("OnPeersDisconnected");
+        playerLeftOnPurpose = false;
+        errorMessage = "Your opponent left the game";
+        PlayGamesPlatform.Instance.RealTime.LeaveRoom();
     }
 
     public void OnRealTimeMessageReceived(bool isReliable, string senderId, byte[] data) {
         EventManager.TriggerEvent(GPMPEvents.Types.GPMP_MESSAGE_RECIEVED.ToString(), data);
-       // DebugMP.Log("We have received some gameplay messages from participant ID:" + senderId);
     }
 }

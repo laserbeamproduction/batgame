@@ -10,6 +10,7 @@ public class PlayerSave : SaveObject {
     private int totalGamesPLayed;
     private List<int> unlockedItems = new List<int>();
     private int activeSkinID;
+    private int totalMultiplayerMatchesWon;
 
     public PlayerSave() {
     }
@@ -52,5 +53,13 @@ public class PlayerSave : SaveObject {
 
     public void AddTotalCoins(int amount) {
         this.totalCoins += amount;
+    }
+
+    public int GetTotalMultiplayerMatchesWon() {
+        return this.totalMultiplayerMatchesWon;
+    }
+
+    public void AddTotalMultiplayerMatchesWon(int amount) {
+        this.totalMultiplayerMatchesWon += amount;
     }
 }

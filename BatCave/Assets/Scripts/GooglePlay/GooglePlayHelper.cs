@@ -35,6 +35,14 @@ public class GooglePlayHelper {
     }
 
     /// <summary>
+    /// Returns true if the player is authenticated with Google Play
+    /// </summary>
+    /// <returns></returns>
+    public bool IsPlayerAuthenticated() {
+        return Social.localUser.authenticated;
+    }
+
+    /// <summary>
     /// Initializes Google Play Service
     /// </summary>
     public void Init() {

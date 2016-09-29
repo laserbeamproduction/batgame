@@ -10,6 +10,8 @@
         GPMP_LEAVE_GAME,
         GPMP_REPORT_ROOM_SETUP_PROGRESS,
         GPMP_VIEW_INVITES,
+        GPMP_OPPONENT_FOUND,
+        GPMP_SHOW_ERROR_MESSAGE,
 
         // Game events
         GPMP_MATCH_INFO_READY,

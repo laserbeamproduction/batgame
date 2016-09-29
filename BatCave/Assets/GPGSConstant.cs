@@ -36,6 +36,6 @@ public static class GPGSConstant
         public const string achievement_wingin_it_160_points = "CgkI2_7tgqUIEAIQBQ"; // <GPGSID>
         public const string event_game_opened = "CgkI2_7tgqUIEAIQCg"; // <GPGSID>
         public const string leaderboard_endless_mode = "CgkI2_7tgqUIEAIQAg"; // <GPGSID>
-
+        public const string leaderboard_multiplayer_mode = "CgkI2_7tgqUIEAIQDg"; // <GPGSID>
 }
 

@@ -260,7 +260,6 @@
     <Compile Include="Assets\Scripts\GPMP\Game\View\GPMPGameView.cs" />
     <Compile Include="Assets\Scripts\GPMP\Game\View\GPMPMainLight.cs" />
     <Compile Include="Assets\Scripts\GPMP\Game\View\GPMPOpponentView.cs" />
-    <Compile Include="Assets\Scripts\GPMP\Game\View\GPMPPlayerStatusView.cs" />
     <Compile Include="Assets\Scripts\GPMP\Game\View\GPMPPlayerView.cs" />
     <Compile Include="Assets\Scripts\GPMP\Game\View\GPMPTileManager.cs" />
     <Compile Include="Assets\Scripts\GPMP\Game\View\GPMPWallManager.cs" />
