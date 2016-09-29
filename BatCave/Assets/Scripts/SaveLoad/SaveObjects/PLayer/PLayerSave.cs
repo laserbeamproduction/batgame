@@ -15,22 +15,6 @@ public class PlayerSave : SaveObject {
     public PlayerSave() {
     }
 
-    public void SetActiveSkinID(int skinID) {
-        this.activeSkinID = skinID;
-    }
-
-    public int GetActiveSkinID() {
-        return this.activeSkinID;
-    }
-
-    public List<int> GetUnlockedItems() {
-        return this.unlockedItems;
-    }
-
-    public void AddUnlockedItem(int unlockedItemID) {
-        this.unlockedItems.Add(unlockedItemID);
-    }
-
     public float GetHighscore() {
         return this.highscore;
     }
@@ -61,5 +45,25 @@ public class PlayerSave : SaveObject {
 
     public void AddTotalMultiplayerMatchesWon(int amount) {
         this.totalMultiplayerMatchesWon += amount;
+    }
+
+    public void SetActiveSkinID(int skinID)
+    {
+        this.activeSkinID = skinID;
+    }
+
+    public int GetActiveSkinID()
+    {
+        return this.activeSkinID;
+    }
+
+    public List<int> GetUnlockedItems()
+    {
+        return this.unlockedItems;
+    }
+
+    public void AddUnlockedItem(int unlockedItemID)
+    {
+        this.unlockedItems.Add(unlockedItemID);
     }
 }

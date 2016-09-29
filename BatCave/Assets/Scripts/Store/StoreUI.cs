@@ -25,7 +25,7 @@ public class StoreUI : MonoBehaviour {
 
         //Show amount of coins from savegame
         coinAmountFromSave = SaveLoadController.GetInstance().GetPlayer().GetTotalCoins();
-        currentCoinAmount = coinAmountFromSave + 100;
+        currentCoinAmount = coinAmountFromSave;
         coins.text = "Coins: " + currentCoinAmount.ToString();
     }
 
@@ -44,12 +44,13 @@ public class StoreUI : MonoBehaviour {
 
     public void PurchaseConfirmed() {
         //Confirm purchase and adjust coin amount accordigly
-        SaveLoadController.GetInstance().GetPlayer().AddUnlockedItem(itemInCart.itemID);
-        GooglePlayHelper.GetInstance().SaveGame();
         currentCoinAmount -= itemInCart.goldPrice;
         coins.text = "Coins: " + currentCoinAmount.ToString();
         confirmPopUp.SetActive(false);
         EventManager.TriggerEvent(EventTypes.PURCHASE_CONFIRMED);
+        SaveLoadController.GetInstance().GetPlayer().AddTotalCoins(-itemInCart.goldPrice); //substract coins from player
+        SaveLoadController.GetInstance().GetPlayer().AddUnlockedItem(itemInCart.itemID); //unlock skin for player
+        GooglePlayHelper.GetInstance().SaveGame(); //save the game
         itemInCart = null;
     }
 

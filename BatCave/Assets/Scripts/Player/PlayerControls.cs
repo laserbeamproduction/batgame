@@ -79,7 +79,7 @@ public class PlayerControls : MonoBehaviour {
     }
 
     IEnumerator WaitAbit() {
-        yield return 1;
+        yield return new WaitForSeconds(1);
         isPaused = false;
     }
 
@@ -244,13 +244,9 @@ public class PlayerControls : MonoBehaviour {
                     xPosition += 1;
                 }
 
-                if ((fp.y - lp.y) > 80) {
+                if ((fp.y + lp.y) > 100) {
                     UseSpecial();
                 }
-            }
-
-            if (touch.phase == TouchPhase.Stationary) {
-                //touchStarted = false;
             }
 
             if (touch.phase == TouchPhase.Ended) {
