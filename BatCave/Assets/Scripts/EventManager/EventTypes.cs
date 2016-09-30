@@ -43,6 +43,7 @@ public class EventTypes {
     public const string PERFECT_ECHO = "perfectEcho";
     public const string SPECIAL_USED = "specialUsed";
     public const string SWIPE_UP = "swipeUp";
+    public const string CANCEL_SWIPE_UP = "cancelSwipeUp";
 
     //ENVIROMENTAL CHANGES
     public const string TRANSITION_START = "transitionStart";

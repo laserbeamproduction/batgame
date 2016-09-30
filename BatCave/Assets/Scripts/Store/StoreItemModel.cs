@@ -6,4 +6,6 @@ public class StoreItemModel : MonoBehaviour {
     public string skinName;
     public string description;
     public Sprite skinSprite;
+    public Sprite highlightedSprite;
+    public Sprite activeSkinSprite;
 }

@@ -10,6 +10,7 @@ public class InsertButtonData : MonoBehaviour {
     public Text itemTitle;
     public Text itemPrice;
     public GameObject pricePanel;
+    public GameObject goldImages;
 
     private bool buttonReady;
 
@@ -43,17 +44,26 @@ public class InsertButtonData : MonoBehaviour {
             itemPrice.text = storeItem.goldPrice.ToString();
             storeButton.GetComponent<Image>().sprite = storeItem.skinSprite;
 
+            SpriteState st = new SpriteState();
+            st.disabledSprite = storeItem.activeSkinSprite;
+            st.highlightedSprite = storeItem.highlightedSprite;
+            st.pressedSprite = storeItem.highlightedSprite;
+            storeButton.spriteState = st;
+
             foreach (int item in unlockedItems)
             {
                 if (item == storeItem.itemID)
                 {
                     itemUnlocked = true;
-                    pricePanel.SetActive(false);
+                    //pricePanel.SetActive(false);
+                    goldImages.SetActive(false);
+                    itemPrice.text = "Unlocked";
                 }
             }
 
             if (!itemUnlocked) {
                 itemUnlocked = false;
+                goldImages.SetActive(true);
                 pricePanel.SetActive(true);
             }
 

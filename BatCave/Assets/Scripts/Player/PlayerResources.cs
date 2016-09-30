@@ -80,6 +80,9 @@ public class PlayerResources : MonoBehaviour {
 
     private void PlayerHit(object value)
     {
+        if (echoComboAmount == maxEchoComboAmount) {
+            EventManager.TriggerEvent(EventTypes.CANCEL_SWIPE_UP);
+        }
         echoComboAmount -= minusSpecialResources;
     }
 }

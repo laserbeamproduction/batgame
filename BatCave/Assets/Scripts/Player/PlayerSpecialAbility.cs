@@ -23,10 +23,19 @@ public class PlayerSpecialAbility : MonoBehaviour {
     private void Start() {
         EventManager.StartListening(EventTypes.SPECIAL_USED, SpecialUsed);
         EventManager.StartListening(EventTypes.SWIPE_UP, SwipeUpAnimation);
+        EventManager.StartListening(EventTypes.CANCEL_SWIPE_UP, CancelSwipeUp);
     }
 
     private void OnDestroy() {
         EventManager.StopListening(EventTypes.SPECIAL_USED, SpecialUsed);
+        EventManager.StopListening(EventTypes.SWIPE_UP, SwipeUpAnimation);
+        EventManager.StopListening(EventTypes.CANCEL_SWIPE_UP, CancelSwipeUp);
+    }
+
+    private void CancelSwipeUp(object arg0) {
+        CancelInvoke("StartAnimation");
+        swipeUpText.enabled = false;
+        isEnabled = false;
     }
 
     private void SwipeUpAnimation(object arg0) {
