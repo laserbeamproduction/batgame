@@ -13,17 +13,23 @@ public class WallManager : MonoBehaviour {
 
     private float yBounds = -11f;
     private bool isTransition;
+    private Sprite newBackground;
 
     void Start() {
         EventManager.StartListening(EventTypes.TRANSITION_START, StartTransition);
         EventManager.StartListening(EventTypes.TRANSITION_END, EndTransition);
+        EventManager.StartListening(EventTypes.CHANGE_BACKGROUND, ChangeBackground);
+    }
+
+    private void ChangeBackground(object arg0) {
+        background.GetComponent<SpriteRenderer>().sprite = newBackground;
     }
 
     private void StartTransition(object value)
     {
         sprites = null;
         EnvironmentModel newSprites = value as EnvironmentModel;
-        background.GetComponent<SpriteRenderer>().sprite = woodBackground;
+        newBackground = woodBackground;
         sprites = woodsSprites;
         isTransition = true;
     }
@@ -31,7 +37,7 @@ public class WallManager : MonoBehaviour {
     private void EndTransition(object value)
     {
         EnvironmentModel newSprites = value as EnvironmentModel;
-        background.GetComponent<SpriteRenderer>().sprite = newSprites.backGround as Sprite;
+        newBackground = newSprites.backGround as Sprite;
         sprites = newSprites.wallSprites as Sprite[];
     }
 

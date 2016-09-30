@@ -23,6 +23,7 @@ public class EventTypes {
     public const string ENABLE_PLAYER_LIGHT = "enablePlayerLight";
     public const string DISABLE_PLAYER_LIGHT = "disablePlayerLight";
     public const string PLAYER_IN_POSITION = "playerInPosition";
+    public const string CHANGE_BACKGROUND = "changeBackground";
 
     // SAVING LOADING
     public const string LOADING_SAVE_DATA = "loadingSaveData";
