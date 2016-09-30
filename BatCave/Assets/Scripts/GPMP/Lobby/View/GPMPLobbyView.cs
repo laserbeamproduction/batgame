@@ -13,16 +13,38 @@ public class GPMPLobbyView : MonoBehaviour {
     public Text errorPanelButtonText;
     public Button toMainMenuButton;
 
+    private bool internetAvailable = true;
+
     void Start() {
         EventManager.StartListening(GPMPEvents.Types.GPMP_SHOW_ERROR_MESSAGE.ToString(), OnErrorMessageRecieved);
-        if (PlayGamesPlatform.Instance.RealTime.IsRoomConnected())
-            PlayGamesPlatform.Instance.RealTime.LeaveRoom();
-        if (!GooglePlayHelper.GetInstance().IsPlayerAuthenticated())
+        EventManager.StartListening(InternetConnectionStatus.CONNECTION_STATUS_UPDATE, OnConnectionStatusUpdated);
+        try {
+            if (PlayGamesPlatform.Instance.RealTime.IsRoomConnected())
+                PlayGamesPlatform.Instance.RealTime.LeaveRoom();
+            if (!GooglePlayHelper.GetInstance().IsPlayerAuthenticated())
+                SetMessageForLogin();
+        } catch(Exception e) {
             SetMessageForLogin();
+        }
     }
 
     void OnDestroy() {
         EventManager.StopListening(GPMPEvents.Types.GPMP_SHOW_ERROR_MESSAGE.ToString(), OnErrorMessageRecieved);
+        EventManager.StopListening(InternetConnectionStatus.CONNECTION_STATUS_UPDATE, OnConnectionStatusUpdated);
+    }
+
+    private void OnConnectionStatusUpdated(object s) {
+        InternetConnectionStatus.Status status = (InternetConnectionStatus.Status)s;
+        switch (status) {
+            case InternetConnectionStatus.Status.LIMITED:
+            case InternetConnectionStatus.Status.CONNECTED:
+                internetAvailable = true;
+                break;
+            case InternetConnectionStatus.Status.NO_CONNECTION:
+            case InternetConnectionStatus.Status.UNKNOWN:
+                internetAvailable = false;
+                break;
+        }
     }
 
     private void OnErrorMessageRecieved(object m) {
@@ -47,15 +69,24 @@ public class GPMPLobbyView : MonoBehaviour {
     }
 
     public void StartQuickMatch() {
-        EventManager.TriggerEvent(GPMPEvents.Types.GPMP_SEARCH_QUICK_MATCH.ToString(), matchModel);
+        if (internetAvailable)
+            EventManager.TriggerEvent(GPMPEvents.Types.GPMP_SEARCH_QUICK_MATCH.ToString(), matchModel);
+        else
+            EventManager.TriggerEvent(InternetConnectionStatus.SHOW_CONNECTION_STATE);
     }
 
     public void StartWithInvites() {
-        EventManager.TriggerEvent(GPMPEvents.Types.GPMP_START_WITH_INVITE.ToString(), matchModel);
+        if (internetAvailable)
+            EventManager.TriggerEvent(GPMPEvents.Types.GPMP_START_WITH_INVITE.ToString(), matchModel);
+        else
+            EventManager.TriggerEvent(InternetConnectionStatus.SHOW_CONNECTION_STATE);
     }
 
     public void ShowAllInvites() {
-        EventManager.TriggerEvent(GPMPEvents.Types.GPMP_VIEW_INVITES.ToString());
+        if (internetAvailable)
+            EventManager.TriggerEvent(GPMPEvents.Types.GPMP_VIEW_INVITES.ToString());
+        else
+            EventManager.TriggerEvent(InternetConnectionStatus.SHOW_CONNECTION_STATE);
     }
 
     public void ToMainMenu() {
