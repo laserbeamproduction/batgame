@@ -12,13 +12,47 @@ public class PlayerSpecialAbility : MonoBehaviour {
     public int cycleAmount;
     public int flickerAmount;
 
+    public Text swipeUpText;
+    public Image backGround;
+    private bool isEnabled;
+
+    private Vector3 velocity = Vector3.zero;
+
     private float cycleDelay;
 
     private void Start() {
         EventManager.StartListening(EventTypes.SPECIAL_USED, SpecialUsed);
+        EventManager.StartListening(EventTypes.SWIPE_UP, SwipeUpAnimation);
+    }
+
+    private void OnDestroy() {
+        EventManager.StopListening(EventTypes.SPECIAL_USED, SpecialUsed);
+    }
+
+    private void SwipeUpAnimation(object arg0) {
+        InvokeRepeating("StartAnimation", 0, 0.5f);
+    }
+
+    private void StartAnimation() {
+        if (isEnabled)
+        {
+            swipeUpText.enabled = false;
+            isEnabled = false;
+        }
+        else {
+            swipeUpText.enabled = true;
+            isEnabled = true;
+        }
     }
 
     private void SpecialUsed(object value) {
+        CancelInvoke("StartAnimation");
+        swipeUpText.enabled = false;
+        isEnabled = false;
+
+        backGround.transform.localScale = new Vector3(0,0,0);
+        backGround.GetComponent<Image>().enabled = true;
+
         specialCycler.enabled = true;
         cycleDelay = 0.05f;
         StartCoroutine(CycleSpritesDelay());
@@ -26,6 +60,18 @@ public class PlayerSpecialAbility : MonoBehaviour {
 
     IEnumerator CycleSpritesDelay()
     {
+        backGround.transform.localScale = Vector3.MoveTowards(backGround.transform.localScale, new Vector3(1,1,1), 0.25f);
+        yield return new WaitForSeconds(0.025f);
+        backGround.transform.localScale = Vector3.MoveTowards(backGround.transform.localScale, new Vector3(1, 1, 1), 0.25f);
+        yield return new WaitForSeconds(0.025f);
+        backGround.transform.localScale = Vector3.MoveTowards(backGround.transform.localScale, new Vector3(1, 1, 1), 0.25f);
+        yield return new WaitForSeconds(0.025f);
+        backGround.transform.localScale = Vector3.MoveTowards(backGround.transform.localScale, new Vector3(1, 1, 1), 0.25f);
+        yield return new WaitForSeconds(0.025f);
+        backGround.transform.localScale = Vector3.MoveTowards(backGround.transform.localScale, new Vector3(1, 1, 1), 0.25f);
+        yield return new WaitForSeconds(0.025f);
+        backGround.transform.localScale = Vector3.MoveTowards(backGround.transform.localScale, new Vector3(1, 1, 1), 0.25f);
+
         for (int i = 0; i < cycleAmount; i++)
         {
             for (int j = 0; j < boosts.Length; j++)
@@ -50,6 +96,7 @@ public class PlayerSpecialAbility : MonoBehaviour {
 
         yield return new WaitForSeconds(2);
         specialCycler.enabled = false;
+        backGround.GetComponent<Image>().enabled = false;
         StopCoroutine(CycleSpritesDelay());
     }
 

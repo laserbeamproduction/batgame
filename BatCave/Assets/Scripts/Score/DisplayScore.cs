@@ -11,6 +11,7 @@ public class DisplayScore : MonoBehaviour {
     // Use this for initialization
     void Start () {
         text = GetComponent<Text>();
+        text.text = "0";
         EventManager.StartListening(EventTypes.GAME_RESUME, OnGameResume);
         EventManager.StartListening(EventTypes.GAME_PAUSED, OnGamePaused);
     }

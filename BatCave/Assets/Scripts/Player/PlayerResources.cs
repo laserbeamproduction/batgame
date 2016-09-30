@@ -16,9 +16,12 @@ public class PlayerResources : MonoBehaviour {
     public float goodEchoReward;
     public float minusSpecialResources;
 
+    private bool swipeUp;
+
     private void Start() {
         EventManager.StartListening(EventTypes.SPECIAL_USED, SpecialUsed);
         EventManager.StartListening(EventTypes.PLAYER_TAKES_DAMAGE, PlayerHit);
+        swipeUp = true;
     }
 
     private void OnDestroy() {
@@ -42,6 +45,11 @@ public class PlayerResources : MonoBehaviour {
 
         if (echoComboAmount < 0) {
             echoComboAmount = 0;
+        }
+
+        if (echoComboAmount == maxEchoComboAmount && swipeUp) {
+            EventManager.TriggerEvent(EventTypes.SWIPE_UP);
+            swipeUp = false;
         }
 	}
 
@@ -67,6 +75,7 @@ public class PlayerResources : MonoBehaviour {
 
     private void SpecialUsed(object value) {
         echoComboAmount -= maxEchoComboAmount;
+        swipeUp = true;
     }
 
     private void PlayerHit(object value)
