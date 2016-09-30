@@ -18,7 +18,7 @@ public class DisplayScore : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (!isPaused)
-            text.text = "Score: " + Mathf.FloorToInt(score.playerScore).ToString();
+            text.text = Mathf.FloorToInt(score.playerScore).ToString();
 	}
 
     void OnDestroy() {

@@ -96,7 +96,7 @@ public class PlayerControls : MonoBehaviour {
     }
 
     void OnPlayerInPosition(object arg0) {
-        transform.position = new Vector3(transform.position.x, playerYposition, transform.position.z);
+        transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, playerYposition + 0.5f, transform.position.z), 0.5f);
         controlsEnabled = true;
         rigidbody.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
     }
@@ -244,7 +244,7 @@ public class PlayerControls : MonoBehaviour {
                     xPosition += 1;
                 }
 
-                if ((fp.y - lp.y) < -500)
+                if ((fp.y - lp.y) < -300)
                 {
                     UseSpecial();
                 }
