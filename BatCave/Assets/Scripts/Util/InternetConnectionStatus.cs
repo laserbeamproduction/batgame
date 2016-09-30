@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
-
+using System.Net;
 
 /// <summary>
 /// Code for checking network status from:
@@ -23,6 +23,7 @@ public class InternetConnectionStatus : MonoBehaviour {
     string testMessage = "Test in progress";
     string shouldEnableNatMessage = "";
     bool doneTesting = true;
+    bool startTesting = false;
     bool probingPublicIP = false;
     int serverPort = 9999;
 
@@ -47,8 +48,7 @@ public class InternetConnectionStatus : MonoBehaviour {
     }
 
     private void OnConnectionStatusRequest(object arg0) {
-        connectionTestResult = ConnectionTesterStatus.Undetermined;
-        doneTesting = false;
+        TestConnection();
     }
 
     public string GetCurrentConnectionStatusInfo() {
@@ -57,19 +57,25 @@ public class InternetConnectionStatus : MonoBehaviour {
 
     void Update() {
         if (!doneTesting)
-            TestConnection();
+            TestConnectionNAT();
     }
 
     void TestConnection() {
+        string externalip = "";
+        try {
+            externalip = new WebClient().DownloadString("http://icanhazip.com");
+        } catch (Exception e) {
+            externalip = "";
+        }
 
-        if (Network.HavePublicAddress()) {
-            TestConnectionNAT();
+        if (Network.HavePublicAddress() || externalip != "") {
+            doneTesting = false;
+            connectionTestResult = ConnectionTesterStatus.Undetermined;
         } else {
             connectionStatus = Status.NO_CONNECTION;
             testMessage = noConnection;
             EventManager.TriggerEvent(CONNECTION_STATUS_UPDATE, connectionStatus);
-            Debug.Log(TAG + connectionStatus);
-            doneTesting = true;
+            Debug.Log(TAG + connectionStatus + "\t" + "Status: No public IP");
         }
     }
 
@@ -153,7 +159,7 @@ public class InternetConnectionStatus : MonoBehaviour {
 
         if (doneTesting) {
             EventManager.TriggerEvent(CONNECTION_STATUS_UPDATE, connectionStatus);
-            Debug.Log(TAG + connectionStatus);
+            Debug.Log(TAG + connectionStatus + "\t" + "Status: " + connectionTestResult);
         }
     }
 
