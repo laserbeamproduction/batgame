@@ -87,7 +87,6 @@ public class BatchView : MonoBehaviour {
     IEnumerator StartSpawnDelay() {
         yield return new WaitForSeconds(spawnDelay);
         EventManager.TriggerEvent(SpawnSystemEvents.TOGGLE_SPAWNING, true);
-        StopCoroutine(StartSpawnDelay());
     }
 
     void OnGameResumed(object arg0) {
