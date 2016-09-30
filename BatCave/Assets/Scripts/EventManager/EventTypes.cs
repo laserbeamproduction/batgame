@@ -42,6 +42,7 @@ public class EventTypes {
     public const string GOOD_ECHO = "goodEcho";
     public const string PERFECT_ECHO = "perfectEcho";
     public const string SPECIAL_USED = "specialUsed";
+    public const string SWIPE_UP = "swipeUp";
 
     //ENVIROMENTAL CHANGES
     public const string TRANSITION_START = "transitionStart";
