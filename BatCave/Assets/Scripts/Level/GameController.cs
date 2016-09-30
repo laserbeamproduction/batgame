@@ -137,6 +137,11 @@ public class GameController : MonoBehaviour {
 
     }
 
+    public void MainMenu()
+    {
+        LoadingController.LoadScene(LoadingController.Scenes.MAIN_MENU);
+    }
+
     void OnDestroy() {
         EventManager.StopListening(EventTypes.GAME_OVER, OnGameOver);
         EventManager.StopListening(EventTypes.GAME_START, OnGameStart);

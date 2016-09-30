@@ -32,7 +32,7 @@ public class StoreUI : MonoBehaviour {
     private void PurchaseStarted(GameObject item) {
         //Check price and current amount
         StoreItemModel itemToPurchase = item.GetComponent<StoreItemModel>();
-        if (itemToPurchase.goldPrice < currentCoinAmount)
+        if (itemToPurchase.goldPrice <= currentCoinAmount)
         {
             itemInCart = itemToPurchase; //save item player wants to purchase (Cart)
             confirmPopUp.SetActive(true);

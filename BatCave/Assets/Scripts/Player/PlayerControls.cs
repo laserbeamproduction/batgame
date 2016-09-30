@@ -48,6 +48,8 @@ public class PlayerControls : MonoBehaviour {
         EventManager.StartListening(EventTypes.ENABLE_PLAYER_LIGHT, OnPlayerLightEnabled);
         EventManager.StartListening(EventTypes.DISABLE_PLAYER_LIGHT, OnPlayerLightDisabled);
         EventManager.StartListening(EventTypes.PLAYER_IN_POSITION, OnPlayerInPosition);
+
+        animator.SetTrigger(SaveLoadController.GetInstance().GetPlayer().GetActiveSkinID().ToString());
     }
 
     void OnDestroy() {
