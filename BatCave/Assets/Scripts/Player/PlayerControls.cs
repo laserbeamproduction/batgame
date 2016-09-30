@@ -244,7 +244,8 @@ public class PlayerControls : MonoBehaviour {
                     xPosition += 1;
                 }
 
-                if ((fp.y + lp.y) > 100) {
+                if ((fp.y - lp.y) < -500)
+                {
                     UseSpecial();
                 }
             }

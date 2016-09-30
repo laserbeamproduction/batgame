@@ -322,6 +322,7 @@
     <Compile Include="Assets\Scripts\SaveLoad\SaveObjects\GPGScsf.cs" />
     <Compile Include="Assets\Scripts\SaveLoad\SaveObjects\GameModes\Endless\EndlessSessionSave.cs" />
     <Compile Include="Assets\Scripts\SaveLoad\SaveObjects\GameModes\Multiplayer\MultiplayerSessionSave.cs" />
+    <Compile Include="Assets\Scripts\SaveLoad\SaveObjects\GameModes\Multiplayer\PlayerSessionSave.cs" />
     <Compile Include="Assets\Scripts\SaveLoad\SaveObjects\Options\OptionsSave.cs" />
     <Compile Include="Assets\Scripts\SaveLoad\SaveObjects\PLayer\PLayerSave.cs" />
     <Compile Include="Assets\Scripts\SaveLoad\SaveObjects\SaveObject.cs" />
