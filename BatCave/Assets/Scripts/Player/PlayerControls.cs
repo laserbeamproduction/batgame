@@ -98,7 +98,7 @@ public class PlayerControls : MonoBehaviour {
     }
 
     void OnPlayerInPosition(object arg0) {
-        transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, playerYposition + 0.5f, transform.position.z), 0.5f);
+        transform.position = new Vector3(transform.position.x, playerYposition, transform.position.z);
         controlsEnabled = true;
         rigidbody.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
     }

@@ -78,7 +78,9 @@ public class PowerupController : MonoBehaviour {
     }
 
     private void OnPlayerCoinPickedUp(object coins) {
-        SaveLoadController.GetInstance().GetPlayer().AddTotalCoins((int)coins);
+        SaveLoadController slc = SaveLoadController.GetInstance();
+        slc.GetPlayer().AddTotalCoins((int)coins);
+        slc.GetEndlessSession().AddCoinsCollected((int)coins);
     }
 
     void OnDestroy() {

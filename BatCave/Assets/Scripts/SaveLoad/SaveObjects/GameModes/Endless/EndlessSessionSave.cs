@@ -12,6 +12,7 @@ public class EndlessSessionSave : SaveObject {
     private float echosTimedExcellent;
     private float goodEchoPoint = 100f;
     private float excellentEchoPoint = 200f;
+    private int coinsCollected;
 
     public EndlessSessionSave() {
         
@@ -22,6 +23,7 @@ public class EndlessSessionSave : SaveObject {
         score = 0f;
         echosTimedGood = 0f;
         echosTimedExcellent = 0f;
+        coinsCollected = 0;
     }
 
     public float GetTotalScore() {
@@ -66,5 +68,13 @@ public class EndlessSessionSave : SaveObject {
 
     public void AddEchosTimedExcellent(float amount) {
         this.echosTimedExcellent += amount;
+    }
+
+    public int GetTotalCoinsCollected() {
+        return this.coinsCollected;
+    }
+
+    public void AddCoinsCollected(int amount) {
+        this.coinsCollected += amount;
     }
 }
