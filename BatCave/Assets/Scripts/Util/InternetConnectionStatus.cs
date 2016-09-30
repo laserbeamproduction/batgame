@@ -2,10 +2,22 @@
 using System.Collections;
 using System;
 
+
+/// <summary>
+/// Code for checking network status from:
+/// https://docs.unity3d.com/ScriptReference/Network.TestConnection.html
+/// </summary>
 public class InternetConnectionStatus : MonoBehaviour {
+
+    private const string TAG = "INTERNET_CONNECTION_STATUS  ";
 
     public const string TEST_CONNECTION_STATUS = "InternetConnectionStatus_TEST_CONNECTION_STATUS";
     public const string CONNECTION_STATUS_UPDATE = "InternetConnectionStatus_CONNECTION_STATUS_UPDATE";
+    public const string SHOW_CONNECTION_STATE = "InternetConnectionStatus_SHOW_CONNECTION_STATE";
+
+    string goodConnection = "Internet connection available.";
+    string limitedConnection = "Your current internet connection is limited. You might experience some troubles playing online.";
+    string noConnection = "You are not connected to the internet. Online features are not available.";
 
     string testStatus = "Testing network connection capabilities.";
     string testMessage = "Test in progress";
@@ -15,8 +27,16 @@ public class InternetConnectionStatus : MonoBehaviour {
     int serverPort = 9999;
 
     ConnectionTesterStatus connectionTestResult = ConnectionTesterStatus.Undetermined;
+    private Status connectionStatus = Status.UNKNOWN;
     private float timer;
     private bool useNat;
+
+    public enum Status {
+        CONNECTED,
+        LIMITED,
+        NO_CONNECTION,
+        UNKNOWN
+    }
 
     void Start() {
         EventManager.StartListening(TEST_CONNECTION_STATUS, OnConnectionStatusRequest);
@@ -27,7 +47,12 @@ public class InternetConnectionStatus : MonoBehaviour {
     }
 
     private void OnConnectionStatusRequest(object arg0) {
+        connectionTestResult = ConnectionTesterStatus.Undetermined;
         doneTesting = false;
+    }
+
+    public string GetCurrentConnectionStatusInfo() {
+        return this.testMessage;
     }
 
     void Update() {
@@ -36,38 +61,50 @@ public class InternetConnectionStatus : MonoBehaviour {
     }
 
     void TestConnection() {
-        // Start/Poll the connection test, report the results in a label and 
-        // react to the results accordingly
-        connectionTestResult = Network.TestConnection();
+
+        if (Network.HavePublicAddress()) {
+            TestConnectionNAT();
+        } else {
+            connectionStatus = Status.NO_CONNECTION;
+            testMessage = noConnection;
+            EventManager.TriggerEvent(CONNECTION_STATUS_UPDATE, connectionStatus);
+            Debug.Log(TAG + connectionStatus);
+            doneTesting = true;
+        }
+    }
+
+    void TestConnectionNAT() {
+        connectionTestResult = Network.TestConnectionNAT();
         switch (connectionTestResult) {
             case ConnectionTesterStatus.Error:
-                testMessage = "Problem determining NAT capabilities";
+                testMessage = noConnection;
                 doneTesting = true;
+                connectionStatus = Status.NO_CONNECTION;
                 break;
 
             case ConnectionTesterStatus.Undetermined:
-                testMessage = "Undetermined NAT capabilities";
+                testMessage = noConnection;
                 doneTesting = false;
+                connectionStatus = Status.UNKNOWN;
                 break;
 
             case ConnectionTesterStatus.PublicIPIsConnectable:
-                testMessage = "Directly connectable public IP address.";
+                testMessage = goodConnection;
                 useNat = false;
                 doneTesting = true;
+                connectionStatus = Status.CONNECTED;
                 break;
 
             // This case is a bit special as we now need to check if we can 
             // circumvent the blocking by using NAT punchthrough
             case ConnectionTesterStatus.PublicIPPortBlocked:
-                testMessage = "Non-connectable public IP address (port " +
-                    serverPort + " blocked), running a server is impossible.";
+                testMessage = limitedConnection;
                 useNat = false;
                 // If no NAT punchthrough test has been performed on this public 
                 // IP, force a test
                 if (!probingPublicIP) {
                     connectionTestResult = Network.TestConnectionNAT();
                     probingPublicIP = true;
-                    testStatus = "Testing if blocked public IP can be circumvented";
                     timer = Time.time + 10;
                 }
                 // NAT punchthrough test was performed but we still get blocked
@@ -75,53 +112,48 @@ public class InternetConnectionStatus : MonoBehaviour {
                     probingPublicIP = false;        // reset
                     useNat = true;
                     doneTesting = true;
+                    connectionStatus = Status.LIMITED;
                 }
                 break;
 
             case ConnectionTesterStatus.PublicIPNoServerStarted:
-                testMessage = "Public IP address but server not initialized, " +
-                    "it must be started to check server accessibility. Restart " +
-                    "connection test when ready.";
+                testMessage = goodConnection;
+                useNat = true;
+                doneTesting = true;
+                connectionStatus = Status.CONNECTED;
                 break;
 
             case ConnectionTesterStatus.LimitedNATPunchthroughPortRestricted:
-                testMessage = "Limited NAT punchthrough capabilities. Cannot " +
-                    "connect to all types of NAT servers. Running a server " +
-                    "is ill advised as not everyone can connect.";
+                testMessage = limitedConnection;
                 useNat = true;
                 doneTesting = true;
+                connectionStatus = Status.LIMITED;
                 break;
 
             case ConnectionTesterStatus.LimitedNATPunchthroughSymmetric:
-                testMessage = "Limited NAT punchthrough capabilities. Cannot " +
-                    "connect to all types of NAT servers. Running a server " +
-                    "is ill advised as not everyone can connect.";
+                testMessage = limitedConnection;
                 useNat = true;
                 doneTesting = true;
+                connectionStatus = Status.LIMITED;
                 break;
 
             case ConnectionTesterStatus.NATpunchthroughAddressRestrictedCone:
             case ConnectionTesterStatus.NATpunchthroughFullCone:
-                testMessage = "NAT punchthrough capable. Can connect to all " +
-                    "servers and receive connections from all clients. Enabling " +
-                    "NAT punchthrough functionality.";
+                testMessage = limitedConnection;
                 useNat = true;
                 doneTesting = true;
+                connectionStatus = Status.LIMITED;
                 break;
 
             default:
-                testMessage = "Error in test routine, got " + connectionTestResult;
+                testMessage = noConnection;
+                connectionStatus = Status.NO_CONNECTION;
                 break;
         }
 
         if (doneTesting) {
-            if (useNat)
-                shouldEnableNatMessage = "When starting a server the NAT " +
-                    "punchthrough feature should be enabled (useNat parameter)";
-            else
-                shouldEnableNatMessage = "NAT punchthrough not needed";
-            testStatus = "Done testing";
-            EventManager.TriggerEvent(CONNECTION_STATUS_UPDATE, shouldEnableNatMessage);
+            EventManager.TriggerEvent(CONNECTION_STATUS_UPDATE, connectionStatus);
+            Debug.Log(TAG + connectionStatus);
         }
     }
 
