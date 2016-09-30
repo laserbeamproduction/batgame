@@ -24,6 +24,12 @@ public class EventTypes {
     public const string DISABLE_PLAYER_LIGHT = "disablePlayerLight";
     public const string PLAYER_IN_POSITION = "playerInPosition";
 
+    // SAVING LOADING
+    public const string LOADING_SAVE_DATA = "loadingSaveData";
+    public const string DONE_LOADING_SAVE_DATA = "doneLoadingSaveData";
+    public const string START_SAVING_GAME = "startSavingGame";
+    public const string DONE_SAVING_GAME = "doneSavingGame";
+
     //HIDE/SHOW & DISABLE/ENABLE Echo + UI Elements
     public const string HIDE_AND_DISABLE = "hideAndDisable";
     public const string SHOW_AND_ENABLE = "showAndEnable";
