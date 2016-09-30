@@ -71,12 +71,8 @@ public class MenuButtons : MonoBehaviour {
         LoadingController.LoadScene(LoadingController.Scenes.OPTION_MENU);
     }
 
-    public void OpenShop()
-    {
-        if (internetAvailable)
-            LoadingController.LoadScene(LoadingController.Scenes.STORE);
-        else
-            EventManager.TriggerEvent(InternetConnectionStatus.SHOW_CONNECTION_STATE);
+    public void OpenShop() { 
+        LoadingController.LoadScene(LoadingController.Scenes.STORE);
     }
 
     public void ExitGame()
