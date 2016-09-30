@@ -51,6 +51,17 @@ public class StoreUI : MonoBehaviour {
         SaveLoadController.GetInstance().GetPlayer().AddTotalCoins(-itemInCart.goldPrice); //substract coins from player
         SaveLoadController.GetInstance().GetPlayer().AddUnlockedItem(itemInCart.itemID); //unlock skin for player
         GooglePlayHelper.GetInstance().SaveGame(); //save the game
+
+        // Send event data
+        // This is very ugly but ok for now
+        switch (itemInCart.skinName) {
+            case "Vladimir":
+                GooglePlayHelper.GetInstance().ReportEvent(GPGSConstant.event_store_default_skin_bought, 1);
+                break;
+            default:
+                break;
+        }
+
         itemInCart = null;
     }
 

@@ -117,7 +117,7 @@ public class GameController : MonoBehaviour {
         // report events
         gph.ReportEvent(GPGSConstant.event_amount_of_endless_games_started, 1);
         gph.ReportEvent(GPGSConstant.event_score_endless_mode, gameSession.GetTotalScore());
-        gph.ReportEvent(GPGSConstant.event_amount_of_flies_gathered_endless, gameSession.GetResourcesGathered());
+        gph.ReportEvent(GPGSConstant.event_health_potions_picked_up, gameSession.GetResourcesGathered());
 
         // save current stats
         gph.SaveGame(); // TODO: keep track of timeplayed

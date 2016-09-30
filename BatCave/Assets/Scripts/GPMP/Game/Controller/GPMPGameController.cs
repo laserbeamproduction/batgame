@@ -56,6 +56,9 @@ public class GPMPGameController : MonoBehaviour {
         // start polling opponent to check if he is still in the game
         InvokeRepeating("PollOpponentForActive", 0, 1f);
         matchStarted = true;
+
+        // Send event
+        GooglePlayHelper.GetInstance().ReportEvent(GPGSConstant.event_multiplayer_match_started, 1);
     }
 
     IEnumerator ExecuteAfterTime(float time) {

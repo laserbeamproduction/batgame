@@ -25,7 +25,6 @@
 public static class GPGSConstant
 {
         public const string achievement_good_50_points = "CgkI2_7tgqUIEAIQDQ"; // <GPGSID>
-        public const string event_amount_of_flies_gathered_endless = "CgkI2_7tgqUIEAIQCQ"; // <GPGSID>
         public const string achievement_chicken_wings_100_points = "CgkI2_7tgqUIEAIQAw"; // <GPGSID>
         public const string achievement_ride_the_wings_of_pestilance_200_points = "CgkI2_7tgqUIEAIQBg"; // <GPGSID>
         public const string achievement_excellent_100_points = "CgkI2_7tgqUIEAIQDA"; // <GPGSID>
@@ -37,5 +36,10 @@ public static class GPGSConstant
         public const string event_game_opened = "CgkI2_7tgqUIEAIQCg"; // <GPGSID>
         public const string leaderboard_endless_mode = "CgkI2_7tgqUIEAIQAg"; // <GPGSID>
         public const string leaderboard_multiplayer_mode = "CgkI2_7tgqUIEAIQDg"; // <GPGSID>
+        public const string event_health_potions_picked_up = "CgkI2_7tgqUIEAIQCQ"; // <GPGSID>
+        public const string event_multiplayer_match_started = "CgkI2_7tgqUIEAIQDw"; // <GPGSID>
+        public const string event_coin_picked_up = "CgkI2_7tgqUIEAIQEA"; // <GPGSID>
+        public const string event_store_default_skin_bought = "CgkI2_7tgqUIEAIQEQ"; // <GPGSID>
+
 }
 
