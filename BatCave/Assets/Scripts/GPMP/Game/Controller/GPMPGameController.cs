@@ -59,6 +59,13 @@ public class GPMPGameController : MonoBehaviour {
 
         // Send event
         GooglePlayHelper.GetInstance().ReportEvent(GPGSConstant.event_multiplayer_match_started, 1);
+
+        // Send player skin ID to opponent
+        List<byte> m = new List<byte>();
+        m.AddRange(BitConverter.GetBytes(SaveLoadController.GetInstance().GetPlayer().GetActiveSkinID()));
+        SendMessage(GPMPEvents.Types.GPMP_OPPONENT_SKIN_RECIEVED, m);
+
+        DebugMP.Log("Sending skin ID to opponent: " + SaveLoadController.GetInstance().GetPlayer().GetActiveSkinID());
     }
 
     IEnumerator ExecuteAfterTime(float time) {
@@ -66,11 +73,11 @@ public class GPMPGameController : MonoBehaviour {
         SetParticipantsInfo();
     }
 
-    private static GPMPController instance;
+    private static GPMPGameController instance;
 
-    public static GPMPController GetInstance() {
+    public static GPMPGameController GetInstance() {
         if (instance == null)
-            instance = new GPMPController();
+            instance = new GPMPGameController();
         return instance;
     }
 

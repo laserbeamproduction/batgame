@@ -2,6 +2,7 @@
 using System.Collections;
 using GooglePlayGames;
 using System;
+using System.Collections.Generic;
 
 public class GPMPPlayerView : MonoBehaviour {
 
@@ -13,6 +14,7 @@ public class GPMPPlayerView : MonoBehaviour {
     public SkillSlider skillSlider;
 
     private Rigidbody2D rigidbody;
+    private Animator animator;
     private bool playerLeft;
     private bool playerRight;
     private float xPosition;
@@ -22,15 +24,21 @@ public class GPMPPlayerView : MonoBehaviour {
     private float lastNetworkCall;
     private GPMPMatchModel matchModel;
     private bool paused = true;
+    private int activeSkinID;
 
     
     void Start () {
         // Player me should listen to the player and update its position to the other player
         rigidbody = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+
         EventManager.StartListening(GPMPEvents.Types.GPMP_MATCH_INFO_READY.ToString(), OnMatchInfoReady);
         EventManager.StartListening(GPMPEvents.Types.GPMP_START_GAME.ToString(), OnMatchStarted);
         EventManager.StartListening(EventTypes.SKILL_VALUE, OnSkillValueRecieved);
 
+        // Set player skin 
+        activeSkinID = SaveLoadController.GetInstance().GetPlayer().GetActiveSkinID();
+        animator.SetTrigger(activeSkinID.ToString());
     }
 
     void OnDestroy() {

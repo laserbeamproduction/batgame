@@ -126,7 +126,6 @@ public class GooglePlayHelper {
     /// <param name="savedGame">Saved game.</param>
     /// <param name="callback">Invoked when game has been opened</param>
     private void OpenSavedGame(ISavedGameMetadata savedGame) {
-        EventManager.TriggerEvent(EventTypes.LOADING_SAVE_DATA);
         if (savedGame == null) {
             Debug.Log(DEBUG_KEY + "Savegame is null");
             return;
@@ -157,7 +156,6 @@ public class GooglePlayHelper {
     }
 
     private void OpenSavedGame(string filename) {
-        EventManager.TriggerEvent(EventTypes.LOADING_SAVE_DATA);
         if (filename == string.Empty || filename == null) {
             Debug.Log(DEBUG_KEY + "Filename passed is empty");
         }
@@ -209,7 +207,6 @@ public class GooglePlayHelper {
         if (Application.isEditor || !Social.localUser.authenticated)
             return;
         isSaving = true;
-        EventManager.TriggerEvent(EventTypes.START_SAVING_GAME);
 
         // first op save game before writing
         OpenSavedGame(currentSaveFileName);

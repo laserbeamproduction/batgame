@@ -9,11 +9,17 @@ using System;
 /// </summary>
 public class SaveLoadController {
 
+    private const string TAG = "SAVELOADCONTROLLER      ";
+
     private static SaveLoadController instance;
 
     private List<SaveObject> saveObjects;
 
     public SaveLoadController() {
+        Init();
+    }
+
+    private void Init() {
         saveObjects = new List<SaveObject>();
 
         // init all saveobjects
@@ -21,12 +27,14 @@ public class SaveLoadController {
         PlayerSave ps = new PlayerSave();
         EndlessSessionSave ess = new EndlessSessionSave();
         MultiplayerSessionSave mss = new MultiplayerSessionSave();
+        SaveGameVersion sgv = new SaveGameVersion();
 
         // add to list
         saveObjects.Add(os);
         saveObjects.Add(ps);
         saveObjects.Add(ess);
         saveObjects.Add(mss);
+        saveObjects.Add(sgv);
     }
 
     public static SaveLoadController GetInstance() {
@@ -51,6 +59,10 @@ public class SaveLoadController {
         return (MultiplayerSessionSave)GetSaveObject(typeof(MultiplayerSessionSave));
     }
 
+    public SaveGameVersion GetSaveGameVersion() {
+        return (SaveGameVersion)GetSaveObject(typeof(SaveGameVersion));
+    }
+
     /// <summary>
     /// Generic function to get a save object from the pool.
     /// </summary>
@@ -72,7 +84,6 @@ public class SaveLoadController {
     public byte[] CreateSaveObject() {
         BinaryFormatter bf = new BinaryFormatter();
         using (MemoryStream ms = new MemoryStream()) {
-            Debug.Log("Saving control sens. : " + GetOptions().GetControlSensitivity());
             bf.Serialize(ms, saveObjects);
             return ms.ToArray();
         }
@@ -89,6 +100,17 @@ public class SaveLoadController {
         memStream.Write(bytes, 0, bytes.Length);
         memStream.Position = 0;
         saveObjects = binForm.Deserialize(memStream) as List<SaveObject>;
-        Debug.Log("Loaded control sens. : " + GetOptions().GetControlSensitivity());
+
+        // Check if savegame versions match and migrate data if necessary
+        SaveGameVersion currentVersion = new SaveGameVersion();
+        if (GetSaveGameVersion() == null) {
+            Debug.Log(TAG + "Save game is from before versions were implemented, we can overwrite all and make a clean file.");
+            Init();
+        } else if (currentVersion.GetVersion() > GetSaveGameVersion().GetVersion()) {
+            Debug.Log(TAG + "There is a new savegame version detected. ");
+
+            // For new versions place migration code here...
+            // ...
+        }
     }
 }

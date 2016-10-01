@@ -9,7 +9,7 @@ public class PlayerSave : SaveObject {
     private int totalCoins;
     private int totalGamesPLayed;
     private List<int> unlockedItems = new List<int>();
-    private int activeSkinID;
+    private int activeSkinID = 1; // This is the default skin ID
     private int totalMultiplayerMatchesWon;
 
     public PlayerSave() {

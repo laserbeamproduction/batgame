@@ -11,13 +11,15 @@ public class GPMPOpponentView : MonoBehaviour {
     public Vector3 playerOneSpawnpoint;
     public Vector3 playerTwoSpawnpoint;
     private GPMPMatchModel matchModel;
+    private Animator animator;
 
     void Start () {
         rigidbody = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         EventManager.StartListening(GPMPEvents.Types.GPMP_UPDATE_OPPONENT_POSITION.ToString(), OnPositionUpdated);
         EventManager.StartListening(GPMPEvents.Types.GPMP_MATCH_INFO_READY.ToString(), OnMatchInfoReady);
         EventManager.StartListening(GPMPEvents.Types.GPMP_OPPONENT_DIED.ToString(), OnOpponentDied);
-
+        EventManager.StartListening(GPMPEvents.Types.GPMP_OPPONENT_SKIN_RECIEVED.ToString(), OnOpponentSkinRecieved);
     }
 
     private void OnMatchInfoReady(object model) {
@@ -33,6 +35,7 @@ public class GPMPOpponentView : MonoBehaviour {
         EventManager.StopListening(GPMPEvents.Types.GPMP_UPDATE_OPPONENT_POSITION.ToString(), OnPositionUpdated);
         EventManager.StopListening(GPMPEvents.Types.GPMP_MATCH_INFO_READY.ToString(), OnMatchInfoReady);
         EventManager.StopListening(GPMPEvents.Types.GPMP_OPPONENT_DIED.ToString(), OnOpponentDied);
+        EventManager.StopListening(GPMPEvents.Types.GPMP_OPPONENT_SKIN_RECIEVED.ToString(), OnOpponentSkinRecieved);
     }
 
     private void OnOpponentDied(object arg0) {
@@ -47,14 +50,18 @@ public class GPMPOpponentView : MonoBehaviour {
         float posZ = BitConverter.ToSingle(bytes, 13);
         lastKnownPosition = new Vector3(posX, posY, posZ);
     }
-    
+
+    private void OnOpponentSkinRecieved(object data) {
+        byte[] bytes = (byte[])data;
+        int skinID = BitConverter.ToInt32(bytes, 5);
+        animator.SetTrigger(skinID.ToString());
+        DebugMP.Log("Opponent skin recieved: " + skinID);
+    }
+
     void Update () {
         Vector3 pos = rigidbody.position;
         pos.x = Mathf.MoveTowards(pos.x, lastKnownPosition.x, speed * Time.deltaTime);
         rigidbody.position = pos;
         rigidbody.AddForce(transform.forward * speed * Time.deltaTime, ForceMode2D.Force);
-
-        //rigidbody.MovePosition(transform.position + transform.forward * Time.deltaTime);
-        //rigidbody.position = lastKnownPosition;// Vector3.Lerp(transform.position, lastKnownPosition, Time.deltaTime * speed);
     }
 }
