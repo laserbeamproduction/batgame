@@ -176,9 +176,12 @@ public class GPMPGameController : MonoBehaviour {
 
     private void OnOpponentDied(object arg0) {
         DebugMP.Log("You won!");
-        SaveLoadController.GetInstance().GetMultiplayerSession().SetPlayerWon();
-        SaveLoadController.GetInstance().GetPlayer().AddTotalMultiplayerMatchesWon(1);
-        GooglePlayHelper.GetInstance().PostHighscore(SaveLoadController.GetInstance().GetPlayer().GetTotalMultiplayerMatchesWon(), GPGSConstant.leaderboard_multiplayer_mode);
+        SaveLoadController slc = SaveLoadController.GetInstance();
+
+        slc.GetMultiplayerSession().SetPlayerWon();
+        slc.GetPlayer().AddTotalMultiplayerMatchesWon(1);
+        AchievementChecker.CheckForMultiplayerAchievement(slc.GetPlayer().GetTotalMultiplayerMatchesWon());
+        GooglePlayHelper.GetInstance().PostHighscore(slc.GetPlayer().GetTotalMultiplayerMatchesWon(), GPGSConstant.leaderboard_multiplayer_mode);
         StartCoroutine("TriggerGameOverScreen");
     }
 

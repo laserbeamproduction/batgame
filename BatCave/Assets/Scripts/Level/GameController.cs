@@ -124,6 +124,7 @@ public class GameController : MonoBehaviour {
 
         // check for achievements
         AchievementChecker.CheckForEndlessScoreAchievement(gameSession.GetTotalScore());
+        AchievementChecker.CheckForWelcomeAchievement();
 
         // highscore post
         if (gameSession.GetTotalScore() > player.GetHighscore()) {

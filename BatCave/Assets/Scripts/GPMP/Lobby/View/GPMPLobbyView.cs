@@ -12,12 +12,17 @@ public class GPMPLobbyView : MonoBehaviour {
     public Button errorPanelButton;
     public Text errorPanelButtonText;
     public Button toMainMenuButton;
+    public GameObject inviteIndicator;
+    public Text invitationAmountText;
+
+    private int invitationAmount = 0;
 
     private bool internetAvailable = true;
-
+    //GPMP_INVITATION_RECIEVED
     void Start() {
         EventManager.StartListening(GPMPEvents.Types.GPMP_SHOW_ERROR_MESSAGE.ToString(), OnErrorMessageRecieved);
         EventManager.StartListening(InternetConnectionStatus.CONNECTION_STATUS_UPDATE, OnConnectionStatusUpdated);
+
         try {
             if (PlayGamesPlatform.Instance.RealTime.IsRoomConnected())
                 PlayGamesPlatform.Instance.RealTime.LeaveRoom();
@@ -26,11 +31,27 @@ public class GPMPLobbyView : MonoBehaviour {
         } catch(Exception e) {
             SetMessageForLogin();
         }
+
+        InvokeRepeating("OnDisplayInvites", 0f, 1f);
     }
 
     void OnDestroy() {
         EventManager.StopListening(GPMPEvents.Types.GPMP_SHOW_ERROR_MESSAGE.ToString(), OnErrorMessageRecieved);
         EventManager.StopListening(InternetConnectionStatus.CONNECTION_STATUS_UPDATE, OnConnectionStatusUpdated);
+        CancelInvoke("OnDisplayInvites");
+    }
+
+    private void OnDisplayInvites() {
+        PlayGamesPlatform.Instance.RealTime.GetAllInvitations((invites) => {
+            invitationAmount = invites.Length;
+        });
+
+        if (invitationAmount > 0) {
+            inviteIndicator.SetActive(true);
+            invitationAmountText.text = invitationAmount.ToString();
+        } else {
+            inviteIndicator.SetActive(false);
+        }
     }
 
     private void OnConnectionStatusUpdated(object s) {

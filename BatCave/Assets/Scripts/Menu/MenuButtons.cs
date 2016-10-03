@@ -13,7 +13,6 @@ public class MenuButtons : MonoBehaviour {
 
         if (!Social.localUser.authenticated && !Application.isEditor && PlayerPrefs.GetInt("PlayerRefusedGooglePLay") == 0) {
             GooglePlayHelper.GetInstance().Login();
-            AchievementChecker.CheckForWelcomeAchievement();
         }
     }
 
