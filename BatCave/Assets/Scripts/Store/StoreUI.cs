@@ -50,7 +50,7 @@ public class StoreUI : MonoBehaviour {
         EventManager.TriggerEvent(EventTypes.PURCHASE_CONFIRMED);
         SaveLoadController.GetInstance().GetPlayer().AddTotalCoins(-itemInCart.goldPrice); //substract coins from player
         SaveLoadController.GetInstance().GetPlayer().AddUnlockedItem(itemInCart.itemID); //unlock skin for player
-        GooglePlayHelper.GetInstance().SaveGame(); //save the game
+        SetSkinActive(itemInCart.itemID); // Set skin active. This also saves the game
 
         // Send event data
         // This is very ugly but ok for now
