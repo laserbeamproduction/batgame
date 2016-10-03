@@ -250,9 +250,6 @@
     <Compile Include="Assets\GooglePlayGames\Platforms\PlayGamesClientFactory.cs" />
     <Compile Include="Assets\GooglePlayGames\Platforms\TokenClient.cs" />
     <Compile Include="Assets\GooglePlayGames\PluginVersion.cs" />
-    <Compile Include="Assets\InternetConnectionPopup.cs" />
-    <Compile Include="Assets\InternetConnectionView.cs" />
-    <Compile Include="Assets\SaveLoadView.cs" />
     <Compile Include="Assets\Scripts\EventManager\EventManager.cs" />
     <Compile Include="Assets\Scripts\EventManager\EventTypes.cs" />
     <Compile Include="Assets\Scripts\EventManager\GameEvent.cs" />
@@ -322,13 +319,13 @@
     <Compile Include="Assets\Scripts\Player\PlayerTransitionManager.cs" />
     <Compile Include="Assets\Scripts\Player\UIBars.cs" />
     <Compile Include="Assets\Scripts\SaveLoad\SaveLoadController.cs" />
-    <Compile Include="Assets\Scripts\SaveLoad\SaveObjects\GPGScsf.cs" />
     <Compile Include="Assets\Scripts\SaveLoad\SaveObjects\GameModes\Endless\EndlessSessionSave.cs" />
     <Compile Include="Assets\Scripts\SaveLoad\SaveObjects\GameModes\Multiplayer\MultiplayerSessionSave.cs" />
     <Compile Include="Assets\Scripts\SaveLoad\SaveObjects\GameModes\Multiplayer\PlayerSessionSave.cs" />
     <Compile Include="Assets\Scripts\SaveLoad\SaveObjects\Options\OptionsSave.cs" />
     <Compile Include="Assets\Scripts\SaveLoad\SaveObjects\PLayer\PLayerSave.cs" />
     <Compile Include="Assets\Scripts\SaveLoad\SaveObjects\SaveObject.cs" />
+    <Compile Include="Assets\Scripts\SaveLoad\SaveObjects\Version\SaveGameVersion.cs" />
     <Compile Include="Assets\Scripts\Score\BonusScoreController.cs" />
     <Compile Include="Assets\Scripts\Score\DisplayScore.cs" />
     <Compile Include="Assets\Scripts\Score\EndScreenScore.cs" />
@@ -350,7 +347,10 @@
     <Compile Include="Assets\Scripts\Store\StoreUI.cs" />
     <Compile Include="Assets\Scripts\Util\AchievementChecker.cs" />
     <Compile Include="Assets\Scripts\Util\DummyBatController.cs" />
+    <Compile Include="Assets\Scripts\Util\InternetConnectionPopup.cs" />
     <Compile Include="Assets\Scripts\Util\InternetConnectionStatus.cs" />
+    <Compile Include="Assets\Scripts\Util\InternetConnectionView.cs" />
+    <Compile Include="Assets\Scripts\Util\SaveLoadView.cs" />
     <Compile Include="Assets\Scripts\Util\ScreenShaker.cs" />
     <Compile Include="Assets\Scripts\Util\SimpleDestroyScript.cs" />
     <Compile Include="Assets\Scripts\Util\SimpleMoveScript.cs" />
