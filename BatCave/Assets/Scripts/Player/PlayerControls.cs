@@ -233,28 +233,28 @@ public class PlayerControls : MonoBehaviour {
             {
                 lp = touch.position;
 
-                if ((fp.x - lp.x) > 10 && !playerLeft && !touchStarted) // left swipe
+                if ((fp.y - lp.y) < -150)
+                {
+                    touchStarted = true;
+                    UseSpecial();
+                }
+                else if ((fp.x - lp.x) > 20 && !playerLeft && !touchStarted) // left swipe
                 {
                     touchStarted = true;
                     xPosition -= 1;
                 }
-                else if ((fp.x - lp.x) < -10 && !playerRight && !touchStarted) // right swipe
+                else if ((fp.x - lp.x) < -20 && !playerRight && !touchStarted) // right swipe
                 {
                     touchStarted = true;
                     xPosition += 1;
                 }
-
-                if ((fp.y - lp.y) < -300)
-                {
-                    UseSpecial();
-                }
             }
 
             if (touch.phase == TouchPhase.Ended) {
-                if ((fp.x - lp.x) > 10){
+                if ((fp.x - lp.x) > 20){
                     touchStarted = false;
                 }
-                else if ((fp.x - lp.x) < -10){
+                else if ((fp.x - lp.x) < -20){
                     touchStarted = false;
                 }
                 else if ((fp.x - lp.x) > -3 && fp.y < (Screen.height - Screen.height/4)) {
