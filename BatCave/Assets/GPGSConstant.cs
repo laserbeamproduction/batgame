@@ -40,6 +40,6 @@ public static class GPGSConstant
         public const string event_multiplayer_match_started = "CgkI2_7tgqUIEAIQDw"; // <GPGSID>
         public const string event_coin_picked_up = "CgkI2_7tgqUIEAIQEA"; // <GPGSID>
         public const string event_store_default_skin_bought = "CgkI2_7tgqUIEAIQEQ"; // <GPGSID>
-
+        public const string achievement_next = "CgkI2_7tgqUIEAIQEg"; // <GPGSID>
 }
 
