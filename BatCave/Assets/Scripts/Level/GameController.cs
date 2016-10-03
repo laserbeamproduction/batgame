@@ -7,8 +7,13 @@ using System.Collections.Generic;
 public class GameController : MonoBehaviour {
     public GameObject pausePanel;
     public GameObject pauseButton;
-    public GameObject scorePanel;
+    public GameObject UILeft;
     public GameObject skillSlider;
+    public GameObject HealtBar;
+    public GameObject ResourceBar;
+    public GameObject ResourceSlider;
+    public GameObject echoBar;
+
     public ScoreCalculator scoreCalculator;
     public Light directionalLight;
     public float fadeOutDelay;
@@ -80,8 +85,13 @@ public class GameController : MonoBehaviour {
         // Reactivate UI
         //skillSlider.SetActive(true);
         pauseButton.SetActive(true);
-        scorePanel.SetActive(true);
-    }
+        UILeft.SetActive(true);
+        skillSlider.SetActive(true);
+        HealtBar.SetActive(true);
+        ResourceBar.SetActive(true);
+        ResourceSlider.SetActive(true);
+        echoBar.SetActive(true);
+}
 
     void OnPlayerDied(object arg0) {
         playerDied = true;
@@ -93,9 +103,13 @@ public class GameController : MonoBehaviour {
         SaveLoadController.GetInstance().GetEndlessSession().Reset();
 
         // hide UI
-        skillSlider.SetActive(false);
         pauseButton.SetActive(false);
-        scorePanel.SetActive(false);
+        UILeft.SetActive(false);
+        skillSlider.SetActive(false);
+        HealtBar.SetActive(false);
+        ResourceBar.SetActive(false);
+        ResourceSlider.SetActive(false);
+        echoBar.SetActive(false);
     }
 
     public void PauseGame() {
