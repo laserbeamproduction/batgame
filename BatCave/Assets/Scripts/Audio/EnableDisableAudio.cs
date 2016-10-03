@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class EnableDisableAudio : MonoBehaviour {
     public Button audioButton;
-    public AudioListener audioListener;
     public Sprite audioEnabled;
     public Sprite audioDisabled;
     private int audioState;
@@ -17,7 +16,7 @@ public class EnableDisableAudio : MonoBehaviour {
 
         if (audioState == 0)
         {
-            audioListener.enabled = false;
+            AudioListener.volume = 0;
             if (audioButton != null)
             {
                 audioButton.GetComponent<Image>().sprite = audioDisabled;
@@ -25,7 +24,7 @@ public class EnableDisableAudio : MonoBehaviour {
         }
         else
         {
-            audioListener.enabled = true;
+            AudioListener.volume = 1;
             if (audioButton != null)
             {
                 audioButton.GetComponent<Image>().sprite = audioEnabled;
@@ -38,7 +37,7 @@ public class EnableDisableAudio : MonoBehaviour {
             audioButton.GetComponent<Image>().sprite = audioEnabled;
         }
 
-        audioListener.enabled = true;
+        AudioListener.volume = 1;
         audioState = 0;
         PlayerPrefs.SetInt("ToggleAudio", audioState);
     }
@@ -49,7 +48,7 @@ public class EnableDisableAudio : MonoBehaviour {
             audioButton.GetComponent<Image>().sprite = audioDisabled;
         }
 
-        audioListener.enabled = false;
+        AudioListener.volume = 0;
         audioState = 1;
         PlayerPrefs.SetInt("ToggleAudio", audioState);
     }
