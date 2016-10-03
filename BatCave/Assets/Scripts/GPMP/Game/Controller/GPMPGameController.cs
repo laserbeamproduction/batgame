@@ -183,6 +183,7 @@ public class GPMPGameController : MonoBehaviour {
         AchievementChecker.CheckForMultiplayerAchievement(slc.GetPlayer().GetTotalMultiplayerMatchesWon());
         GooglePlayHelper.GetInstance().PostHighscore(slc.GetPlayer().GetTotalMultiplayerMatchesWon(), GPGSConstant.leaderboard_multiplayer_mode);
         StartCoroutine("TriggerGameOverScreen");
+        GooglePlayHelper.GetInstance().SaveGame();
     }
 
     private void OnPlayerDied(object arg0) {

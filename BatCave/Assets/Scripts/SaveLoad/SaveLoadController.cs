@@ -95,11 +95,17 @@ public class SaveLoadController {
     /// <param name="bytes"></param>
     /// <returns></returns>
     public void RestoreSave(byte[] bytes) {
-        MemoryStream memStream = new MemoryStream();
-        BinaryFormatter binForm = new BinaryFormatter();
-        memStream.Write(bytes, 0, bytes.Length);
-        memStream.Position = 0;
-        saveObjects = binForm.Deserialize(memStream) as List<SaveObject>;
+        try {
+            MemoryStream memStream = new MemoryStream();
+            BinaryFormatter binForm = new BinaryFormatter();
+            memStream.Write(bytes, 0, bytes.Length);
+            memStream.Position = 0;
+            saveObjects = binForm.Deserialize(memStream) as List<SaveObject>;
+        } catch (Exception e) {
+            Debug.LogError(TAG + e.StackTrace);
+            Debug.Log(TAG + "Error parsing old game data.. resetting save.");
+            Init();
+        }
 
         // Check if savegame versions match and migrate data if necessary
         SaveGameVersion currentVersion = new SaveGameVersion();
