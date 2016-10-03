@@ -53,6 +53,7 @@ public class MenuButtons : MonoBehaviour {
 
     public void StartEndless()
     {
+        MenuTheme.Instance.StopAudio();
         LoadingController.LoadScene(LoadingController.Scenes.GAME);
     }
 
@@ -99,5 +100,16 @@ public class MenuButtons : MonoBehaviour {
     public void Leaderboards()
     {
 
+    }
+
+    public void ToggleAudio() {
+        if (PlayerPrefs.GetInt("ToggleAudio") == 1)
+        {
+            EventManager.TriggerEvent(EventTypes.ENABLE_AUDIO);
+        }
+        else
+        {
+            EventManager.TriggerEvent(EventTypes.DISABLE_AUDIO);
+        } 
     }
 }

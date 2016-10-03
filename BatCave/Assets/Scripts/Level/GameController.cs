@@ -86,7 +86,7 @@ public class GameController : MonoBehaviour {
         //skillSlider.SetActive(true);
         pauseButton.SetActive(true);
         UILeft.SetActive(true);
-        skillSlider.SetActive(true);
+        //skillSlider.SetActive(true);
         HealtBar.SetActive(true);
         ResourceBar.SetActive(true);
         ResourceSlider.SetActive(true);
