@@ -24,15 +24,13 @@ public class LoadingController : MonoBehaviour {
         GAME = 2,
         GAME_OVER = 3,
         LOADING_SCENE = 4,
-        OPTION_MENU = 5,
-        INFO_MENU = 6,
-        MULTIPLAYER = 7,
-        GPMP_LOBBY = 8,
-        GPMP_GAME = 9,
-        GPMP_WAITING_ROOM = 10,
-        GPMP_VERSUS_SCREEN = 11,
-        GPMP_GAME_OVER = 12,
-        STORE = 13
+        INFO_MENU = 5,
+        GPMP_LOBBY = 6,
+        GPMP_GAME = 7,
+        GPMP_WAITING_ROOM = 8,
+        GPMP_VERSUS_SCREEN = 9,
+        GPMP_GAME_OVER = 10,
+        STORE = 11
     }
 
     private static Scenes sceneToBeLoaded;

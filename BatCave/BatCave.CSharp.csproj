@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>5.4.0f3</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -303,14 +301,6 @@
     <Compile Include="Assets\Scripts\Menu\InfoScene.cs" />
     <Compile Include="Assets\Scripts\Menu\MenuButtons.cs" />
     <Compile Include="Assets\Scripts\Menu\OptionsMenu.cs" />
-    <Compile Include="Assets\Scripts\Multiplayer\LocalInstantiator.cs" />
-    <Compile Include="Assets\Scripts\Multiplayer\Network\LobbyManager.cs" />
-    <Compile Include="Assets\Scripts\Multiplayer\Network\NetworkEvent.cs" />
-    <Compile Include="Assets\Scripts\Multiplayer\Network\NetworkInstantiator.cs" />
-    <Compile Include="Assets\Scripts\Multiplayer\Network\NetworkManager.cs" />
-    <Compile Include="Assets\Scripts\Multiplayer\Player\Player.cs" />
-    <Compile Include="Assets\Scripts\Multiplayer\Util\SimpleCleanUpMultiplayer.cs" />
-    <Compile Include="Assets\Scripts\Multiplayer\Util\SimpleMoveScriptMultiplayer.cs" />
     <Compile Include="Assets\Scripts\Player\Echo\MoveEcho.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerAnimationController.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerBoostParticles.cs" />
@@ -345,7 +335,6 @@
     <Compile Include="Assets\Scripts\Spawnables\PickUps\PowerupController.cs" />
     <Compile Include="Assets\Scripts\Spawnables\PickUps\PowerupEvents.cs" />
     <Compile Include="Assets\Scripts\SplashScreen\SplashScreen.cs" />
-    <Compile Include="Assets\Scripts\SpriteOutline.cs" />
     <Compile Include="Assets\Scripts\Store\InsertButtonData.cs" />
     <Compile Include="Assets\Scripts\Store\StoreItemModel.cs" />
     <Compile Include="Assets\Scripts\Store\StoreUI.cs" />
@@ -366,7 +355,6 @@
     <None Include="Assets\GooglePlayGames\Editor\template-Constants.txt" />
     <None Include="Assets\GooglePlayGames\Editor\template-GameInfo.txt" />
     <None Include="Assets\Plugins\Android\MainLibProj\AndroidManifest.xml" />
-    <None Include="Assets\Shaders\Sprites-Diffuse.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

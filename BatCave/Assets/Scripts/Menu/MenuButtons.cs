@@ -66,11 +66,6 @@ public class MenuButtons : MonoBehaviour {
         LoadingController.LoadScene(LoadingController.Scenes.INFO_MENU);
     }
 
-    public void OpenSettings()
-    {
-        LoadingController.LoadScene(LoadingController.Scenes.OPTION_MENU);
-    }
-
     public void OpenShop() { 
         LoadingController.LoadScene(LoadingController.Scenes.STORE);
     }
