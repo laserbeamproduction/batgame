@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
-using System;
 
 public class PlayerControls : MonoBehaviour {
     public GameObject Echo;
@@ -17,6 +15,7 @@ public class PlayerControls : MonoBehaviour {
     public bool echoEnabled;
     private Rigidbody2D rigidbody;
     private Animator animator;
+    private AudioSource audioSource;
 
     //movement
     private Vector2 movement;
@@ -39,6 +38,7 @@ public class PlayerControls : MonoBehaviour {
     void Start() {
         rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         //speed = SaveLoadController.GetInstance().GetOptions().GetControlSensitivity();
         xPosition = rigidbody.position.x;
         EventManager.StartListening(EventTypes.SKILL_VALUE, OnSkillValueRecieved);
@@ -172,6 +172,7 @@ public class PlayerControls : MonoBehaviour {
                 playerResources.removeHealth(playerResources.damageAmount);
                 EventManager.TriggerEvent(EventTypes.PLAYER_TAKES_DAMAGE);
                 GetComponent<ParticleSystem>().Play();
+                audioSource.Play();
             } 
 
             // check if player died

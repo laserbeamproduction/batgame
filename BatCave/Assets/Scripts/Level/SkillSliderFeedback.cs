@@ -8,6 +8,7 @@ public class SkillSliderFeedback : MonoBehaviour {
     private Text textComponent;
     public Color32 goodColor;
     public Color32 excellentColor;
+    private AudioSource audioSource;
 
     public enum Types {
         GOOD,
@@ -15,6 +16,7 @@ public class SkillSliderFeedback : MonoBehaviour {
     }
     
     void Start () {
+        audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         textComponent = GetComponent<Text>();
     }
@@ -36,6 +38,7 @@ public class SkillSliderFeedback : MonoBehaviour {
                 textComponent.color = excellentColor;
                 animator.Play("FeedbackTextAnimation");
                 EventManager.TriggerEvent(EventTypes.PERFECT_ECHO);
+                audioSource.Play();
                 break;
         }
     }

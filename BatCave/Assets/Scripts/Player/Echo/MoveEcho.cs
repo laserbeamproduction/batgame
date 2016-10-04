@@ -8,6 +8,8 @@ public class MoveEcho : MonoBehaviour {
     public Vector2 Speed = new Vector2(0.1f, 0.1f);
     private Rigidbody2D rb;
     public Light echo;
+    public AudioClip[] sounds;
+    private AudioSource audioSource;
 
     private float maxSpotAngle;
     public float defaultSpotAngle = 120;
@@ -16,6 +18,7 @@ public class MoveEcho : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         EventManager.StartListening(EventTypes.GAME_RESUME, OnGameResume);
         EventManager.StartListening(EventTypes.GAME_PAUSED, OnGamePaused);
         rb = GetComponent<Rigidbody2D>();
@@ -26,6 +29,13 @@ public class MoveEcho : MonoBehaviour {
 
         echo.intensity = 0;
         echo.spotAngle = 50;
+    }
+
+    void PlayRandomSound() {
+        if (audioSource == null)
+            audioSource = GetComponent<AudioSource>();
+        audioSource.clip = sounds[UnityEngine.Random.Range(0, sounds.Length - 1)];
+        audioSource.Play();
     }
 
     // Update is called once per frame
@@ -65,6 +75,7 @@ public class MoveEcho : MonoBehaviour {
 
     public void EchoSize(float value) {
         maxSpotAngle = -((Mathf.Pow(value, 2) / 25)) + (4 * value) + 20;
+        PlayRandomSound();
     }
 
     void OnDestroy()
