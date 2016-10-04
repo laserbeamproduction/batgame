@@ -86,6 +86,8 @@ public class MenuButtons : MonoBehaviour {
     }
 
     public void Multiplayer() {
+        MenuTheme.Instance.StopAudio();
+
         if (internetAvailable)
             LoadingController.LoadScene(LoadingController.Scenes.GPMP_LOBBY);
         else

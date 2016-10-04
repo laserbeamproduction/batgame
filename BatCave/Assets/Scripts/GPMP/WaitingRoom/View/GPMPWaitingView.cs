@@ -19,7 +19,6 @@ public class GPMPWaitingView : MonoBehaviour {
 
     private void OnOpponentFound(object arg0) {
         statusTextField.text = "Opponent connected. Starting match.";
-        MenuTheme.Instance.StopAudio();
     }
 
     public void CancelMatching() {
