@@ -18,6 +18,7 @@ public class GameItem : MonoBehaviour {
     public Sprite woods;
     public Sprite purpleCave;
     public Sprite iceCave;
+    public Sprite hell;
 
     // GPMP
     // This ID must be unique for every gameitem in the scene
@@ -55,6 +56,9 @@ public class GameItem : MonoBehaviour {
                 break;
             case EnvironmentTypes.ICE_CAVE:
                 sprite = iceCave;
+                break;
+            case EnvironmentTypes.HELL:
+                sprite = hell;
                 break;
             default:
                 Debug.LogError("Enviroment type " + enviroment + " not found!");
