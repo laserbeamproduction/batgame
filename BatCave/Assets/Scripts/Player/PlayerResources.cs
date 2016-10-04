@@ -82,6 +82,7 @@ public class PlayerResources : MonoBehaviour {
     {
         if (echoComboAmount == maxEchoComboAmount) {
             EventManager.TriggerEvent(EventTypes.CANCEL_SWIPE_UP);
+            swipeUp = true;
         }
         echoComboAmount -= minusSpecialResources;
     }
