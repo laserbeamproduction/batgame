@@ -44,14 +44,14 @@ public class GameAudioManager : MonoBehaviour {
         audioSourceOne.clip = currentSoundtrack;
         audioSourceOne.Play();
 
-        for (float i = 0; audioSourceOne.volume < 1; i += 0.1f)
+        for (float i = 0; audioSourceOne.volume < 0.75f; i += 0.1f)
         {
             yield return new WaitForSeconds(fadeOutStep);
             audioSourceOne.volume += 0.1f;
         }
 
         FadeOutOne = true;
-        audioSourceOne.volume = 1;
+        audioSourceOne.volume = 0.75f;
     }
 
     private IEnumerator SourceOneFadeOut() {
@@ -69,14 +69,14 @@ public class GameAudioManager : MonoBehaviour {
         audioSourceTwo.clip = currentSoundtrack;
         audioSourceTwo.Play();
 
-        for (float i = 0; audioSourceTwo.volume < 1; i += 0.1f)
+        for (float i = 0; audioSourceTwo.volume < 0.75f; i += 0.1f)
         {
             yield return new WaitForSeconds(fadeOutStep);
             audioSourceTwo.volume += 0.1f;
         }
 
         FadeOutTwo = true;
-        audioSourceTwo.volume = 1;
+        audioSourceTwo.volume = 0.75f;
     }
 
     private IEnumerator SourceTwoFadeOut()
