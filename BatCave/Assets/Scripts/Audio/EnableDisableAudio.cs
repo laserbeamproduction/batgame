@@ -14,7 +14,7 @@ public class EnableDisableAudio : MonoBehaviour {
         EventManager.StartListening(EventTypes.ENABLE_AUDIO, EnableAudio);
         EventManager.StartListening(EventTypes.DISABLE_AUDIO, DisableAudio);
 
-        if (audioState == 0)
+        if (audioState == 1)
         {
             AudioListener.volume = 0;
             if (audioButton != null)
