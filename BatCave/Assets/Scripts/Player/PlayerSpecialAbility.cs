@@ -17,6 +17,7 @@ public class PlayerSpecialAbility : MonoBehaviour {
     private bool isEnabled;
 
     private Vector3 velocity = Vector3.zero;
+    public AudioSource audioSource;
 
     private float cycleDelay;
 
@@ -87,6 +88,7 @@ public class PlayerSpecialAbility : MonoBehaviour {
             {
                 yield return new WaitForSeconds(cycleDelay);
                 specialCycler.sprite = boosts[j].GetComponent<SpriteRenderer>().sprite;
+                audioSource.Play();
             }
             cycleDelay += 0.05f;
         }
@@ -98,6 +100,7 @@ public class PlayerSpecialAbility : MonoBehaviour {
             specialCycler.enabled = false;
             yield return new WaitForSeconds(0.1f);
             specialCycler.enabled = true;
+            audioSource.Play();
             yield return new WaitForSeconds(0.1f);
         }
 

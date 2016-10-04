@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System;
 
 public class PowerupController : MonoBehaviour {
 
     public DayNightCycle dayNightCycle;
     public PlayerControls playerControls;
+    public AudioSource audioSource;
+    public AudioClip boostLoop;
 
     bool shieldActive;
     bool speedActive;
@@ -17,6 +17,7 @@ public class PowerupController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        audioSource = GetComponent<AudioSource>();
         EventManager.StartListening(PowerupEvents.PLAYER_SHIELD_PICKUP, OnShieldPickedUp);
         EventManager.StartListening(PowerupEvents.PLAYER_SPEED_PICKUP, OnPlayerSpeedPickedUp);
         EventManager.StartListening(PowerupEvents.PLAYER_LIGHT_PICKUP, OnPlayerLightPickedUp); 
@@ -44,6 +45,8 @@ public class PowerupController : MonoBehaviour {
                 if (!shieldActive)
                     playerControls.SetShield(false);
                 EventManager.TriggerEvent(PowerupEvents.PLAYER_SPEED_ENDED);
+                audioSource.loop = false;
+                audioSource.Stop();
             }
         }
 
@@ -65,6 +68,9 @@ public class PowerupController : MonoBehaviour {
     }
 
     private void OnPlayerSpeedPickedUp(object duration) {
+        audioSource.clip = boostLoop;
+        audioSource.loop = true;
+        audioSource.Play();
         speedActive = true;
         speedDuruation = (float) duration;
         playerControls.SetShield(true);

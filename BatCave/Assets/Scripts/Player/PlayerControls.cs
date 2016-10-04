@@ -13,6 +13,7 @@ public class PlayerControls : MonoBehaviour {
     public float lightFadeSpeed;
     public float playerScaleUpSpeed;
     public bool echoEnabled;
+    public AudioClip damageSound;
     private Rigidbody2D rigidbody;
     private Animator animator;
     private AudioSource audioSource;
@@ -172,6 +173,7 @@ public class PlayerControls : MonoBehaviour {
                 playerResources.removeHealth(playerResources.damageAmount);
                 EventManager.TriggerEvent(EventTypes.PLAYER_TAKES_DAMAGE);
                 GetComponent<ParticleSystem>().Play();
+                audioSource.clip = damageSound;
                 audioSource.Play();
             } 
 
