@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System;
 
-public class HealthController : MonoBehaviour {
+public class HealthController : Powerup {
     private ParticleSystem particle;
     private SpriteRenderer spriteRenderer;
 
@@ -10,6 +8,7 @@ public class HealthController : MonoBehaviour {
     private bool isEmittingBlood;
 
     void Start() {
+        base.BaseStart();
         particle = GetComponent<ParticleSystem>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
@@ -31,6 +30,7 @@ public class HealthController : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D col) {
         if (!isHitByPlayer) {
             if (col.gameObject.tag == "Player") {
+                PlayRandomSound();
                 EventManager.TriggerEvent(EventTypes.HEALTH_PICKED_UP);
                 isHitByPlayer = true;
                 spriteRenderer.enabled = false;

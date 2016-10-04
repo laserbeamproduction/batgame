@@ -10,6 +10,7 @@ public class SpeedBooster : Powerup
     private SpriteRenderer spriteRenderer;
 
     void Start() {
+        base.BaseStart();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -17,6 +18,7 @@ public class SpeedBooster : Powerup
         if (col.gameObject.tag == "Player")
         {
             spriteRenderer.enabled = false;
+            PlayRandomSound();
             EventManager.TriggerEvent(PowerupEvents.PLAYER_SPEED_PICKUP, speedDuration);
         }
         if (col.gameObject.tag == "CleanUp") {

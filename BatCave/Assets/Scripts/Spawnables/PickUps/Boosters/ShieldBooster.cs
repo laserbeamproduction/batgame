@@ -8,6 +8,7 @@ public class ShieldBooster : Powerup
     private SpriteRenderer spriteRenderer;
 
     void Start() {
+        base.BaseStart();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -15,6 +16,7 @@ public class ShieldBooster : Powerup
         if (col.gameObject.tag == "Player")
         {
             spriteRenderer.enabled = false;
+            PlayRandomSound();
             EventManager.TriggerEvent(PowerupEvents.PLAYER_SHIELD_PICKUP, shieldDuration);
         }
         if (col.gameObject.tag == "CleanUp") {
